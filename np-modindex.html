@@ -25,47 +25,53 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Machine learning for NeuroImaging" href="#" />
+    <link rel="top" title="Machine learning for NeuroImaging" href="index.html" />
+
 <meta content="True" name="HandheldFriendly">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="keywords" content="nilearn, neuroimaging, python, neuroscience, machinelearning">
-<script type="text/javascript" src="_static/jquery.jcarousel.min.js"></script>
 <script type="text/javascript">
-(function($) {
-    $(function() {
-	$('.jcarousel').jcarousel();
-        $('.jcarousel-control-prev')
-            .on('active.jcarouselcontrol', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('inactive.jcarouselcontrol', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '-=1'
-            });
+$(function () {
+    // Lock the table of content to a fixed position once we scroll enough
+    var top = 105 + $('.sphinxsidebarwrapper').offset().top - parseFloat($('.sphinxsidebarwrapper').css('margin-top').replace(/auto/, 0)),
+        sections = {},
+        i        = 0,
+	url	 = document.URL.replace(/#.*$/, ""),
+	current_section = 0;
 
-        $('.jcarousel-control-next')
-            .on('active.jcarouselcontrol', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('inactive.jcarouselcontrol', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '+=1'
-            });
-
-        $('.jcarousel-pagination')
-            .on('active.jcarouselpagination', 'a', function() {
-                $(this).addClass('active');
-            })
-            .on('inactive.jcarouselpagination', 'a', function() {
-                $(this).removeClass('active');
-            })
-            .jcarouselPagination();
+    // Grab positions of our sections 
+    $('.headerlink').each(function(){
+        sections[this.href.replace(url, '')] = $(this).offset().top - 50;
     });
-})(jQuery);
+
+    $(window).scroll(function(event) {
+	var pos   = $(window).scrollTop();
+	// Lock the table of content to a fixed position once we scroll enough
+	if(pos > top){
+	    //begin to scroll
+	    $('.sphinxsidebarwrapper').css("position", "fixed");
+	    $('.sphinxsidebarwrapper').css("top", -105);
+	}
+	else{
+	    //lock it back into place
+	    $('.sphinxsidebarwrapper').css("position", "relative");
+	    $('.sphinxsidebarwrapper').css("top",0);
+	}
+            
+	// Highlight the current section
+	$('a.internal').removeClass('active');
+        for(i in sections){
+            if(sections[i] > pos){
+		break;
+            };
+	    if($('a.internal[href$="' + i + '"]').is(':visible')){
+		current_section = i;
+	    };
+        }
+	$('a.internal[href$="' + current_section + '"]').addClass('active');
+    });
+
+});
 </script>
 
 
@@ -82,11 +88,13 @@
         })();
     </script>
 
+
+
   </head>
   <body>
 <div id="logo-banner">
   <div class="logo">
-    <a href="#">
+    <a href="index.html">
       <img src="_static/nilearn-logo.png" alt="NiLearn logo"  border="0" />
     </a>
   </div>
@@ -142,9 +150,9 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="np-modindex.html" title="Python Module Index"
+          <a href="#" title="Python Module Index"
              >modules</a></li>
-<li><a href="#">NiLearn Home</a> |&nbsp;</li>
+<li><a href="index.html">NiLearn Home</a> |&nbsp;</li>
 <li><a href="user_guide.html">User Guide</a> |&nbsp;</li>
 <li><a href="auto_examples/index.html">Examples</a> |&nbsp;</li>
 <li><a href="modules/reference.html">Reference</a> |&nbsp;</li>
@@ -155,31 +163,6 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-
-<h4> News </h4>
-  <ul>
-      <li><p> <strong>March 2014</strong>: <a
-          href="http://journal.frontiersin.org/Journal/10.3389/fninf.2014.00014/abstract"
-          />Paper</a> describing the concepts at the root of
-      nilearn published in <em> Frontiers in Neuroinformatics</em>.
-      </p></li>
-  </ul>
-<h4> Software </h4>
-  <ul class="simple">
-    <li>
-      <div id="download-container">
-	<a href="introduction.html#installation" class="btn btn-primary">Download</a>
-      </div>
-    </li>
-  </ul>
-<h4> Development </h4>
-  <ul class="simple">
-    <li><p><a class="reference external"
-	href="https://github.com/nilearn/nilearn">NiLearn on GitHub</a></p></li>
-    <li><p>All material Free Software: <strong>BSD license</strong> (3 clause).</p></li>
-    <li><p><a href="AUTHORS.html">Authors</a></p></li>
-  </ul>
-
 
 
 <h4> Giving credit </h4>
@@ -204,50 +187,69 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="index-paragraph container">
-<p>NiLearn is a Python module for <strong>fast and easy statistical learning on
-NeuroImaging</strong> data.</p>
-<p>It leverages the <a class="reference external" href="http://scikit-learn.org">scikit-learn</a> Python toolbox
-for multivariate statistics with applications such as predictive modelling,
-classification, decoding, or connectivity analysis.</p>
-</div>
-<div id="index-grid" class="section group">
- <div class="col span_1_of_3">
-     <h3><a href="introduction.html">First Steps</a></h3>
-     <p>Get started with NiLearn</p>
 
-     <h3><a href="auto_examples/index.html"> Examples</a></h3>
-     <p>Visit our example gallery</p>
-     <h3><a href="user_guide.html"> User Guide</a></h3>
-     <p>Browse the full documentation</p>
- </div>
- <div class="col span_2_of_3">
- <div class="jcarousel-wrapper">
- <div class="jcarousel"><ul class="simple">
-<li><a class="reference external" href="auto_examples/plot_haxby_simple.html"><img alt="banner1" src="_images/plot_haxby_simple_1.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_oasis_vbm.html"><img alt="banner2" src="_images/plot_oasis_vbm_2.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_rest_clustering.html"><img alt="banner3" src="_images/plot_rest_clustering_1.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_canica_resting_state.html"><img alt="banner4" src="_images/plot_canica_resting_state_11.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_haxby_searchlight.html"><img alt="banner5" src="_images/plot_haxby_searchlight_1.png" /></a></li>
-</ul>
-         </div>
+   <h1>Python Module Index</h1>
 
-     <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-     <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+   <div class="modindex-jumpbox">
+   <a href="#cap-n"><strong>n</strong></a>
+   </div>
 
-     <p class="jcarousel-pagination">
-
-     </p>
-
-     </div>
-     </div>
-
-</div>
-<div style="clear: left"></div><div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">NiLearn is still an unreleased package in early development stages.</p>
-</div>
-<p>NiLearn is part of the <a class="reference external" href="http://nipy.org">NiPy ecosystem</a>.</p>
+   <table class="indextable modindextable" cellspacing="0" cellpadding="2">
+     <tr class="pcap"><td></td><td>&nbsp;</td><td></td></tr>
+     <tr class="cap" id="cap-n"><td></td><td>
+       <strong>n</strong></td><td></td></tr>
+     <tr>
+       <td><img src="_static/minus.png" class="toggler"
+              id="toggle-1" style="display: none" alt="-" /></td>
+       <td>
+       <tt class="xref">nilearn</tt></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.datasets"><tt class="xref">nilearn.datasets</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.decoding"><tt class="xref">nilearn.decoding</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.decomposition"><tt class="xref">nilearn.decomposition</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.image"><tt class="xref">nilearn.image</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.input_data"><tt class="xref">nilearn.input_data</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.masking"><tt class="xref">nilearn.masking</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.mass_univariate"><tt class="xref">nilearn.mass_univariate</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.plotting"><tt class="xref">nilearn.plotting</tt></a></td><td>
+       <em></em></td></tr>
+     <tr class="cg-1">
+       <td></td>
+       <td>&nbsp;&nbsp;&nbsp;
+       <a href="modules/reference.html#module-nilearn.signal"><tt class="xref">nilearn.signal</tt></a></td><td>
+       <em></em></td></tr>
+   </table>
 
 
           </div>
@@ -259,9 +261,9 @@ classification, decoding, or connectivity analysis.</p>
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="np-modindex.html" title="Python Module Index"
+          <a href="#" title="Python Module Index"
              >modules</a></li>
-<li><a href="#">NiLearn Home</a> |&nbsp;</li>
+<li><a href="index.html">NiLearn Home</a> |&nbsp;</li>
 <li><a href="user_guide.html">User Guide</a> |&nbsp;</li>
 <li><a href="auto_examples/index.html">Examples</a> |&nbsp;</li>
 <li><a href="modules/reference.html">Reference</a> |&nbsp;</li>
@@ -273,10 +275,6 @@ classification, decoding, or connectivity analysis.</p>
     <div class="footer">
             &copy; INRIA Parietal 2010-2013.
           Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.
-        <span style="padding-left: 5ex;">
-          <a href="_sources/index.txt"
-        	 rel="nofollow">Show this page source</a>
-        </span>
     </div>
   </body>
 </html>

@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>NiLearn: Machine learning for NeuroImaging in Python &mdash; Machine learning for NeuroImaging</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.1a',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../_static/copybutton.js"></script>
+    <link rel="shortcut icon" href="../_static/favicon.ico"/>
+    <link rel="top" title="Machine learning for NeuroImaging" href="../index.html" />
+    <link rel="next" title="4.1.1. nilearn.datasets.fetch_adhd" href="generated/nilearn.datasets.fetch_adhd.html" />
+    <link rel="prev" title="3.6.3.1.1. nilearn.masking.compute_epi_mask" href="../building_blocks/generated/nilearn.masking.compute_epi_mask.html" />
+<meta content="True" name="HandheldFriendly">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+<meta name="keywords" content="nilearn, neuroimaging, python, neuroscience, machinelearning">
+<script type="text/javascript">
+$(function () {
+    // Lock the table of content to a fixed position once we scroll enough
+    var top = 105 + $('.sphinxsidebarwrapper').offset().top - parseFloat($('.sphinxsidebarwrapper').css('margin-top').replace(/auto/, 0)),
+        sections = {},
+        i        = 0,
+	url	 = document.URL.replace(/#.*$/, ""),
+	current_section = 0;
+
+    // Grab positions of our sections 
+    $('.headerlink').each(function(){
+        sections[this.href.replace(url, '')] = $(this).offset().top - 50;
+    });
+
+    $(window).scroll(function(event) {
+	var pos   = $(window).scrollTop();
+	// Lock the table of content to a fixed position once we scroll enough
+	if(pos > top){
+	    //begin to scroll
+	    $('.sphinxsidebarwrapper').css("position", "fixed");
+	    $('.sphinxsidebarwrapper').css("top", -105);
+	}
+	else{
+	    //lock it back into place
+	    $('.sphinxsidebarwrapper').css("position", "relative");
+	    $('.sphinxsidebarwrapper').css("top",0);
+	}
+            
+	// Highlight the current section
+	$('a.internal').removeClass('active');
+        for(i in sections){
+            if(sections[i] > pos){
+		break;
+            };
+	    if($('a.internal[href$="' + i + '"]').is(':visible')){
+		current_section = i;
+	    };
+        }
+	$('a.internal[href$="' + current_section + '"]').addClass('active');
+    });
+
+});
+</script>
+
+
+<script type="text/javascript">
+
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-41920728-1']);
+        _gaq.push(['_trackPageview']);
+
+        (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+    </script>
+
+  </head>
+  <body>
+<div id="logo-banner">
+  <div class="logo">
+    <a href="../index.html">
+      <img src="../_static/nilearn-logo.png" alt="NiLearn logo"  border="0" />
+    </a>
+  </div>
+  <!-- A tag cloud to make it easy for people to find what they are
+                         looking for -->
+ <div class="tags">
+  <ul>
+    <li>
+      <big><a href="../auto_examples/plot_haxby_anova_svm.html">SVM</a></big>
+    </li>
+    <li>
+      <small><a href="../data_analysis/parcellating.html">Ward
+          clustering</a></small>
+    </li>
+    <li>
+      <a href="../building_blocks/haxby_searchlight.html">Searchlight</a>
+    </li>
+    <li>
+      <big><a href="../data_analysis/resting_state_networks.html">ICA</a></big>
+    </li>
+    <li>
+      <a href="../building_blocks/data_preparation.html">Nifti IO</a>
+    </li>
+    <li>
+      <a href="##module-nilearn.datasets">Datasets</a>
+    </li>
+  </ul>
+ </div>
+
+  <div class="banner">
+    <h1>NiLearn:</h1>
+    <h2>Machine learning for Neuro-Imaging in Python</h2>
+  </div>
+  <div class="search_form">
+    <div id="cse" style="width: 100%;"></div>
+    <script src="http://www.google.com/jsapi" type="text/javascript"></script>
+    <script type="text/javascript">
+      google.load('search', '1', {language : 'en'});
+      google.setOnLoadCallback(function() {
+      var customSearchControl = new google.search.CustomSearchControl('014136483057745874622:r-npolb1uki');
+      customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+      var options = new google.search.DrawOptions();
+      options.setAutoComplete(true);
+      customSearchControl.draw('cse', options);
+      }, true);
+    </script>
+  </div>
+</div>
+
+
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a></li>
+        <li class="right" >
+          <a href="generated/nilearn.datasets.fetch_adhd.html" title="4.1.1. nilearn.datasets.fetch_adhd"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="../building_blocks/generated/nilearn.masking.compute_epi_mask.html" title="3.6.3.1.1. nilearn.masking.compute_epi_mask"
+             accesskey="P">previous</a> |</li>
+<li><a href="../index.html">NiLearn Home</a> |&nbsp;</li>
+<li><a href="../user_guide.html">User Guide</a> |&nbsp;</li>
+<li><a href="../auto_examples/index.html">Examples</a> |&nbsp;</li>
+<li><a href="#">Reference</a> |&nbsp;</li>
+<li id="navbar-about"><a href="../AUTHORS.html">About</a>|&nbsp;</li>
+<li id="navbar-ecosystem"><a href="http://www.nipy.org/">Nipy ecosystem</a></li>
+ 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+
+
+<h4> Giving credit </h4>
+  <ul class="simple">
+    <li><p>Please consider <a href="../AUTHORS.html#citing">citing the
+                    scikit-learn</a> if you use it.</p></li>
+  </ul>
+
+  <h3><a href="../user_guide.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">4. Reference documentation: all nilearn functions</a><ul>
+<li><a class="reference internal" href="#module-nilearn.datasets">4.1. <tt class="docutils literal"><span class="pre">nilearn.datasets</span></tt>: Automatic Dataset Fetching</a></li>
+<li><a class="reference internal" href="#module-nilearn.decoding">4.2. <tt class="docutils literal"><span class="pre">nilearn.decoding</span></tt>: Decoding</a></li>
+<li><a class="reference internal" href="#module-nilearn.decomposition">4.3. <tt class="docutils literal"><span class="pre">nilearn.decompositon</span></tt>: Multivariate decompositions</a></li>
+<li><a class="reference internal" href="#module-nilearn.image">4.4. <tt class="docutils literal"><span class="pre">nilearn.image</span></tt>: Image processing and resampling utilities</a></li>
+<li><a class="reference internal" href="#module-nilearn.input_data">4.5. <tt class="docutils literal"><span class="pre">nilearn.input_data</span></tt>: Loading and Processing files easily</a></li>
+<li><a class="reference internal" href="#module-nilearn.masking">4.6. <tt class="docutils literal"><span class="pre">nilearn.masking</span></tt>: Data Masking Utilities</a></li>
+<li><a class="reference internal" href="#module-nilearn.mass_univariate">4.7. <tt class="docutils literal"><span class="pre">nilearn.mass_univariate</span></tt>: Mass-univariate analysis</a></li>
+<li><a class="reference internal" href="#module-nilearn.plotting">4.8. <tt class="docutils literal"><span class="pre">nilearn.plotting</span></tt>: Plotting brain data</a><ul>
+</ul>
+</li>
+<li><a class="reference internal" href="#module-nilearn.signal">4.9. <tt class="docutils literal"><span class="pre">nilearn.signal</span></tt>: Preprocessing Time Series</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="../building_blocks/generated/nilearn.masking.compute_epi_mask.html"
+                        title="previous chapter">3.6.3.1.1. nilearn.masking.compute_epi_mask</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="generated/nilearn.datasets.fetch_adhd.html"
+                        title="next chapter">4.1.1. nilearn.datasets.fetch_adhd</a></p>
+
+<div class="navbar">
+</div> <!-- end navbar -->
+
+<script type="text/javascript">$('#searchbox-ml').show(0);</script>
+<script type="text/javascript">$('#searchbox-site').show(0);</script>
+
+
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="reference-documentation-all-nilearn-functions">
+<h1>4. Reference documentation: all nilearn functions<a class="headerlink" href="#reference-documentation-all-nilearn-functions" title="Permalink to this headline">¶</a></h1>
+<p>This is the class and function reference of nilearn. Please refer to
+the <a class="reference internal" href="../user_guide.html#user-guide"><em>full user guide</em></a> for further details, as the class and
+function raw specifications may not be enough to give full guidelines on their
+uses.</p>
+<div class="contents local topic" id="list-of-modules">
+<p class="topic-title first"><strong>List of modules</strong></p>
+<ul class="simple">
+<li><a class="reference internal" href="#module-nilearn.datasets" id="id1"><a class="reference internal" href="#module-nilearn.datasets" title="nilearn.datasets"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.datasets</span></tt></a>: Automatic Dataset Fetching</a></li>
+<li><a class="reference internal" href="#module-nilearn.decoding" id="id2"><a class="reference internal" href="#module-nilearn.decoding" title="nilearn.decoding"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.decoding</span></tt></a>: Decoding</a></li>
+<li><a class="reference internal" href="#module-nilearn.decomposition" id="id3"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.decompositon</span></tt>: Multivariate decompositions</a></li>
+<li><a class="reference internal" href="#module-nilearn.image" id="id4"><a class="reference internal" href="#module-nilearn.image" title="nilearn.image"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.image</span></tt></a>: Image processing and resampling utilities</a></li>
+<li><a class="reference internal" href="#module-nilearn.input_data" id="id5"><a class="reference internal" href="#module-nilearn.input_data" title="nilearn.input_data"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.input_data</span></tt></a>: Loading and Processing files easily</a></li>
+<li><a class="reference internal" href="#module-nilearn.masking" id="id6"><a class="reference internal" href="#module-nilearn.masking" title="nilearn.masking"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.masking</span></tt></a>: Data Masking Utilities</a></li>
+<li><a class="reference internal" href="#module-nilearn.mass_univariate" id="id7"><a class="reference internal" href="#module-nilearn.mass_univariate" title="nilearn.mass_univariate"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.mass_univariate</span></tt></a>: Mass-univariate analysis</a></li>
+<li><a class="reference internal" href="#module-nilearn.plotting" id="id8"><a class="reference internal" href="#module-nilearn.plotting" title="nilearn.plotting"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.plotting</span></tt></a>: Plotting brain data</a></li>
+<li><a class="reference internal" href="#module-nilearn.signal" id="id9"><a class="reference internal" href="#module-nilearn.signal" title="nilearn.signal"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.signal</span></tt></a>: Preprocessing Time Series</a></li>
+</ul>
+</div>
+<div class="section" id="module-nilearn.datasets">
+<span id="nilearn-datasets-automatic-dataset-fetching"></span><span id="datasets-ref"></span><h2><a class="toc-backref" href="#id1">4.1. <a class="reference internal" href="#module-nilearn.datasets" title="nilearn.datasets"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.datasets</span></tt></a>: Automatic Dataset Fetching</a><a class="headerlink" href="#module-nilearn.datasets" title="Permalink to this headline">¶</a></h2>
+<p>Utilities to download NeuroImaging datasets</p>
+<p><strong>User guide:</strong> See the <a class="reference internal" href="../developers/dataset_download.html#datasets"><em>Dataset loading utilities</em></a> section for further details.</p>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_adhd.html#nilearn.datasets.fetch_adhd" title="nilearn.datasets.fetch_adhd"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_adhd</span></tt></a>([n_subjects,&nbsp;data_dir,&nbsp;url,&nbsp;...])</td>
+<td>Download and load the ADHD resting-state dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_craddock_2011_atlas.html#nilearn.datasets.fetch_craddock_2011_atlas" title="nilearn.datasets.fetch_craddock_2011_atlas"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_craddock_2011_atlas</span></tt></a>([data_dir,&nbsp;url,&nbsp;...])</td>
+<td>Download and return file names for the Craddock 2011 parcellation</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_haxby.html#nilearn.datasets.fetch_haxby" title="nilearn.datasets.fetch_haxby"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_haxby</span></tt></a>([data_dir,&nbsp;n_subjects,&nbsp;...])</td>
+<td>Download and loads complete haxby dataset</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_haxby_simple.html#nilearn.datasets.fetch_haxby_simple" title="nilearn.datasets.fetch_haxby_simple"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_haxby_simple</span></tt></a>([data_dir,&nbsp;url,&nbsp;resume,&nbsp;...])</td>
+<td>Download and load an example haxby dataset</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_nyu_rest.html#nilearn.datasets.fetch_nyu_rest" title="nilearn.datasets.fetch_nyu_rest"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_nyu_rest</span></tt></a>([n_subjects,&nbsp;sessions,&nbsp;...])</td>
+<td>Download and loads the NYU resting-state test-retest dataset.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_icbm152_2009.html#nilearn.datasets.fetch_icbm152_2009" title="nilearn.datasets.fetch_icbm152_2009"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_icbm152_2009</span></tt></a>([data_dir,&nbsp;url,&nbsp;resume,&nbsp;...])</td>
+<td>Download and load the ICBM152 template (dated 2009)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_msdl_atlas.html#nilearn.datasets.fetch_msdl_atlas" title="nilearn.datasets.fetch_msdl_atlas"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_msdl_atlas</span></tt></a>([data_dir,&nbsp;url,&nbsp;resume,&nbsp;...])</td>
+<td>Download and load the MSDL brain atlas.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.datasets.fetch_yeo_2011_atlas.html#nilearn.datasets.fetch_yeo_2011_atlas" title="nilearn.datasets.fetch_yeo_2011_atlas"><tt class="xref py py-obj docutils literal"><span class="pre">fetch_yeo_2011_atlas</span></tt></a>([data_dir,&nbsp;url,&nbsp;...])</td>
+<td>Download and return file names for the Yeo 2011 parcellation.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.datasets.load_harvard_oxford.html#nilearn.datasets.load_harvard_oxford" title="nilearn.datasets.load_harvard_oxford"><tt class="xref py py-obj docutils literal"><span class="pre">load_harvard_oxford</span></tt></a>(atlas_name[,&nbsp;dirname,&nbsp;...])</td>
+<td>Load Harvard-Oxford parcellation.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.decoding">
+<span id="nilearn-decoding-decoding"></span><span id="decoding-ref"></span><h2><a class="toc-backref" href="#id2">4.2. <a class="reference internal" href="#module-nilearn.decoding" title="nilearn.decoding"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.decoding</span></tt></a>: Decoding</a><a class="headerlink" href="#module-nilearn.decoding" title="Permalink to this headline">¶</a></h2>
+<p>Decoding tools and algorithms</p>
+<p><strong>Classes</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.decoding.SearchLight.html#nilearn.decoding.SearchLight" title="nilearn.decoding.SearchLight"><tt class="xref py py-obj docutils literal"><span class="pre">SearchLight</span></tt></a>(mask_img[,&nbsp;process_mask_img,&nbsp;...])</td>
+<td>Implement search_light analysis using an arbitrary type of classifier.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.decomposition">
+<span id="nilearn-decompositon-multivariate-decompositions"></span><span id="decomposition-ref"></span><h2><a class="toc-backref" href="#id3">4.3. <tt class="xref py py-mod docutils literal"><span class="pre">nilearn.decompositon</span></tt>: Multivariate decompositions</a><a class="headerlink" href="#module-nilearn.decomposition" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-nilearn.decomposition" title="nilearn.decomposition"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.decomposition</span></tt></a> module includes a subject level
+variant of the ICA called Canonnical ICA.</p>
+<p><strong>Classes</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.decomposition.CanICA.html#nilearn.decomposition.CanICA" title="nilearn.decomposition.CanICA"><tt class="xref py py-obj docutils literal"><span class="pre">CanICA</span></tt></a>([mask,&nbsp;n_components,&nbsp;smoothing_fwhm,&nbsp;...])</td>
+<td>Perform Canonical Independent Component Analysis.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.image">
+<span id="nilearn-image-image-processing-and-resampling-utilities"></span><span id="image-ref"></span><h2><a class="toc-backref" href="#id4">4.4. <a class="reference internal" href="#module-nilearn.image" title="nilearn.image"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.image</span></tt></a>: Image processing and resampling utilities</a><a class="headerlink" href="#module-nilearn.image" title="Permalink to this headline">¶</a></h2>
+<p>Mathematical operations working on niimgs like -a (3+n)-D block of data,
+and an affine.</p>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.image.high_variance_confounds.html#nilearn.image.high_variance_confounds" title="nilearn.image.high_variance_confounds"><tt class="xref py py-obj docutils literal"><span class="pre">high_variance_confounds</span></tt></a>(niimgs[,&nbsp;...])</td>
+<td>Return confounds signals extracted from input signals with highest variance.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.image.smooth_img.html#nilearn.image.smooth_img" title="nilearn.image.smooth_img"><tt class="xref py py-obj docutils literal"><span class="pre">smooth_img</span></tt></a>(niimgs,&nbsp;fwhm)</td>
+<td>Smooth images by applying a Gaussian filter.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.image.resample_img.html#nilearn.image.resample_img" title="nilearn.image.resample_img"><tt class="xref py py-obj docutils literal"><span class="pre">resample_img</span></tt></a>(niimg[,&nbsp;target_affine,&nbsp;...])</td>
+<td>Resample a Nifti image</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.image.reorder_img.html#nilearn.image.reorder_img" title="nilearn.image.reorder_img"><tt class="xref py py-obj docutils literal"><span class="pre">reorder_img</span></tt></a>(niimg[,&nbsp;resample])</td>
+<td>Returns an image with the affine diagonal (by permuting axes).</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.image.crop_img.html#nilearn.image.crop_img" title="nilearn.image.crop_img"><tt class="xref py py-obj docutils literal"><span class="pre">crop_img</span></tt></a>(niimg[,&nbsp;rtol,&nbsp;copy])</td>
+<td>Crops niimg as much as possible</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.image.mean_img.html#nilearn.image.mean_img" title="nilearn.image.mean_img"><tt class="xref py py-obj docutils literal"><span class="pre">mean_img</span></tt></a>(niimgs[,&nbsp;target_affine,&nbsp;...])</td>
+<td>Compute the mean of the images (in the time dimension of 4th dimension)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.image.swap_img_hemispheres.html#nilearn.image.swap_img_hemispheres" title="nilearn.image.swap_img_hemispheres"><tt class="xref py py-obj docutils literal"><span class="pre">swap_img_hemispheres</span></tt></a>(niimg)</td>
+<td>Performs swapping of hemispheres in the indicated nifti.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.input_data">
+<span id="nilearn-input-data-loading-and-processing-files-easily"></span><span id="io-ref"></span><h2><a class="toc-backref" href="#id5">4.5. <a class="reference internal" href="#module-nilearn.input_data" title="nilearn.input_data"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.input_data</span></tt></a>: Loading and Processing files easily</a><a class="headerlink" href="#module-nilearn.input_data" title="Permalink to this headline">¶</a></h2>
+<p>The <a class="reference internal" href="#module-nilearn.input_data" title="nilearn.input_data"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.input_data</span></tt></a> module includes scikit-learn tranformers and
+tools to preprocess neuro-imaging data.</p>
+<p><strong>User guide:</strong> See the <a class="reference internal" href="../building_blocks/data_preparation.html#nifti-masker"><em>NiftiMasker: loading, masking and filtering</em></a> section for further details.</p>
+<p><strong>Classes</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.input_data.NiftiMasker.html#nilearn.input_data.NiftiMasker" title="nilearn.input_data.NiftiMasker"><tt class="xref py py-obj docutils literal"><span class="pre">NiftiMasker</span></tt></a>([mask_img,&nbsp;sessions,&nbsp;...])</td>
+<td>Nifti data loader with preprocessing</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.input_data.MultiNiftiMasker.html#nilearn.input_data.MultiNiftiMasker" title="nilearn.input_data.MultiNiftiMasker"><tt class="xref py py-obj docutils literal"><span class="pre">MultiNiftiMasker</span></tt></a>([mask_img,&nbsp;smoothing_fwhm,&nbsp;...])</td>
+<td>Nifti data loader with preprocessing for multiple subjects</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.input_data.NiftiLabelsMasker.html#nilearn.input_data.NiftiLabelsMasker" title="nilearn.input_data.NiftiLabelsMasker"><tt class="xref py py-obj docutils literal"><span class="pre">NiftiLabelsMasker</span></tt></a>(labels_img[,&nbsp;...])</td>
+<td>Extract labeled-defined region signals from images.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.input_data.NiftiMapsMasker.html#nilearn.input_data.NiftiMapsMasker" title="nilearn.input_data.NiftiMapsMasker"><tt class="xref py py-obj docutils literal"><span class="pre">NiftiMapsMasker</span></tt></a>(maps_img[,&nbsp;mask_img,&nbsp;...])</td>
+<td>Extract maps-defined region signals from images.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.masking">
+<span id="nilearn-masking-data-masking-utilities"></span><span id="masking-ref"></span><h2><a class="toc-backref" href="#id6">4.6. <a class="reference internal" href="#module-nilearn.masking" title="nilearn.masking"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.masking</span></tt></a>: Data Masking Utilities</a><a class="headerlink" href="#module-nilearn.masking" title="Permalink to this headline">¶</a></h2>
+<p>Utilities to compute a brain mask from EPI images</p>
+<p><strong>User guide:</strong> See the <a class="reference internal" href="../building_blocks/pipeline_introduction.html#masking"><em>Masking the data: from 4D image to 2D array</em></a> section for further details.</p>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.region.img_to_signals_labels.html#nilearn.region.img_to_signals_labels" title="nilearn.region.img_to_signals_labels"><tt class="xref py py-obj docutils literal"><span class="pre">img_to_signals_labels</span></tt></a>(niimgs,&nbsp;labels_img[,&nbsp;...])</td>
+<td>Extract region signals from image.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.region.signals_to_img_labels.html#nilearn.region.signals_to_img_labels" title="nilearn.region.signals_to_img_labels"><tt class="xref py py-obj docutils literal"><span class="pre">signals_to_img_labels</span></tt></a>(signals,&nbsp;labels_img[,&nbsp;...])</td>
+<td>Create image from region signals defined as labels.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.region.img_to_signals_maps.html#nilearn.region.img_to_signals_maps" title="nilearn.region.img_to_signals_maps"><tt class="xref py py-obj docutils literal"><span class="pre">img_to_signals_maps</span></tt></a>(niimgs,&nbsp;maps_img[,&nbsp;mask_img])</td>
+<td>Extract region signals from image.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.region.signals_to_img_maps.html#nilearn.region.signals_to_img_maps" title="nilearn.region.signals_to_img_maps"><tt class="xref py py-obj docutils literal"><span class="pre">signals_to_img_maps</span></tt></a>(region_signals,&nbsp;maps_img)</td>
+<td>Create image from region signals defined as maps.</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition seealso">
+<p class="first admonition-title">See also</p>
+<p class="last"><tt class="xref py py-func docutils literal"><span class="pre">nilearn.masking.apply_mask</span></tt>,
+<tt class="xref py py-func docutils literal"><span class="pre">nilearn.masking.unmask</span></tt></p>
+</div>
+</div>
+<div class="section" id="module-nilearn.mass_univariate">
+<span id="nilearn-mass-univariate-mass-univariate-analysis"></span><h2><a class="toc-backref" href="#id7">4.7. <a class="reference internal" href="#module-nilearn.mass_univariate" title="nilearn.mass_univariate"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.mass_univariate</span></tt></a>: Mass-univariate analysis</a><a class="headerlink" href="#module-nilearn.mass_univariate" title="Permalink to this headline">¶</a></h2>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.mass_univariate.permuted_ols.html#nilearn.mass_univariate.permuted_ols" title="nilearn.mass_univariate.permuted_ols"><tt class="xref py py-obj docutils literal"><span class="pre">permuted_ols</span></tt></a>(tested_vars,&nbsp;target_vars[,&nbsp;...])</td>
+<td>Massively univariate group analysis with permuted OLS.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.plotting">
+<span id="nilearn-plotting-plotting-brain-data"></span><span id="plotting-ref"></span><h2><a class="toc-backref" href="#id8">4.8. <a class="reference internal" href="#module-nilearn.plotting" title="nilearn.plotting"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.plotting</span></tt></a>: Plotting brain data</a><a class="headerlink" href="#module-nilearn.plotting" title="Permalink to this headline">¶</a></h2>
+<p>Plotting code for nilearn</p>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.plotting.plot_anat.html#nilearn.plotting.plot_anat" title="nilearn.plotting.plot_anat"><tt class="xref py py-obj docutils literal"><span class="pre">plot_anat</span></tt></a>([anat_img,&nbsp;cut_coords,&nbsp;...])</td>
+<td>Plot cuts of an anatomical image (by default 3 cuts:</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.plotting.plot_img.html#nilearn.plotting.plot_img" title="nilearn.plotting.plot_img"><tt class="xref py py-obj docutils literal"><span class="pre">plot_img</span></tt></a>(niimg[,&nbsp;cut_coords,&nbsp;output_file,&nbsp;...])</td>
+<td>Plot cuts of a given image (by default Frontal, Axial, and Lateral)</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.plotting.plot_epi.html#nilearn.plotting.plot_epi" title="nilearn.plotting.plot_epi"><tt class="xref py py-obj docutils literal"><span class="pre">plot_epi</span></tt></a>([epi_img,&nbsp;cut_coords,&nbsp;output_file,&nbsp;...])</td>
+<td>Plot cuts of an EPI image (by default 3 cuts:</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.plotting.plot_roi.html#nilearn.plotting.plot_roi" title="nilearn.plotting.plot_roi"><tt class="xref py py-obj docutils literal"><span class="pre">plot_roi</span></tt></a>(roi_img[,&nbsp;bg_img,&nbsp;cut_coords,&nbsp;...])</td>
+<td>Plot cuts of an ROI/mask image (by default 3 cuts: Frontal, Axial, and</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.plotting.plot_stat_map.html#nilearn.plotting.plot_stat_map" title="nilearn.plotting.plot_stat_map"><tt class="xref py py-obj docutils literal"><span class="pre">plot_stat_map</span></tt></a>(stat_map_img[,&nbsp;bg_img,&nbsp;...])</td>
+<td>Plot cuts of an ROI/mask image (by default 3 cuts: Frontal, Axial, and</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="generated/nilearn.plotting.find_xyz_cut_coords.html#nilearn.plotting.find_xyz_cut_coords" title="nilearn.plotting.find_xyz_cut_coords"><tt class="xref py py-obj docutils literal"><span class="pre">find_xyz_cut_coords</span></tt></a>(img[,&nbsp;mask,&nbsp;...])</td>
+<td>Find the center of the largest activation connected component.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Classes</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.plotting.slicers.OrthoSlicer.html#nilearn.plotting.slicers.OrthoSlicer" title="nilearn.plotting.slicers.OrthoSlicer"><tt class="xref py py-obj docutils literal"><span class="pre">OrthoSlicer</span></tt></a>(cut_coords[,&nbsp;axes,&nbsp;black_bg])</td>
+<td>A class to create 3 linked axes for plotting orthogonal cuts of 3D maps.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="module-nilearn.signal">
+<span id="nilearn-signal-preprocessing-time-series"></span><span id="signal-ref"></span><h2><a class="toc-backref" href="#id9">4.9. <a class="reference internal" href="#module-nilearn.signal" title="nilearn.signal"><tt class="xref py py-mod docutils literal"><span class="pre">nilearn.signal</span></tt></a>: Preprocessing Time Series</a><a class="headerlink" href="#module-nilearn.signal" title="Permalink to this headline">¶</a></h2>
+<p>Preprocessing functions for time series.</p>
+<p>All functions in this module should take X matrices with samples x
+features</p>
+<p><strong>Functions</strong>:</p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="generated/nilearn.signal.clean.html#nilearn.signal.clean" title="nilearn.signal.clean"><tt class="xref py py-obj docutils literal"><span class="pre">clean</span></tt></a>(signals[,&nbsp;detrend,&nbsp;standardize,&nbsp;...])</td>
+<td>Improve SNR on masked fMRI signals.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../np-modindex.html" title="Python Module Index"
+             >modules</a></li>
+        <li class="right" >
+          <a href="generated/nilearn.datasets.fetch_adhd.html" title="4.1.1. nilearn.datasets.fetch_adhd"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="../building_blocks/generated/nilearn.masking.compute_epi_mask.html" title="3.6.3.1.1. nilearn.masking.compute_epi_mask"
+             >previous</a> |</li>
+<li><a href="../index.html">NiLearn Home</a> |&nbsp;</li>
+<li><a href="../user_guide.html">User Guide</a> |&nbsp;</li>
+<li><a href="../auto_examples/index.html">Examples</a> |&nbsp;</li>
+<li><a href="#">Reference</a> |&nbsp;</li>
+<li id="navbar-about"><a href="../AUTHORS.html">About</a>|&nbsp;</li>
+<li id="navbar-ecosystem"><a href="http://www.nipy.org/">Nipy ecosystem</a></li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+            &copy; INRIA Parietal 2010-2013.
+          Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.
+        <span style="padding-left: 5ex;">
+          <a href="../_sources/modules/reference.txt"
+        	 rel="nofollow">Show this page source</a>
+        </span>
+    </div>
+  </body>
+</html>

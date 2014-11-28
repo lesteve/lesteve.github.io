@@ -1,0 +1,52 @@
+
+
+.. _example_plot_visualization.py:
+
+
+NeuroImaging volumes visualization
+==================================
+
+Simple example to show Nifti data visualization.
+
+
+
+.. rst-class:: horizontal
+
+
+    *
+
+      .. image:: images/plot_visualization_1.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_visualization_2.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_visualization_3.png
+            :scale: 47
+
+
+**Script output**:
+
+.. rst-class:: max_height
+
+ ::
+
+    Downloading data from http://data.pymvpa.org/datasets/haxby2001/subj1-2010.01.14.tar.gz ...
+  ...done. (269 seconds, 4 min)
+  extracting data from /home/lesteve/code/nilearn/nilearn_data/haxby2001/53aa5ef3c8bfa36732a04e3030266668/subj1-2010.01.14.tar.gz...
+     ...done.
+
+
+
+**Python source code:** :download:`plot_visualization.py <plot_visualization.py>`
+
+.. literalinclude:: plot_visualization.py
+    :lines: 7-
+
+**Total running time of the example:**  19.59 seconds 
+( 0 minutes  19.59 seconds)
+    

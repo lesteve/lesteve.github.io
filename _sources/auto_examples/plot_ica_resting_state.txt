@@ -1,0 +1,47 @@
+
+
+.. _example_plot_ica_resting_state.py:
+
+
+Independent component analysis of resting-state fMRI
+=====================================================
+
+An example applying ICA to resting-state data.
+
+
+
+.. rst-class:: horizontal
+
+
+    *
+
+      .. image:: images/plot_ica_resting_state_1.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_ica_resting_state_2.png
+            :scale: 47
+
+
+**Script output**:
+
+.. rst-class:: max_height
+
+ ::
+
+    Downloading data from http://www.nitrc.org/frs/download.php/1071/NYU_TRT_session1a.tar.gz ...
+  ...done. (697 seconds, 11 min)
+  extracting data from /home/lesteve/nilearn_data/nyu_rest/0f78791a54b4c98af215e9d746f8d417/session1/NYU_TRT_session1a.tar.gz...
+     ...done.
+
+
+
+**Python source code:** :download:`plot_ica_resting_state.py <plot_ica_resting_state.py>`
+
+.. literalinclude:: plot_ica_resting_state.py
+    :lines: 7-
+
+**Total running time of the example:**  10.22 seconds 
+( 0 minutes  10.22 seconds)
+    

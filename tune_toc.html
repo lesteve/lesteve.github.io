@@ -25,47 +25,52 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="_static/copybutton.js"></script>
     <link rel="shortcut icon" href="_static/favicon.ico"/>
-    <link rel="top" title="Machine learning for NeuroImaging" href="#" />
+    <link rel="top" title="Machine learning for NeuroImaging" href="index.html" />
 <meta content="True" name="HandheldFriendly">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 <meta name="keywords" content="nilearn, neuroimaging, python, neuroscience, machinelearning">
-<script type="text/javascript" src="_static/jquery.jcarousel.min.js"></script>
 <script type="text/javascript">
-(function($) {
-    $(function() {
-	$('.jcarousel').jcarousel();
-        $('.jcarousel-control-prev')
-            .on('active.jcarouselcontrol', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('inactive.jcarouselcontrol', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '-=1'
-            });
+$(function () {
+    // Lock the table of content to a fixed position once we scroll enough
+    var top = 105 + $('.sphinxsidebarwrapper').offset().top - parseFloat($('.sphinxsidebarwrapper').css('margin-top').replace(/auto/, 0)),
+        sections = {},
+        i        = 0,
+	url	 = document.URL.replace(/#.*$/, ""),
+	current_section = 0;
 
-        $('.jcarousel-control-next')
-            .on('active.jcarouselcontrol', function() {
-                $(this).removeClass('inactive');
-            })
-            .on('inactive.jcarouselcontrol', function() {
-                $(this).addClass('inactive');
-            })
-            .jcarouselControl({
-                target: '+=1'
-            });
-
-        $('.jcarousel-pagination')
-            .on('active.jcarouselpagination', 'a', function() {
-                $(this).addClass('active');
-            })
-            .on('inactive.jcarouselpagination', 'a', function() {
-                $(this).removeClass('active');
-            })
-            .jcarouselPagination();
+    // Grab positions of our sections 
+    $('.headerlink').each(function(){
+        sections[this.href.replace(url, '')] = $(this).offset().top - 50;
     });
-})(jQuery);
+
+    $(window).scroll(function(event) {
+	var pos   = $(window).scrollTop();
+	// Lock the table of content to a fixed position once we scroll enough
+	if(pos > top){
+	    //begin to scroll
+	    $('.sphinxsidebarwrapper').css("position", "fixed");
+	    $('.sphinxsidebarwrapper').css("top", -105);
+	}
+	else{
+	    //lock it back into place
+	    $('.sphinxsidebarwrapper').css("position", "relative");
+	    $('.sphinxsidebarwrapper').css("top",0);
+	}
+            
+	// Highlight the current section
+	$('a.internal').removeClass('active');
+        for(i in sections){
+            if(sections[i] > pos){
+		break;
+            };
+	    if($('a.internal[href$="' + i + '"]').is(':visible')){
+		current_section = i;
+	    };
+        }
+	$('a.internal[href$="' + current_section + '"]').addClass('active');
+    });
+
+});
 </script>
 
 
@@ -86,7 +91,7 @@
   <body>
 <div id="logo-banner">
   <div class="logo">
-    <a href="#">
+    <a href="index.html">
       <img src="_static/nilearn-logo.png" alt="NiLearn logo"  border="0" />
     </a>
   </div>
@@ -144,7 +149,7 @@
         <li class="right" style="margin-right: 10px">
           <a href="np-modindex.html" title="Python Module Index"
              >modules</a></li>
-<li><a href="#">NiLearn Home</a> |&nbsp;</li>
+<li><a href="index.html">NiLearn Home</a> |&nbsp;</li>
 <li><a href="user_guide.html">User Guide</a> |&nbsp;</li>
 <li><a href="auto_examples/index.html">Examples</a> |&nbsp;</li>
 <li><a href="modules/reference.html">Reference</a> |&nbsp;</li>
@@ -155,31 +160,6 @@
     </div>
       <div class="sphinxsidebar">
         <div class="sphinxsidebarwrapper">
-
-<h4> News </h4>
-  <ul>
-      <li><p> <strong>March 2014</strong>: <a
-          href="http://journal.frontiersin.org/Journal/10.3389/fninf.2014.00014/abstract"
-          />Paper</a> describing the concepts at the root of
-      nilearn published in <em> Frontiers in Neuroinformatics</em>.
-      </p></li>
-  </ul>
-<h4> Software </h4>
-  <ul class="simple">
-    <li>
-      <div id="download-container">
-	<a href="introduction.html#installation" class="btn btn-primary">Download</a>
-      </div>
-    </li>
-  </ul>
-<h4> Development </h4>
-  <ul class="simple">
-    <li><p><a class="reference external"
-	href="https://github.com/nilearn/nilearn">NiLearn on GitHub</a></p></li>
-    <li><p>All material Free Software: <strong>BSD license</strong> (3 clause).</p></li>
-    <li><p><a href="AUTHORS.html">Authors</a></p></li>
-  </ul>
-
 
 
 <h4> Giving credit </h4>
@@ -204,51 +184,140 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <div class="index-paragraph container">
-<p>NiLearn is a Python module for <strong>fast and easy statistical learning on
-NeuroImaging</strong> data.</p>
-<p>It leverages the <a class="reference external" href="http://scikit-learn.org">scikit-learn</a> Python toolbox
-for multivariate statistics with applications such as predictive modelling,
-classification, decoding, or connectivity analysis.</p>
-</div>
-<div id="index-grid" class="section group">
- <div class="col span_1_of_3">
-     <h3><a href="introduction.html">First Steps</a></h3>
-     <p>Get started with NiLearn</p>
+   <SCRIPT>
+ //Function to make the index toctree collapsible
+ $(function () {
+     $('.toctree-l2')
+         .click(function(event){
+             if (event.target.tagName.toLowerCase() != "a") {
+                 if ($(this).children('ul').length > 0) {
+                      $(this).attr('data-content',
+                          (!$(this).children('ul').is(':hidden')) ? '\u25ba' : '\u25bc');
+                     $(this).children('ul').toggle();
+                 }
+                 return true; //Makes links clickable
+             }
+         })
+         .mousedown(function(event){ return false; }) //Firefox highlighting fix
+         .children('ul').hide();
+     // Initialize the values
+     $('li.toctree-l2:not(:has(ul))').attr('data-content', '-');
+     $('li.toctree-l2:has(ul)').attr('data-content', '\u25ba');
+     $('li.toctree-l2:has(ul)').css('cursor', 'pointer');
 
-     <h3><a href="auto_examples/index.html"> Examples</a></h3>
-     <p>Visit our example gallery</p>
-     <h3><a href="user_guide.html"> User Guide</a></h3>
-     <p>Browse the full documentation</p>
- </div>
- <div class="col span_2_of_3">
- <div class="jcarousel-wrapper">
- <div class="jcarousel"><ul class="simple">
-<li><a class="reference external" href="auto_examples/plot_haxby_simple.html"><img alt="banner1" src="_images/plot_haxby_simple_1.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_oasis_vbm.html"><img alt="banner2" src="_images/plot_oasis_vbm_2.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_rest_clustering.html"><img alt="banner3" src="_images/plot_rest_clustering_1.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_canica_resting_state.html"><img alt="banner4" src="_images/plot_canica_resting_state_11.png" /></a></li>
-<li><a class="reference external" href="auto_examples/plot_haxby_searchlight.html"><img alt="banner5" src="_images/plot_haxby_searchlight_1.png" /></a></li>
-</ul>
-         </div>
+     $('.toctree-l2').hover(
+         function () {
+             if ($(this).children('ul').length > 0) {
+                 $(this).css('background-color', '#D0D0D0').children('ul').css('background-color', '#F0F0F0');
+                 $(this).attr('data-content',
+                     (!$(this).children('ul').is(':hidden')) ? '\u25bc' : '\u25ba');
+             }
+             else {
+                 $(this).css('background-color', '#F9F9F9');
+             }
+         },
+         function () {
+             $(this).css('background-color', 'white').children('ul').css('background-color', 'white');
+             if ($(this).children('ul').length > 0) {
+                 $(this).attr('data-content',
+                     (!$(this).children('ul').is(':hidden')) ? '\u25bc' : '\u25ba');
+             }
+         }
+     );
+ });
 
-     <a href="#" class="jcarousel-control-prev">&lsaquo;</a>
-     <a href="#" class="jcarousel-control-next">&rsaquo;</a>
+ </SCRIPT>
 
-     <p class="jcarousel-pagination">
+<style type="text/css">
+  div.bodywrapper blockquote {
+      margin: 0 ;
+  }
 
-     </p>
+  div.toctree-wrapper ul {
+      margin: 0 ;
+      padding-left: 0px ;
+  }
 
-     </div>
-     </div>
+  li, ul {
+      transition-duration: 0.2s;
+  }
 
-</div>
-<div style="clear: left"></div><div class="admonition warning">
-<p class="first admonition-title">Warning</p>
-<p class="last">NiLearn is still an unreleased package in early development stages.</p>
-</div>
-<p>NiLearn is part of the <a class="reference external" href="http://nipy.org">NiPy ecosystem</a>.</p>
+  li.toctree-l1 {
+      padding: 5px 0 0;
+      list-style-type: none;
+      font-size: 150% ;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      font-weight: normal;
+      color: #20435c;
+      margin-left: 0;
+      margin-bottom: 1.2em;
+      font-weight: bold;
+      }
 
+  li.toctree-l1 a {
+      padding: 0 0 0 10px ;
+      color: #314F64 ;
+  }
+
+  li.toctree-l2 {
+      padding: 0.25em 0 0.25em 0 ;
+      list-style-type: none;
+      background-color: #FFFFFF;
+      font-size: 85% ;
+      font-weight: normal;
+  }
+
+  li.toctree-l2 ul {
+      padding-left: 40px ;
+  }
+
+
+  li.toctree-l2:before {
+      content: attr(data-content) ;
+      font-size: 85% ;
+      color: #777 ;
+      display: inline-block;
+      width: 10px;
+  }
+
+  li.toctree-l3 {
+      font-size: 88% ;
+      list-style-type: square;
+      font-weight: normal;
+  }
+
+  li.toctree-l4 {
+      font-size: 93% ;
+      list-style-type: circle;
+      font-weight: normal;
+  }
+
+  div.topic li.toctree-l1 {
+      font-size: 100% ;
+      font-weight: bold;
+      background-color: transparent;
+      margin-bottom: 0;
+      margin-left: 1.5em;
+      display:inline;
+  }
+
+  div.topic p {
+      font-size: 90% ;
+      margin: 0.4ex;
+  }
+
+  div.topic p.topic-title {
+      display:inline;
+      font-size: 100% ;
+      margin-bottom: 0;
+  }
+
+  div.sidebar {
+      width: 25ex ;
+  }
+
+</style>
 
           </div>
         </div>
@@ -261,7 +330,7 @@ classification, decoding, or connectivity analysis.</p>
         <li class="right" style="margin-right: 10px">
           <a href="np-modindex.html" title="Python Module Index"
              >modules</a></li>
-<li><a href="#">NiLearn Home</a> |&nbsp;</li>
+<li><a href="index.html">NiLearn Home</a> |&nbsp;</li>
 <li><a href="user_guide.html">User Guide</a> |&nbsp;</li>
 <li><a href="auto_examples/index.html">Examples</a> |&nbsp;</li>
 <li><a href="modules/reference.html">Reference</a> |&nbsp;</li>
@@ -274,7 +343,7 @@ classification, decoding, or connectivity analysis.</p>
             &copy; INRIA Parietal 2010-2013.
           Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.2.3.
         <span style="padding-left: 5ex;">
-          <a href="_sources/index.txt"
+          <a href="_sources/tune_toc.txt"
         	 rel="nofollow">Show this page source</a>
         </span>
     </div>
