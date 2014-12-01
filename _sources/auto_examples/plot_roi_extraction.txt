@@ -43,6 +43,6 @@ obtained.
 .. literalinclude:: plot_roi_extraction.py
     :lines: 9-
 
-**Total running time of the example:**  25.19 seconds 
-( 0 minutes  25.19 seconds)
+**Total running time of the example:**  25.96 seconds 
+( 0 minutes  25.96 seconds)
     

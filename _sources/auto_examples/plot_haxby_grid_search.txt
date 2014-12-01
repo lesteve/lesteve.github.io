@@ -38,41 +38,9 @@ a separator.
 
 
 
-.. image:: images/plot_haxby_grid_search_1.png
-    :align: center
+.. rst-class:: horizontal
 
 
-**Script output**:
-
-.. rst-class:: max_height
-
- ::
-
-    CV score 0.583333333333
-  score validation 0.555555555556
-  CV score 0.55
-  score validation 0.5
-  CV score 0.544444444444
-  score validation 0.555555555556
-  CV score 0.522222222222
-  score validation 0.444444444444
-  CV score 0.522222222222
-  score validation 0.5
-  CV score 0.561111111111
-  score validation 0.5
-  CV score 0.566666666667
-  score validation 0.555555555556
-  CV score 0.561111111111
-  score validation 0.555555555556
-  CV score 0.633333333333
-  score validation 0.5
-  CV score 0.566666666667
-  score validation 0.5
-  CV score 0.561111111111
-  score validation 0.5
-  Fitting 3 folds for each of 11 candidates, totalling 33 fits
-  Fitting 3 folds for each of 11 candidates, totalling 33 fits
-  Fitting 3 folds for each of 11 candidates, totalling 33 fits
 
 
 
@@ -81,6 +49,6 @@ a separator.
 .. literalinclude:: plot_haxby_grid_search.py
     :lines: 35-
 
-**Total running time of the example:**  67.99 seconds 
-( 1 minutes  7.99 seconds)
+**Total running time of the example:**  0.00 seconds 
+( 0 minutes  0.00 seconds)
     

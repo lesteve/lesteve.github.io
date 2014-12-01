@@ -18,27 +18,7 @@ values.
 
     *
 
-      .. image:: images/plot_simulated_data_7.png
-            :scale: 47
-
-    *
-
-      .. image:: images/plot_simulated_data_3.png
-            :scale: 47
-
-    *
-
-      .. image:: images/plot_simulated_data_6.png
-            :scale: 47
-
-    *
-
       .. image:: images/plot_simulated_data_1.png
-            :scale: 47
-
-    *
-
-      .. image:: images/plot_simulated_data_4.png
             :scale: 47
 
     *
@@ -48,7 +28,27 @@ values.
 
     *
 
+      .. image:: images/plot_simulated_data_3.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_simulated_data_4.png
+            :scale: 47
+
+    *
+
       .. image:: images/plot_simulated_data_5.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_simulated_data_6.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_simulated_data_7.png
             :scale: 47
 
 
@@ -59,11 +59,11 @@ values.
  ::
 
     SNR: -10.0 dB
-  BayesianRidge: prediction score 0.114, training time: 0.08s
-  ElasticNetCV: prediction score 0.434, training time: 0.31s
-  RidgeCV: prediction score 0.328, training time: 0.09s
+  BayesianRidge: prediction score 0.114, training time: 0.25s
+  ElasticNetCV: prediction score 0.434, training time: 0.35s
+  RidgeCV: prediction score 0.328, training time: 0.06s
   SVR: prediction score 0.345, training time: 0.01s
-  SearchLight: training time: 10.05s
+  SearchLight: training time: 9.73s
 
 
 
