@@ -69,7 +69,7 @@ ____
   
   Massively univariate model
   
-  279 detections
+  282 detections
 
 
 
@@ -78,6 +78,6 @@ ____
 .. literalinclude:: plot_oasis_vbm.py
     :lines: 39-
 
-**Total running time of the example:**  52.20 seconds 
-( 0 minutes  52.20 seconds)
+**Total running time of the example:**  52.22 seconds 
+( 0 minutes  52.22 seconds)
     
