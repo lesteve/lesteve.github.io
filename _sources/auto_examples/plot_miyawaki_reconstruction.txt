@@ -73,6 +73,6 @@ are used as training set and structured images are used for reconstruction.
 .. literalinclude:: plot_miyawaki_reconstruction.py
     :lines: 16-
 
-**Total running time of the example:**  94.84 seconds 
-( 1 minutes  34.84 seconds)
+**Total running time of the example:**  96.08 seconds 
+( 1 minutes  36.08 seconds)
     
