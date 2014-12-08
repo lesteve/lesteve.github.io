@@ -61,6 +61,11 @@ Nilearn comes with a set of plotting function for Nifti-like images.
 
     *
 
+      .. image:: images/plot_demo_plotting_15.png
+            :scale: 47
+
+    *
+
       .. image:: images/plot_demo_plotting_13.png
             :scale: 47
 
@@ -72,6 +77,11 @@ Nilearn comes with a set of plotting function for Nifti-like images.
     *
 
       .. image:: images/plot_demo_plotting_14.png
+            :scale: 47
+
+    *
+
+      .. image:: images/plot_demo_plotting_16.png
             :scale: 47
 
     *
@@ -92,6 +102,6 @@ Nilearn comes with a set of plotting function for Nifti-like images.
 .. literalinclude:: plot_demo_plotting.py
     :lines: 8-
 
-**Total running time of the example:**  10.86 seconds 
-( 0 minutes  10.86 seconds)
+**Total running time of the example:**  12.58 seconds 
+( 0 minutes  12.58 seconds)
     
