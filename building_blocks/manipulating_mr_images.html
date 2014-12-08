@@ -450,7 +450,7 @@ can be easily extracted from the fMRI data using the
 </tbody>
 </table>
 <div class="figure align-right">
-<a class="reference external image-reference" href="../auto_examples/plot_visualization.html"><img alt="../_images/plot_visualization_21.png" src="../_images/plot_visualization_21.png" style="width: 330.0px; height: 130.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_visualization.html"><img alt="building_blocks/../auto_examples/images/plot_visualization_2.png" src="building_blocks/../auto_examples/images/plot_visualization_2.png" /></a>
 </div>
 </div>
 <div class="section" id="from-4d-to-2d-arrays">
@@ -462,7 +462,7 @@ brain. It is thus convenient to apply a brain mask and go from a 4D
 array to a 2D array, <cite>voxel</cite> <strong>x</strong> <cite>time</cite>, as depicted below:</p>
 <a class="reference internal image-reference" href="../_images/masking.jpg"><img alt="../_images/masking.jpg" class="align-center" src="../_images/masking.jpg" style="width: 100%;" /></a>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_visualization.html"><img alt="../_images/plot_visualization_31.png" src="../_images/plot_visualization_31.png" style="width: 350.0px; height: 250.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_visualization.html"><img alt="building_blocks/../auto_examples/images/plot_visualization_3.png" src="building_blocks/../auto_examples/images/plot_visualization_3.png" /></a>
 </div>
 </div>
 </div>
@@ -473,7 +473,7 @@ steps. These steps are also available as simple functions if you want to
 set up your own data preparation procedure:</p>
 <ul class="simple">
 <li>Resampling: <a class="reference internal" href="../modules/generated/nilearn.image.resample_img.html#nilearn.image.resample_img" title="nilearn.image.resample_img"><tt class="xref py py-func docutils literal"><span class="pre">nilearn.image.resample_img</span></tt></a>. See the example
-<a class="reference internal" href="../auto_examples/plot_affine_transformation.html#example-plot-affine-transformation-py"><em>Visualization of affine resamplings</em></a> to
+<em class="xref std std-ref">example_plot_affine_transformation.py</em> to
 see the effect of affine transforms on data and bounding boxes.</li>
 <li>Computing the mean of images (in the time of 4th direction):
 <a class="reference internal" href="../modules/generated/nilearn.image.mean_img.html#nilearn.image.mean_img" title="nilearn.image.mean_img"><tt class="xref py py-func docutils literal"><span class="pre">nilearn.image.mean_img</span></tt></a></li>
@@ -509,7 +509,7 @@ half-maximum. The function <a class="reference internal" href="../modules/genera
 anisotropy in the image affine. As many nilearn functions, it can also
 use file names as input parameters.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_11.png" src="../_images/plot_roi_extraction_11.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_1.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_1.png" /></a>
 </div>
 </div>
 <div class="section" id="selecting-features">
@@ -527,7 +527,7 @@ voxel is not very interesting to discriminate the condition.</p>
 timeseries are drawn from the same distribution. The lower is the p-value, the
 more discriminative is the voxel.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_11.png" src="../_images/plot_roi_extraction_11.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_1.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_1.png" /></a>
 </div>
 <p>This feature selection method is available in the scikit-learn where it has been
 extended to several classes, using the
@@ -538,7 +538,7 @@ extended to several classes, using the
 <p>Higher p-values are kept as voxels of interest. Applying a threshold to an array
 is easy thanks to numpy indexing a la Matlab.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_21.png" src="../_images/plot_roi_extraction_21.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" /></a>
 </div>
 </div>
 <div class="section" id="mask-intersection">
@@ -550,7 +550,7 @@ nibabel&#8217;s <tt class="xref py py-func docutils literal"><span class="pre">n
 &#8211; <tt class="xref py py-func docutils literal"><span class="pre">numpy.logical_and</span></tt> &#8211; to keep only voxels
 that are selected in both masks.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_21.png" src="../_images/plot_roi_extraction_21.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" /></a>
 </div>
 </div>
 <div class="section" id="mask-dilation">
@@ -559,7 +559,7 @@ that are selected in both masks.</p>
 compact shape, we use a <a class="reference external" href="http://en.wikipedia.org/wiki/Dilation_(morphology)">morphological dilation</a>. This is a common step to be sure
 not to forget voxels located on the edge of a ROI.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_21.png" src="../_images/plot_roi_extraction_21.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_2.png" /></a>
 </div>
 </div>
 <div class="section" id="extracting-connected-components">
@@ -568,7 +568,7 @@ not to forget voxels located on the edge of a ROI.</p>
 components in our final mask: it assigns a separate integer label to each
 one of them.</p>
 <div class="figure align-center">
-<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="../_images/plot_roi_extraction_31.png" src="../_images/plot_roi_extraction_31.png" style="width: 400.0px; height: 300.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_roi_extraction.html"><img alt="building_blocks/../auto_examples/images/plot_roi_extraction_3.png" src="building_blocks/../auto_examples/images/plot_roi_extraction_3.png" /></a>
 </div>
 </div>
 <div class="section" id="saving-the-result">

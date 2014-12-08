@@ -289,13 +289,13 @@ parameters.</p>
 scratch. The Haxby dataset will be used since it provides a mask that we
 can use as a reference.</p>
 <div class="figure align-right">
-<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="../_images/plot_mask_computation_21.png" src="../_images/plot_mask_computation_21.png" style="width: 330.0px; height: 130.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="building_blocks/../auto_examples/images/plot_mask_computation_2.png" src="building_blocks/../auto_examples/images/plot_mask_computation_2.png" /></a>
 </div>
 <p>The first step is to generate a mask with default parameters and take
 a look at it.</p>
 <hr class="docutils" />
 <div class="figure align-right">
-<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="../_images/plot_mask_computation_31.png" src="../_images/plot_mask_computation_31.png" style="width: 330.0px; height: 130.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="building_blocks/../auto_examples/images/plot_mask_computation_3.png" src="building_blocks/../auto_examples/images/plot_mask_computation_3.png" /></a>
 </div>
 <p>We can make the outline of the mask more by increasing the number of
 opening steps (<em>opening=10</em>) using the <cite>mask_args</cite> argument of the
@@ -309,12 +309,12 @@ which the masking algorithm is going to try to find it&#8217;s threshold (where
 the lower cutoff, and thus force the masking algorithm to select only
 voxels that are very light on the EPI image.</p>
 <div class="figure align-right">
-<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="../_images/plot_mask_computation_41.png" src="../_images/plot_mask_computation_41.png" style="width: 330.0px; height: 130.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_mask_computation.html"><img alt="building_blocks/../auto_examples/images/plot_mask_computation_4.png" src="building_blocks/../auto_examples/images/plot_mask_computation_4.png" /></a>
 </div>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">The full example described in this section can be found here:
-<a class="reference internal" href="../auto_examples/plot_mask_computation.html"><em>plot_mask_computation.py</em></a>.
+<tt class="xref doc docutils literal"><span class="pre">plot_mask_computation.py</span></tt>.
 This one can be relevant too:
 <a class="reference internal" href="../auto_examples/plot_nifti_simple.html"><em>plot_nifti_simple.py</em></a>.</p>
 </div>
@@ -345,9 +345,9 @@ resampled to display overlays.</p>
 <p>Automatic computation of offset and bounding box can be performed by
 specifying a 3x3 matrix instead of the 4x4 affine, in which case nilearn
 computes automatically the translation part of the affine.</p>
-<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="../_images/plot_affine_transformation_21.png" src="../_images/plot_affine_transformation_21.png" style="width: 288.0px; height: 216.0px;" /></a>
-<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="../_images/plot_affine_transformation_41.png" src="../_images/plot_affine_transformation_41.png" style="width: 288.0px; height: 216.0px;" /></a>
-<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="../_images/plot_affine_transformation_31.png" src="../_images/plot_affine_transformation_31.png" style="width: 288.0px; height: 216.0px;" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="building_blocks/../auto_examples/images/plot_affine_transformation_2.png" src="building_blocks/../auto_examples/images/plot_affine_transformation_2.png" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="building_blocks/../auto_examples/images/plot_affine_transformation_4.png" src="building_blocks/../auto_examples/images/plot_affine_transformation_4.png" /></a>
+<a class="reference external image-reference" href="../auto_examples/plot_affine_transformation.html"><img alt="building_blocks/../auto_examples/images/plot_affine_transformation_3.png" src="building_blocks/../auto_examples/images/plot_affine_transformation_3.png" /></a>
 <div class="topic">
 <p class="topic-title first"><strong>Special case: resampling to a given voxel size</strong></p>
 <p>Specifying a 3x3 matrix that is diagonal as a target_affine fixes the
@@ -396,7 +396,7 @@ returning them. This is performed by default.</li>
 <div class="topic">
 <p class="topic-title first"><strong>Exercise</strong></p>
 <p>You can, more as a training than as an exercise, try to play with
-the parameters in <em class="xref std std-ref">example_plot_haxby_simple.py</em>. Try to enable detrending
+the parameters in <a class="reference internal" href="../auto_examples/plot_haxby_simple.html#example-plot-haxby-simple-py"><em>Simple example of decoding: the Haxby data</em></a>. Try to enable detrending
 and run the script: does it have a big impact on the result?</p>
 </div>
 <div class="admonition seealso">

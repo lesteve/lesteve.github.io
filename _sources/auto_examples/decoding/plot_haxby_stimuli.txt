@@ -58,6 +58,6 @@ Cortex" (Science 2001)
 .. literalinclude:: plot_haxby_stimuli.py
     :lines: 9-
 
-**Total running time of the example:**  21.57 seconds 
-( 0 minutes  21.57 seconds)
+**Total running time of the example:**  21.83 seconds 
+( 0 minutes  21.83 seconds)
     

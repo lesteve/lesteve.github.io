@@ -102,6 +102,6 @@ Nilearn comes with a set of plotting function for Nifti-like images.
 .. literalinclude:: plot_demo_plotting.py
     :lines: 8-
 
-**Total running time of the example:**  13.37 seconds 
-( 0 minutes  13.37 seconds)
+**Total running time of the example:**  12.75 seconds 
+( 0 minutes  12.75 seconds)
     

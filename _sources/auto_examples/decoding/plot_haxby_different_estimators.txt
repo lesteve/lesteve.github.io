@@ -72,86 +72,86 @@ decoding task.
  ::
 
     ______________________________________________________________________
-         SVC:         bottle -- scores: 0.41 +- 0.25, time 1.82s
-         SVC:            cat -- scores: 0.51 +- 0.22, time 1.44s
-         SVC:          chair -- scores: 0.67 +- 0.19, time 1.40s
-         SVC:           face -- scores: 0.74 +- 0.31, time 0.98s
-         SVC:          house -- scores: 0.99 +- 0.03, time 0.68s
-         SVC:       scissors -- scores: 0.66 +- 0.26, time 1.37s
-         SVC:   scrambledpix -- scores: 0.88 +- 0.10, time 1.09s
-         SVC:           shoe -- scores: 0.46 +- 0.26, time 1.69s
+         SVC:         bottle -- scores: 0.41 +- 0.25, time 1.85s
+         SVC:            cat -- scores: 0.51 +- 0.22, time 1.46s
+         SVC:          chair -- scores: 0.67 +- 0.19, time 1.42s
+         SVC:           face -- scores: 0.74 +- 0.31, time 1.00s
+         SVC:          house -- scores: 0.99 +- 0.03, time 0.70s
+         SVC:       scissors -- scores: 0.66 +- 0.26, time 1.39s
+         SVC:   scrambledpix -- scores: 0.88 +- 0.10, time 1.12s
+         SVC:           shoe -- scores: 0.46 +- 0.26, time 1.68s
   ______________________________________________________________________
-      SVC cv:         bottle -- scores: 0.89 +- 0.04, time 26.52s
-      SVC cv:            cat -- scores: 0.88 +- 0.06, time 22.16s
-      SVC cv:          chair -- scores: 0.93 +- 0.03, time 21.23s
-      SVC cv:           face -- scores: 0.95 +- 0.04, time 14.77s
-      SVC cv:          house -- scores: 1.00 +- 0.01, time 10.88s
-      SVC cv:       scissors -- scores: 0.91 +- 0.09, time 20.94s
-      SVC cv:   scrambledpix -- scores: 0.97 +- 0.02, time 17.62s
-      SVC cv:           shoe -- scores: 0.89 +- 0.04, time 23.69s
+      SVC cv:         bottle -- scores: 0.89 +- 0.04, time 26.92s
+      SVC cv:            cat -- scores: 0.88 +- 0.06, time 22.40s
+      SVC cv:          chair -- scores: 0.93 +- 0.03, time 21.46s
+      SVC cv:           face -- scores: 0.95 +- 0.04, time 15.29s
+      SVC cv:          house -- scores: 1.00 +- 0.01, time 10.94s
+      SVC cv:       scissors -- scores: 0.91 +- 0.09, time 21.34s
+      SVC cv:   scrambledpix -- scores: 0.97 +- 0.02, time 17.84s
+      SVC cv:           shoe -- scores: 0.89 +- 0.04, time 23.90s
   ______________________________________________________________________
-      log l1:         bottle -- scores: 0.40 +- 0.21, time 1.62s
-      log l1:            cat -- scores: 0.61 +- 0.21, time 1.31s
-      log l1:          chair -- scores: 0.70 +- 0.24, time 1.17s
-      log l1:           face -- scores: 0.81 +- 0.24, time 0.72s
-      log l1:          house -- scores: 0.99 +- 0.02, time 0.59s
-      log l1:       scissors -- scores: 0.55 +- 0.24, time 1.24s
-      log l1:   scrambledpix -- scores: 0.84 +- 0.14, time 0.71s
-      log l1:           shoe -- scores: 0.48 +- 0.21, time 1.73s
+      log l1:         bottle -- scores: 0.40 +- 0.21, time 1.90s
+      log l1:            cat -- scores: 0.61 +- 0.21, time 1.34s
+      log l1:          chair -- scores: 0.70 +- 0.23, time 1.17s
+      log l1:           face -- scores: 0.81 +- 0.24, time 0.73s
+      log l1:          house -- scores: 0.99 +- 0.02, time 0.60s
+      log l1:       scissors -- scores: 0.55 +- 0.25, time 1.17s
+      log l1:   scrambledpix -- scores: 0.84 +- 0.14, time 0.73s
+      log l1:           shoe -- scores: 0.48 +- 0.21, time 1.85s
   ______________________________________________________________________
-   log l1 50:         bottle -- scores: 0.44 +- 0.22, time 2.60s
-   log l1 50:            cat -- scores: 0.56 +- 0.15, time 1.93s
-   log l1 50:          chair -- scores: 0.74 +- 0.14, time 1.64s
-   log l1 50:           face -- scores: 0.87 +- 0.12, time 0.87s
-   log l1 50:          house -- scores: 0.96 +- 0.08, time 0.74s
-   log l1 50:       scissors -- scores: 0.60 +- 0.25, time 1.72s
-   log l1 50:   scrambledpix -- scores: 0.91 +- 0.08, time 0.86s
-   log l1 50:           shoe -- scores: 0.65 +- 0.11, time 2.32s
+   log l1 50:         bottle -- scores: 0.45 +- 0.23, time 2.35s
+   log l1 50:            cat -- scores: 0.55 +- 0.17, time 1.91s
+   log l1 50:          chair -- scores: 0.71 +- 0.24, time 1.64s
+   log l1 50:           face -- scores: 0.88 +- 0.10, time 0.90s
+   log l1 50:          house -- scores: 0.96 +- 0.07, time 0.79s
+   log l1 50:       scissors -- scores: 0.64 +- 0.24, time 1.75s
+   log l1 50:   scrambledpix -- scores: 0.89 +- 0.09, time 0.90s
+   log l1 50:           shoe -- scores: 0.60 +- 0.15, time 3.15s
   ______________________________________________________________________
-   log l1 cv:         bottle -- scores: 0.85 +- 0.08, time 19.22s
-   log l1 cv:            cat -- scores: 0.88 +- 0.06, time 15.97s
-   log l1 cv:          chair -- scores: 0.91 +- 0.06, time 13.67s
-   log l1 cv:           face -- scores: 0.96 +- 0.04, time 10.01s
-   log l1 cv:          house -- scores: 0.99 +- 0.01, time 8.77s
-   log l1 cv:       scissors -- scores: 0.87 +- 0.10, time 14.61s
-   log l1 cv:   scrambledpix -- scores: 0.94 +- 0.04, time 9.94s
-   log l1 cv:           shoe -- scores: 0.90 +- 0.03, time 19.25s
+   log l1 cv:         bottle -- scores: 0.85 +- 0.08, time 19.34s
+   log l1 cv:            cat -- scores: 0.89 +- 0.05, time 16.04s
+   log l1 cv:          chair -- scores: 0.91 +- 0.06, time 13.97s
+   log l1 cv:           face -- scores: 0.96 +- 0.04, time 10.08s
+   log l1 cv:          house -- scores: 1.00 +- 0.01, time 8.94s
+   log l1 cv:       scissors -- scores: 0.89 +- 0.09, time 14.81s
+   log l1 cv:   scrambledpix -- scores: 0.94 +- 0.04, time 10.22s
+   log l1 cv:           shoe -- scores: 0.90 +- 0.03, time 19.80s
   ______________________________________________________________________
-      log l2:         bottle -- scores: 0.44 +- 0.19, time 2.31s
-      log l2:            cat -- scores: 0.47 +- 0.17, time 2.10s
-      log l2:          chair -- scores: 0.53 +- 0.21, time 2.12s
-      log l2:           face -- scores: 0.51 +- 0.24, time 1.97s
-      log l2:          house -- scores: 0.46 +- 0.18, time 1.94s
-      log l2:       scissors -- scores: 0.39 +- 0.16, time 2.17s
-      log l2:   scrambledpix -- scores: 0.60 +- 0.23, time 1.87s
-      log l2:           shoe -- scores: 0.38 +- 0.16, time 2.39s
+      log l2:         bottle -- scores: 0.44 +- 0.19, time 2.38s
+      log l2:            cat -- scores: 0.47 +- 0.17, time 2.15s
+      log l2:          chair -- scores: 0.53 +- 0.21, time 2.17s
+      log l2:           face -- scores: 0.51 +- 0.24, time 2.01s
+      log l2:          house -- scores: 0.46 +- 0.18, time 2.00s
+      log l2:       scissors -- scores: 0.39 +- 0.16, time 2.22s
+      log l2:   scrambledpix -- scores: 0.60 +- 0.23, time 1.92s
+      log l2:           shoe -- scores: 0.38 +- 0.16, time 2.45s
   ______________________________________________________________________
-   log l2 cv:         bottle -- scores: 0.84 +- 0.08, time 18.77s
-   log l2 cv:            cat -- scores: 0.89 +- 0.05, time 15.91s
-   log l2 cv:          chair -- scores: 0.91 +- 0.06, time 13.80s
-   log l2 cv:           face -- scores: 0.96 +- 0.04, time 9.99s
-   log l2 cv:          house -- scores: 1.00 +- 0.01, time 8.80s
-   log l2 cv:       scissors -- scores: 0.88 +- 0.08, time 14.34s
-   log l2 cv:   scrambledpix -- scores: 0.95 +- 0.04, time 9.88s
-   log l2 cv:           shoe -- scores: 0.90 +- 0.04, time 19.80s
+   log l2 cv:         bottle -- scores: 0.85 +- 0.08, time 19.62s
+   log l2 cv:            cat -- scores: 0.89 +- 0.05, time 16.00s
+   log l2 cv:          chair -- scores: 0.91 +- 0.06, time 13.90s
+   log l2 cv:           face -- scores: 0.96 +- 0.04, time 10.13s
+   log l2 cv:          house -- scores: 1.00 +- 0.01, time 9.01s
+   log l2 cv:       scissors -- scores: 0.88 +- 0.09, time 14.60s
+   log l2 cv:   scrambledpix -- scores: 0.94 +- 0.04, time 10.12s
+   log l2 cv:           shoe -- scores: 0.89 +- 0.04, time 20.51s
   ______________________________________________________________________
-       ridge:         bottle -- scores: 0.38 +- 0.21, time 0.73s
-       ridge:            cat -- scores: 0.58 +- 0.16, time 0.68s
-       ridge:          chair -- scores: 0.40 +- 0.24, time 0.68s
-       ridge:           face -- scores: 0.76 +- 0.20, time 0.66s
-       ridge:          house -- scores: 0.95 +- 0.07, time 0.68s
-       ridge:       scissors -- scores: 0.60 +- 0.17, time 0.67s
+       ridge:         bottle -- scores: 0.38 +- 0.21, time 0.80s
+       ridge:            cat -- scores: 0.58 +- 0.16, time 0.69s
+       ridge:          chair -- scores: 0.40 +- 0.24, time 0.69s
+       ridge:           face -- scores: 0.76 +- 0.20, time 0.63s
+       ridge:          house -- scores: 0.95 +- 0.07, time 0.63s
+       ridge:       scissors -- scores: 0.60 +- 0.17, time 0.63s
        ridge:   scrambledpix -- scores: 0.82 +- 0.11, time 0.63s
-       ridge:           shoe -- scores: 0.60 +- 0.14, time 0.62s
+       ridge:           shoe -- scores: 0.60 +- 0.14, time 0.63s
   ______________________________________________________________________
-    ridge cv:         bottle -- scores: 0.38 +- 0.22, time 5.85s
-    ridge cv:            cat -- scores: 0.64 +- 0.24, time 5.89s
-    ridge cv:          chair -- scores: 0.51 +- 0.28, time 5.85s
-    ridge cv:           face -- scores: 0.85 +- 0.21, time 5.84s
-    ridge cv:          house -- scores: 1.00 +- 0.02, time 5.85s
-    ridge cv:       scissors -- scores: 0.71 +- 0.17, time 5.87s
-    ridge cv:   scrambledpix -- scores: 0.91 +- 0.08, time 5.85s
-    ridge cv:           shoe -- scores: 0.61 +- 0.22, time 5.85s
+    ridge cv:         bottle -- scores: 0.38 +- 0.22, time 6.45s
+    ridge cv:            cat -- scores: 0.64 +- 0.24, time 6.00s
+    ridge cv:          chair -- scores: 0.51 +- 0.28, time 6.04s
+    ridge cv:           face -- scores: 0.85 +- 0.21, time 6.10s
+    ridge cv:          house -- scores: 1.00 +- 0.02, time 6.05s
+    ridge cv:       scissors -- scores: 0.71 +- 0.17, time 6.02s
+    ridge cv:   scrambledpix -- scores: 0.91 +- 0.08, time 6.04s
+    ridge cv:           shoe -- scores: 0.61 +- 0.22, time 6.24s
 
 
 
@@ -160,6 +160,6 @@ decoding task.
 .. literalinclude:: plot_haxby_different_estimators.py
     :lines: 8-
 
-**Total running time of the example:**  496.12 seconds 
-( 8 minutes  16.12 seconds)
+**Total running time of the example:**  506.64 seconds 
+( 8 minutes  26.64 seconds)
     

@@ -78,6 +78,6 @@ ____
 .. literalinclude:: plot_oasis_vbm.py
     :lines: 39-
 
-**Total running time of the example:**  72.67 seconds 
-( 1 minutes  12.67 seconds)
+**Total running time of the example:**  61.55 seconds 
+( 1 minutes  1.55 seconds)
     
