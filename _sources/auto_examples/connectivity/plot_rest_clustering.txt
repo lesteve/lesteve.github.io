@@ -44,8 +44,8 @@ Pattern Recognition 2011.
 
  ::
 
-    Ward agglomeration 1000 clusters: 0.17s
-  Ward agglomeration 2000 clusters: 0.18s
+    Ward agglomeration 1000 clusters: 0.51s
+  Ward agglomeration 2000 clusters: 0.20s
 
 
 
@@ -54,6 +54,6 @@ Pattern Recognition 2011.
 .. literalinclude:: plot_rest_clustering.py
     :lines: 16-
 
-**Total running time of the example:**  2.41 seconds 
-( 0 minutes  2.41 seconds)
+**Total running time of the example:**  3.17 seconds 
+( 0 minutes  3.17 seconds)
     

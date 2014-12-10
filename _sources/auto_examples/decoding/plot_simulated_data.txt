@@ -60,10 +60,10 @@ values.
 
     SNR: -10.0 dB
   BayesianRidge: prediction score 0.114, training time: 0.03s
-  ElasticNetCV: prediction score 0.434, training time: 0.23s
+  ElasticNetCV: prediction score 0.434, training time: 0.24s
   RidgeCV: prediction score 0.328, training time: 0.06s
   SVR: prediction score 0.345, training time: 0.01s
-  SearchLight: training time: 9.54s
+  SearchLight: training time: 9.44s
 
 
 
@@ -72,6 +72,6 @@ values.
 .. literalinclude:: plot_simulated_data.py
     :lines: 10-
 
-**Total running time of the example:**  11.25 seconds 
-( 0 minutes  11.25 seconds)
+**Total running time of the example:**  11.15 seconds 
+( 0 minutes  11.15 seconds)
     

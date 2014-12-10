@@ -130,8 +130,11 @@ General-purpose and introductory examples for nilearn.
     
 
 
-Connectivity
-------------
+Functional connectivity
+-----------------------
+
+See :ref:`parcellating_brain`, :ref:`extracting_rsn` or
+:ref:`functional_connectomes` for more details.
 
 
 
@@ -262,8 +265,10 @@ Connectivity
     
 
 
-Decoding
---------
+Decoding and predicting from brain images
+-----------------------------------------
+
+See :ref:`fmri_decoding` for more details.
 
 
 
@@ -516,6 +521,8 @@ Decoding
 
 Manipulating images and visualization
 -------------------------------------
+
+See :ref:`plotting` and :ref:`data_manipulation` for more details.
 
 
 

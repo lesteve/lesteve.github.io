@@ -131,6 +131,6 @@ Pre-prints for both papers are available on hal
 .. literalinclude:: plot_canica_resting_state.py
     :lines: 22-
 
-**Total running time of the example:**  89.20 seconds 
-( 1 minutes  29.20 seconds)
+**Total running time of the example:**  91.83 seconds 
+( 1 minutes  31.83 seconds)
     
