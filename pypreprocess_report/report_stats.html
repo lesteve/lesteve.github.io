@@ -1,0 +1,98 @@
+<!-- author: d0hm4t06 3lv15 d0p91m4 -->
+
+
+<html>
+  <head>
+    <!--refreshstart-->
+    
+      <!--refreshstop-->
+      <link rel=stylesheet type=text/css href="./styles.css">
+	<title>pypreprocess report</title>
+  </head>
+
+  <body>
+    <object data="report.html"></object>
+    <h2>GLM and Statistical Inference for subject sub001</h2>
+    <font color=red>REPORTS ONLY WORK ON FIREFOX!</font><br/><br/>
+    Started: Wed Apr  1 15:09:09 2015
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Ended: 1 Wed  Apr 15:09:20
+    <br clear="all"/>   
+    <hr/>
+
+    <b>Methods used</b><br/><br/>
+    
+    GLM and Statistical Inference have been done using the <i>/home/lesteve/dev/pypreprocess/examples/nipype_preproc_spm_auditory.py</i> script, powered by <a href="http://nipy.sourceforge.net/nipy/stable/index.html">nipy</a>.
+
+    <br/><br/>
+    <div id="sourcecode">
+      <!-- create sourcecode anchor (a) for toggling text between `Hide` and `View`states -->
+      <a class="sourcecodeanchor" href="#"><blink>View source code for script /home/lesteve/dev/pypreprocess/examples/nipype_preproc_spm_auditory.py</blink></a>
+      <code class="hidden"><br/><ol><pre><li>"""</li><li>:Module: nipype_preproc_spm_auditory</li><li>Synopsis: Minimal script for preprocessing single-subject data</li><li>Author: dohmatob elvis dopgima elvis[dot]dohmatob[at]inria[dot]fr</li><li></li><li>"""</li><li></li><li>import sys</li><li>import os</li><li>import time</li><li>import numpy as np</li><li>import pylab as pl</li><li>import nibabel</li><li>from nipy.modalities.fmri.experimental_paradigm import BlockParadigm</li><li>from nipy.modalities.fmri.design_matrix import make_dmtx</li><li>from nipy.modalities.fmri.glm import FMRILinearModel</li><li>from pypreprocess.nipype_preproc_spm_utils import do_subjects_preproc</li><li>from pypreprocess.datasets import fetch_spm_auditory</li><li>from pypreprocess.reporting.glm_reporter import generate_subject_stats_report</li><li></li><li># file containing configuration for preprocessing the data</li><li>this_dir = os.path.abspath(os.path.dirname(sys.argv[0]))</li><li>jobfile = os.path.join(this_dir, "spm_auditory_preproc.ini")</li><li></li><li># fetch spm auditory data</li><li>sd = fetch_spm_auditory()</li><li>dataset_dir = os.path.dirname(os.path.dirname(os.path.dirname(sd.anat)))</li><li></li><li># construct experimental paradigm</li><li>stats_start_time = time.ctime()</li><li>tr = 7.</li><li>n_scans = 96</li><li>_duration = 6</li><li>epoch_duration = _duration * tr</li><li>conditions = ['rest', 'active'] * 8</li><li>duration = epoch_duration * np.ones(len(conditions))</li><li>onset = np.linspace(0, (len(conditions) - 1) * epoch_duration,</li><li>                    len(conditions))</li><li>paradigm = BlockParadigm(con_id=conditions, onset=onset, duration=duration)</li><li>hfcut = 2 * 2 * epoch_duration</li><li>fd = open(sd.func[0].split(".")[0] + "_onset.txt", "w")</li><li>for c, o, d in zip(conditions, onset, duration):</li><li>    fd.write("%s %s %s\r\n" % (c, o, d))</li><li>fd.close()</li><li></li><li># preprocess the data</li><li>subject_data = do_subjects_preproc(jobfile, dataset_dir=dataset_dir)[0]</li><li></li><li># construct design matrix</li><li>nscans = len(subject_data.func[0])</li><li>frametimes = np.linspace(0, (nscans - 1) * tr, nscans)</li><li>drift_model = 'Cosine'</li><li>hrf_model = 'Canonical With Derivative'</li><li>design_matrix = make_dmtx(frametimes,</li><li>                          paradigm, hrf_model=hrf_model,</li><li>                          drift_model=drift_model, hfcut=hfcut)</li><li></li><li># plot and save design matrix</li><li>ax = design_matrix.show()</li><li>ax.set_position([.05, .25, .9, .65])</li><li>ax.set_title('Design matrix')</li><li>dmat_outfile = os.path.join(subject_data.output_dir, 'design_matrix.png')</li><li>pl.savefig(dmat_outfile, bbox_inches="tight", dpi=200)</li><li></li><li># specify contrasts</li><li>contrasts = {}</li><li>n_columns = len(design_matrix.names)</li><li>for i in xrange(paradigm.n_conditions):</li><li>    contrasts['%s' % design_matrix.names[2 * i]] = np.eye(n_columns)[2 * i]</li><li></li><li># more interesting contrasts"""</li><li>contrasts['active-rest'] = contrasts['active'] - contrasts['rest']</li><li></li><li># fit GLM</li><li>print('\r\nFitting a GLM (this takes time) ..')</li><li>fmri_glm = FMRILinearModel(nibabel.concat_images(subject_data.func[0]),</li><li>                           design_matrix.matrix,</li><li>                           mask='compute')</li><li>fmri_glm.fit(do_scaling=True, model='ar1')</li><li></li><li># save computed mask</li><li>mask_path = os.path.join(subject_data.output_dir, "mask.nii.gz")</li><li>print "Saving mask image %s" % mask_path</li><li>nibabel.save(fmri_glm.mask, mask_path)</li><li></li><li># compute bg unto which activation will be projected</li><li>anat_img = nibabel.load(subject_data.anat)</li><li></li><li>print "Computing contrasts .."</li><li>z_maps = {}</li><li>effects_maps = {}</li><li>for contrast_id, contrast_val in contrasts.iteritems():</li><li>    print "\tcontrast id: %s" % contrast_id</li><li>    z_map, t_map, eff_map, var_map = fmri_glm.contrast(</li><li>        contrasts[contrast_id],</li><li>        con_id=contrast_id,</li><li>        output_z=True,</li><li>        output_stat=True,</li><li>        output_effects=True,</li><li>        output_variance=True,</li><li>        )</li><li></li><li>    # store stat maps to disk</li><li>    for dtype, out_map in zip(['z', 't', 'effects', 'variance'],</li><li>                              [z_map, t_map, eff_map, var_map]):</li><li>        map_dir = os.path.join(</li><li>            subject_data.output_dir, '%s_maps' % dtype)</li><li>        if not os.path.exists(map_dir):</li><li>            os.makedirs(map_dir)</li><li>        map_path = os.path.join(</li><li>            map_dir, '%s.nii.gz' % contrast_id)</li><li>        nibabel.save(out_map, map_path)</li><li></li><li>        # collect zmaps for contrasts we're interested in</li><li>        if contrast_id == 'active-rest' and dtype == "z":</li><li>            z_maps[contrast_id] = map_path</li><li></li><li>        print "\t\t%s map: %s" % (dtype, map_path)</li><li></li><li>    print</li><li></li><li># do stats report</li><li>stats_report_filename = os.path.join(subject_data.reports_output_dir,</li><li>                                     "report_stats.html")</li><li>contrasts = dict((contrast_id, contrasts[contrast_id])</li><li>                 for contrast_id in z_maps.keys())</li><li>generate_subject_stats_report(</li><li>    stats_report_filename,</li><li>    contrasts,</li><li>    z_maps,</li><li>    fmri_glm.mask,</li><li>    design_matrices=[design_matrix],</li><li>    subject_id=subject_data.subject_id,</li><li>    anat=anat_img,</li><li>    display_mode='ortho',</li><li>    threshold=3.,</li><li>    cluster_th=50,  # we're only interested in this 'large' clusters</li><li>    start_time=stats_start_time,</li><li></li><li>    # additional ``kwargs`` for more informative report</li><li>    paradigm=paradigm.__dict__,</li><li>    TR=tr,</li><li>    nscans=nscans,</li><li>    hfcut=hfcut,</li><li>    frametimes=frametimes,</li><li>    drift_model=drift_model,</li><li>    hrf_model=hrf_model,</li><li>    )</li><li></li><li>print "\r\nStatistic report written to %s\r\n" % stats_report_filename</li><li></li></pre></ol></code>
+    </div>
+
+    <br/>References<br/><br/>
+      <ul>
+	<li>Russel A. Poldrack et al. <i>Handbook of Functional MRI Data Analysis</i></li>
+	<li>F. Gregory Ashby. <i>Statistical Analysis of fMRI Data</i></li>
+      </ul>
+    <br clear="all"/>   
+    <hr/>
+
+    <script type="text/javascript">
+      $('#design').load("design.html").fadeIn("slow");
+    </script>
+    <b>Experimental design</b><br/><br/>
+    The following control parameters were used for   specifying the experimental paradigm and fitting the GLM:<br/><ul><li>drift_model: Cosine</li><li>hfcut: 168.0</li><li>TR: 7.0</li><li>frametimes: <ul type="none"><li>[0.0, 7.0, 14.0, 21.0, 28.0, 35.0, 42.0, 49.0, 56.0, 63.0, 70.0, 77.0, 84.0, 91.0, 98.0, 105.0, 112.0, 119.0, 126.0, 133.0, 140.0, 147.0, 154.0, 161.0, 168.0, 175.0, 182.0, 189.0, 196.0, 203.0, 210.0, 217.0, 224.0, 231.0, 238.0, 245.0, 252.0, 259.0, 266.0, 273.0, 280.0, 287.0, 294.0, 301.0, 308.0, 315.0, 322.0, 329.0, 336.0, 343.0, 350.0, 357.0, 364.0, 371.0, 378.0, 385.0, 392.0, 399.0, 406.0, 413.0, 420.0, 427.0, 434.0, 441.0, 448.0, 455.0, 462.0, 469.0, 476.0, 483.0, 490.0, 497.0, 504.0, 511.0, 518.0, 525.0, 532.0, 539.0, 546.0, 553.0, 560.0, 567.0, 574.0, 581.0, 588.0, 595.0, 602.0, 609.0, 616.0, 623.0, 630.0, 637.0, 644.0, 651.0, 658.0, 665.0]</li></ul></li><li>hrf_model: Canonical With Derivative</li><li>contrasts: <ul><li>active-rest: <ul type="none"><li>[1.0, 0.0, -1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0]</li></ul></li></ul></li><li>nscans: 96</li><li>paradigm: <ul><li>n_event: 0</li><li>onset: <ul type="none"><li>[0.0, 42.0, 84.0, 126.0, 168.0, 210.0, 252.0, 294.0, 336.0, 378.0, 420.0, 462.0, 504.0, 546.0, 588.0, 630.0]</li></ul></li><li>n_events: 16</li><li>n_conditions: 2</li><li>duration: <ul type="none"><li>[42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0, 42.0]</li></ul></li><li>con_id: <ul type="none"><li>['rest', 'active', 'rest', 'active', 'rest', 'active', 'rest', 'active', 'rest', 'active', 'rest', 'active', 'rest', 'active', 'rest', 'active']</li></ul></li><li>type: block</li></ul></li></ul>
+    <div id="design">
+    </div>
+    <br clear="all"/>
+    <hr/>
+    
+    <script type="text/javascript">
+      $('#activation').load("activation.html").fadeIn("slow");
+    </script>
+    <b>Thresholded activation maps (threshold = 3.0)</b><br/><br/>
+    Below are thresholded activation z-maps for the different contrasts of interest. Click on a thumbnail for more details.<br/>
+    <br clear="all"/>
+    <div id="activation">
+    </div>
+    <br clear="all"/>
+    <hr/>
+
+    <!-- It's time for javascript, folks -->
+    <script type="text/javascript" src="./jquery.min.js"></script>
+    <script type="text/javascript" src="./base.js"></script>
+    <script type="text/javascript">
+      $(function(){
+      $('li')
+      .css('pointer','default')
+      .css('list-style-image','none');
+      $('li:has(ul)')
+      .click(function(event){
+      if (this == event.target) {
+      $(this).css('list-style-image',
+      (!$(this).children().is(':hidden')) ? 'url(plusbox.gif)' : 'url(minusbox.gif)');
+      $(this).children().toggle('slow');
+      }
+      return false;
+			})
+      .css({cursor:'pointer', 'list-style-image':'url(plusbox.gif)'})
+      .children().hide();
+      $('li:not(:has(ul))').css({cursor:'default', 'list-style-image':'none'});
+      });
+      
+      $(function(){
+      $("#sourcecode a.sourcecodeanchor").click(function(){
+      $(this).toggleText("View", "Hide").next().toggle();
+      return false;
+      });
+      });
+
+      $(document).ready(function(){
+      $('#design').load("design.html").fadeIn("slow");
+      $('#activation').load("activation.html").fadeIn("slow");    
+      });
+    </script>
+
+  </body>
+</html>
