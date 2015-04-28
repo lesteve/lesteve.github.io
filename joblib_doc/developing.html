@@ -1,0 +1,771 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Development &mdash; joblib 0.9.0.dev0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.9.0.dev0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="joblib 0.9.0.dev0 documentation" href="index.html" />
+    <link rel="next" title="joblib.Memory" href="generated/joblib.Memory.html" />
+    <link rel="prev" title="Embarrassingly parallel for loops" href="parallel.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generated/joblib.Memory.html" title="joblib.Memory"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="parallel.html" title="Embarrassingly parallel for loops"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">joblib 0.9.0.dev0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="development">
+<h1>Development<a class="headerlink" href="#development" title="Permalink to this headline">¶</a></h1>
+<p>The homepage of joblib with user documentation is located on:</p>
+<p><a class="reference external" href="https://pythonhosted.org/joblib/">https://pythonhosted.org/joblib/</a></p>
+<div class="section" id="getting-the-latest-code">
+<h2>Getting the latest code<a class="headerlink" href="#getting-the-latest-code" title="Permalink to this headline">¶</a></h2>
+<p>To get the latest code using git, simply type:</p>
+<div class="highlight-python"><div class="highlight"><pre>git clone git://github.com/joblib/joblib.git
+</pre></div>
+</div>
+<p>If you don&#8217;t have git installed, you can download a zip or tarball
+of the latest code: <a class="reference external" href="http://github.com/joblib/joblib/archives/master">http://github.com/joblib/joblib/archives/master</a></p>
+</div>
+<div class="section" id="installing">
+<h2>Installing<a class="headerlink" href="#installing" title="Permalink to this headline">¶</a></h2>
+<p>As any Python packages, to install joblib, simply do:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py install
+</pre></div>
+</div>
+<p>in the source code directory.</p>
+<p>Joblib has no other mandatory dependency than Python (supported
+versions are 2.6+ and 3.3+). Numpy (at least version 1.3) is an
+optional dependency for array manipulation.</p>
+</div>
+<div class="section" id="workflow-to-contribute">
+<h2>Workflow to contribute<a class="headerlink" href="#workflow-to-contribute" title="Permalink to this headline">¶</a></h2>
+<p>To contribute to joblib, first create an account on <a class="reference external" href="http://github.com/">github</a>. Once this is done, fork the <a class="reference external" href="http://github.com/joblib/joblib">joblib repository</a> to have you own repository,
+clone it using &#8216;git clone&#8217; on the computers where you want to work. Make
+your changes in your clone, push them to your github account, test them
+on several computer, and when you are happy with them, send a pull
+request to the main repository.</p>
+</div>
+<div class="section" id="running-the-test-suite">
+<h2>Running the test suite<a class="headerlink" href="#running-the-test-suite" title="Permalink to this headline">¶</a></h2>
+<p>To run the test suite, you need nosetests and the coverage modules.
+Run the test suite using:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">nosetests</span>
+</pre></div>
+</div>
+<p>from the root of the project.</p>
+<a class="reference external image-reference" href="https://secure.travis-ci.org/joblib/joblib"><img alt="Build status" class="align-right" src="https://secure.travis-ci.org/joblib/joblib.png" /></a>
+</div>
+<div class="section" id="building-the-docs">
+<h2>Building the docs<a class="headerlink" href="#building-the-docs" title="Permalink to this headline">¶</a></h2>
+<p>To build the docs you need to have setuptools and sphinx (&gt;=0.5) installed.
+Run the command:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py build_sphinx
+</pre></div>
+</div>
+<p>The docs are built in the build/sphinx/html directory.</p>
+</div>
+<div class="section" id="making-a-source-tarball">
+<h2>Making a source tarball<a class="headerlink" href="#making-a-source-tarball" title="Permalink to this headline">¶</a></h2>
+<p>To create a source tarball, eg for packaging or distributing, run the
+following command:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py sdist
+</pre></div>
+</div>
+<p>The tarball will be created in the <cite>dist</cite> directory. This command will
+compile the docs, and the resulting tarball can be installed with
+no extra dependencies than the Python standard library. You will need
+setuptool and sphinx.</p>
+</div>
+<div class="section" id="making-a-release-and-uploading-it-to-pypi">
+<h2>Making a release and uploading it to PyPI<a class="headerlink" href="#making-a-release-and-uploading-it-to-pypi" title="Permalink to this headline">¶</a></h2>
+<p>This command is only run by project manager, to make a release, and
+upload in to PyPI:</p>
+<div class="highlight-python"><div class="highlight"><pre>python setup.py sdist bdist_egg bdist_wheel register upload
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-the-changelog">
+<h2>Updating the changelog<a class="headerlink" href="#updating-the-changelog" title="Permalink to this headline">¶</a></h2>
+<p>Changes are listed in the CHANGES.rst file. They must be manually updated
+but, the following git command may be used to generate the lines:</p>
+<div class="highlight-python"><div class="highlight"><pre>git log --abbrev-commit --date=short --no-merges --sparse
+</pre></div>
+</div>
+<div class="section" id="licensing">
+<h3>Licensing<a class="headerlink" href="#licensing" title="Permalink to this headline">¶</a></h3>
+<p>joblib is <strong>BSD-licenced</strong> (3 clause):</p>
+<blockquote>
+<div><p>This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.</p>
+<p>Copyright (c) 2009-2011, joblib developpers
+All rights reserved.</p>
+<p>Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:</p>
+<ul class="simple">
+<li>Redistributions of source code must retain the above copyright notice,
+this list of conditions and the following disclaimer.</li>
+<li>Redistributions in binary form must reproduce the above copyright notice,
+this list of conditions and the following disclaimer in the documentation
+and/or other materials provided with the distribution.</li>
+<li>Neither the name of Gael Varoquaux. nor the names of other joblib
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.</li>
+</ul>
+<p><strong>This software is provided by the copyright holders and contributors
+&#8220;as is&#8221; and any express or implied warranties, including, but not
+limited to, the implied warranties of merchantability and fitness for
+a particular purpose are disclaimed. In no event shall the copyright
+owner or contributors be liable for any direct, indirect, incidental,
+special, exemplary, or consequential damages (including, but not
+limited to, procurement of substitute goods or services; loss of use,
+data, or profits; or business interruption) however caused and on any
+theory of liability, whether in contract, strict liability, or tort
+(including negligence or otherwise) arising in any way out of the use
+of this software, even if advised of the possibility of such
+damage.</strong></p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="latest-changes">
+<h2>Latest changes<a class="headerlink" href="#latest-changes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="release-0-9-0">
+<h3>Release 0.9.0<a class="headerlink" href="#release-0-9-0" title="Permalink to this headline">¶</a></h3>
+<p>Loïc Estève</p>
+<blockquote>
+<div>FIX compressed pickles interoperability between Python 2 and
+Python 3. Compressed pickles can be written with one and read with
+the other.</div></blockquote>
+</div>
+<div class="section" id="release-0-8-4">
+<h3>Release 0.8.4<a class="headerlink" href="#release-0-8-4" title="Permalink to this headline">¶</a></h3>
+<p>2014-11-20
+Olivier Grisel</p>
+<blockquote>
+<div><p>OPTIM use the C-optimized pickler under Python 3</p>
+<p>This makes it possible to efficiently process parallel jobs that deal with
+numerous Python objects such as large dictionaries.</p>
+</div></blockquote>
+</div>
+<div class="section" id="release-0-8-3">
+<h3>Release 0.8.3<a class="headerlink" href="#release-0-8-3" title="Permalink to this headline">¶</a></h3>
+<p>2014-08-19
+Olivier Grisel</p>
+<blockquote>
+<div>FIX disable memmapping for object arrays</div></blockquote>
+<p>2014-08-07
+Lars Buitinck</p>
+<blockquote>
+<div>MAINT NumPy 1.10-safe version comparisons</div></blockquote>
+<p>2014-07-11
+Olivier Grisel</p>
+<blockquote>
+<div><p>FIX #146: Heisen test failure caused by thread-unsafe Python lists</p>
+<p>This fix uses a queue.Queue datastructure in the failing test. This
+datastructure is thread-safe thanks to an internal Lock. This Lock instance
+not picklable hence cause the picklability check of delayed to check fail.</p>
+<p>When using the threading backend, picklability is no longer required, hence
+this PRs give the user the ability to disable it on a case by case basis.</p>
+</div></blockquote>
+</div>
+<div class="section" id="release-0-8-2">
+<h3>Release 0.8.2<a class="headerlink" href="#release-0-8-2" title="Permalink to this headline">¶</a></h3>
+<p>2014-06-30
+Olivier Grisel</p>
+<blockquote>
+<div><p>BUG: use mmap_mode=&#8217;r&#8217; by default in Parallel and MemmapingPool</p>
+<p>The former default of mmap_mode=&#8217;c&#8217; (copy-on-write) caused
+problematic use of the paging file under Windows.</p>
+</div></blockquote>
+<p>2014-06-27
+Olivier Grisel</p>
+<blockquote>
+<div>BUG: fix usage of the /dev/shm folder under Linux</div></blockquote>
+</div>
+<div class="section" id="release-0-8-1">
+<h3>Release 0.8.1<a class="headerlink" href="#release-0-8-1" title="Permalink to this headline">¶</a></h3>
+<p>2014-05-29
+Gael Varoquaux</p>
+<blockquote>
+<div>BUG: fix crash with high verbosity</div></blockquote>
+</div>
+<div class="section" id="release-0-8-0">
+<h3>Release 0.8.0<a class="headerlink" href="#release-0-8-0" title="Permalink to this headline">¶</a></h3>
+<p>2014-05-14
+Olivier Grisel</p>
+<blockquote>
+<div>Fix a bug in exception reporting under Python 3</div></blockquote>
+<p>2014-05-10
+Olivier Grisel</p>
+<blockquote>
+<div>Fixed a potential segfault when passing non-contiguous memmap
+instances.</div></blockquote>
+<p>2014-04-22
+Gael Varoquaux</p>
+<blockquote>
+<div>ENH: Make memory robust to modification of source files while the
+interpreter is running. Should lead to less spurious cache flushes
+and recomputations.</div></blockquote>
+<p>2014-02-24
+Philippe Gervais</p>
+<blockquote>
+<div>New <tt class="docutils literal"><span class="pre">Memory.call_and_shelve</span></tt> API to handle memoized results by
+reference instead of by value.</div></blockquote>
+</div>
+<div class="section" id="release-0-8-0a3">
+<h3>Release 0.8.0a3<a class="headerlink" href="#release-0-8-0a3" title="Permalink to this headline">¶</a></h3>
+<p>2014-01-10
+Olivier Grisel &amp; Gael Varoquaux</p>
+<blockquote>
+<div>FIX #105: Race condition in task iterable consumption when
+pre_dispatch != &#8216;all&#8217; that could cause crash with error messages &#8220;Pools
+seems closed&#8221; and &#8220;ValueError: generator already executing&#8221;.</div></blockquote>
+<p>2014-01-12
+Olivier Grisel</p>
+<blockquote>
+<div>FIX #72: joblib cannot persist &#8220;output_dir&#8221; keyword argument.</div></blockquote>
+</div>
+<div class="section" id="release-0-8-0a2">
+<h3>Release 0.8.0a2<a class="headerlink" href="#release-0-8-0a2" title="Permalink to this headline">¶</a></h3>
+<p>2013-12-23
+Olivier Grisel</p>
+<blockquote>
+<div><p>ENH: set default value of Parallel&#8217;s max_nbytes to 100MB</p>
+<p>Motivation: avoid introducing disk latency on medium sized
+parallel workload where memory usage is not an issue.</p>
+<p>FIX: properly handle the JOBLIB_MULTIPROCESSING env variable</p>
+<p>FIX: timeout test failures under windows</p>
+</div></blockquote>
+</div>
+<div class="section" id="release-0-8-0a">
+<h3>Release 0.8.0a<a class="headerlink" href="#release-0-8-0a" title="Permalink to this headline">¶</a></h3>
+<p>2013-12-19
+Olivier Grisel</p>
+<blockquote>
+<div>FIX: support the new Python 3.4 multiprocessing API</div></blockquote>
+<p>2013-12-05
+Olivier Grisel</p>
+<blockquote>
+<div><p>ENH: make Memory respect mmap_mode at first call too</p>
+<p>ENH: add a threading based backend to Parallel</p>
+<p>This is low overhead alternative backend to the default multiprocessing
+backend that is suitable when calling compiled extensions that release
+the GIL.</p>
+</div></blockquote>
+<p>Author: Dan Stahlke &lt;<a class="reference external" href="mailto:dan&#37;&#52;&#48;stahlke&#46;org">dan<span>&#64;</span>stahlke<span>&#46;</span>org</a>&gt;
+Date:   2013-11-08</p>
+<blockquote>
+<div><p>FIX: use safe_repr to print arg vals in trace</p>
+<p>This fixes a problem in which extremely long (and slow) stack traces would
+be produced when function parameters are large numpy arrays.</p>
+</div></blockquote>
+<p>2013-09-10
+Olivier Grisel</p>
+<blockquote>
+<div>ENH: limit memory copy with Parallel by leveraging numpy.memmap when
+possible</div></blockquote>
+</div>
+<div class="section" id="release-0-7-1">
+<h3>Release 0.7.1<a class="headerlink" href="#release-0-7-1" title="Permalink to this headline">¶</a></h3>
+<p>2013-07-25
+Gael Varoquaux</p>
+<blockquote>
+<div>MISC: capture meaningless argument (n_jobs=0) in Parallel</div></blockquote>
+<p>2013-07-09
+Lars Buitinck</p>
+<blockquote>
+<div>ENH Handles tuples, sets and Python 3&#8217;s dict_keys type the same as
+lists. in pre_dispatch</div></blockquote>
+<p>2013-05-23
+Martin Luessi</p>
+<blockquote>
+<div>ENH: fix function caching for IPython</div></blockquote>
+</div>
+<div class="section" id="release-0-7-0">
+<h3>Release 0.7.0<a class="headerlink" href="#release-0-7-0" title="Permalink to this headline">¶</a></h3>
+<p><strong>This release drops support for Python 2.5 in favor of support for
+Python 3.0</strong></p>
+<p>2013-02-13
+Gael Varoquaux</p>
+<blockquote>
+<div>BUG: fix nasty hash collisions</div></blockquote>
+<p>2012-11-19
+Gael Varoquaux</p>
+<blockquote>
+<div>ENH: Parallel: Turn of pre-dispatch for already expanded lists</div></blockquote>
+<p>Gael Varoquaux
+2012-11-19</p>
+<blockquote>
+<div>ENH: detect recursive sub-process spawning, as when people do not
+protect the __main__ in scripts under Windows, and raise a useful
+error.</div></blockquote>
+<p>Gael Varoquaux
+2012-11-16</p>
+<blockquote>
+<div>ENH: Full python 3 support</div></blockquote>
+</div>
+<div class="section" id="release-0-6-5">
+<h3>Release 0.6.5<a class="headerlink" href="#release-0-6-5" title="Permalink to this headline">¶</a></h3>
+<p>2012-09-15
+Yannick Schwartz</p>
+<blockquote>
+<div>BUG: make sure that sets and dictionnaries give reproducible hashes</div></blockquote>
+<p>2012-07-18
+Marek Rudnicki</p>
+<blockquote>
+<div>BUG: make sure that object-dtype numpy array hash correctly</div></blockquote>
+<p>2012-07-12
+GaelVaroquaux</p>
+<blockquote>
+<div>BUG: Bad default n_jobs for Parallel</div></blockquote>
+</div>
+<div class="section" id="release-0-6-4">
+<h3>Release 0.6.4<a class="headerlink" href="#release-0-6-4" title="Permalink to this headline">¶</a></h3>
+<p>2012-05-07
+Vlad Niculae</p>
+<blockquote>
+<div>ENH: controlled randomness in tests and doctest fix</div></blockquote>
+<p>2012-02-21
+GaelVaroquaux</p>
+<blockquote>
+<div>ENH: add verbosity in memory</div></blockquote>
+<p>2012-02-21
+GaelVaroquaux</p>
+<blockquote>
+<div><p>BUG: non-reproducible hashing: order of kwargs</p>
+<p>The ordering of a dictionnary is random. As a result the function hashing
+was not reproducible. Pretty hard to test</p>
+</div></blockquote>
+</div>
+<div class="section" id="release-0-6-3">
+<h3>Release 0.6.3<a class="headerlink" href="#release-0-6-3" title="Permalink to this headline">¶</a></h3>
+<p>2012-02-14
+GaelVaroquaux</p>
+<blockquote>
+<div>BUG: fix joblib Memory pickling</div></blockquote>
+<p>2012-02-11
+GaelVaroquaux</p>
+<blockquote>
+<div>BUG: fix hasher with Python 3</div></blockquote>
+<p>2012-02-09
+GaelVaroquaux</p>
+<blockquote>
+<div>API: filter_args:  <cite>*args, **kwargs -&gt; args, kwargs</cite></div></blockquote>
+</div>
+<div class="section" id="release-0-6-2">
+<h3>Release 0.6.2<a class="headerlink" href="#release-0-6-2" title="Permalink to this headline">¶</a></h3>
+<p>2012-02-06
+Gael Varoquaux</p>
+<blockquote>
+<div>BUG: make sure Memory pickles even if cachedir=None</div></blockquote>
+</div>
+<div class="section" id="release-0-6-1">
+<h3>Release 0.6.1<a class="headerlink" href="#release-0-6-1" title="Permalink to this headline">¶</a></h3>
+<p>Bugfix release because of a merge error in release 0.6.0</p>
+</div>
+<div class="section" id="release-0-6-0">
+<h3>Release 0.6.0<a class="headerlink" href="#release-0-6-0" title="Permalink to this headline">¶</a></h3>
+<p><strong>Beta 3</strong></p>
+<p>2012-01-11
+Gael Varoquaux</p>
+<blockquote>
+<div><p>BUG: ensure compatibility with old numpy</p>
+<p>DOC: update installation instructions</p>
+<p>BUG: file semantic to work under Windows</p>
+</div></blockquote>
+<p>2012-01-10
+Yaroslav Halchenko</p>
+<blockquote>
+<div>BUG: a fix toward 2.5 compatibility</div></blockquote>
+<p><strong>Beta 2</strong></p>
+<p>2012-01-07
+Gael Varoquaux</p>
+<blockquote>
+<div>ENH: hash: bugware to be able to hash objects defined interactively
+in IPython</div></blockquote>
+<p>2012-01-07
+Gael Varoquaux</p>
+<blockquote>
+<div><p>ENH: Parallel: warn and not fail for nested loops</p>
+<p>ENH: Parallel: n_jobs=-2 now uses all CPUs but one</p>
+</div></blockquote>
+<p>2012-01-01
+Juan Manuel Caicedo Carvajal and Gael Varoquaux</p>
+<blockquote>
+<div>ENH: add verbosity levels in Parallel</div></blockquote>
+</div>
+<div class="section" id="release-0-5-7">
+<h3>Release 0.5.7<a class="headerlink" href="#release-0-5-7" title="Permalink to this headline">¶</a></h3>
+<p>2011-12-28
+Gael varoquaux</p>
+<blockquote>
+<div>API: zipped -&gt; compress</div></blockquote>
+<p>2011-12-26
+Gael varoquaux</p>
+<blockquote>
+<div><p>ENH: Add a zipped option to Memory</p>
+<p>API: Memory no longer accepts save_npy</p>
+</div></blockquote>
+<p>2011-12-22
+Kenneth C. Arnold and Gael varoquaux</p>
+<blockquote>
+<div>BUG: fix numpy_pickle for array subclasses</div></blockquote>
+<p>2011-12-21
+Gael varoquaux</p>
+<blockquote>
+<div>ENH: add zip-based pickling</div></blockquote>
+<p>2011-12-19
+Fabian Pedregosa</p>
+<blockquote>
+<div>Py3k: compatibility fixes.
+This makes run fine the tests test_disk and test_parallel</div></blockquote>
+</div>
+<div class="section" id="release-0-5-6">
+<h3>Release 0.5.6<a class="headerlink" href="#release-0-5-6" title="Permalink to this headline">¶</a></h3>
+<p>2011-12-11
+Lars Buitinck</p>
+<blockquote>
+<div>ENH: Replace os.path.exists before makedirs with exception check
+New disk.mkdirp will fail with other errnos than EEXIST.</div></blockquote>
+<p>2011-12-10
+Bala Subrahmanyam Varanasi</p>
+<blockquote>
+<div>MISC: pep8 compliant</div></blockquote>
+</div>
+<div class="section" id="release-0-5-5">
+<h3>Release 0.5.5<a class="headerlink" href="#release-0-5-5" title="Permalink to this headline">¶</a></h3>
+<p>2011-19-10
+Fabian Pedregosa</p>
+<blockquote>
+<div>ENH: Make joblib installable under Python 3.X</div></blockquote>
+</div>
+<div class="section" id="release-0-5-4">
+<h3>Release 0.5.4<a class="headerlink" href="#release-0-5-4" title="Permalink to this headline">¶</a></h3>
+<p>2011-09-29
+Jon Olav Vik</p>
+<blockquote>
+<div>BUG: Make mangling path to filename work on Windows</div></blockquote>
+<p>2011-09-25
+Olivier Grisel</p>
+<blockquote>
+<div>FIX: doctest heisenfailure on execution time</div></blockquote>
+<p>2011-08-24
+Ralf Gommers</p>
+<blockquote>
+<div>STY: PEP8 cleanup.</div></blockquote>
+</div>
+<div class="section" id="release-0-5-3">
+<h3>Release 0.5.3<a class="headerlink" href="#release-0-5-3" title="Permalink to this headline">¶</a></h3>
+<p>2011-06-25
+Gael varoquaux</p>
+<blockquote>
+<div>API: All the usefull symbols in the __init__</div></blockquote>
+</div>
+<div class="section" id="release-0-5-2">
+<h3>Release 0.5.2<a class="headerlink" href="#release-0-5-2" title="Permalink to this headline">¶</a></h3>
+<p>2011-06-25
+Gael varoquaux</p>
+<blockquote>
+<div>ENH: Add cpu_count</div></blockquote>
+<p>2011-06-06
+Gael varoquaux</p>
+<blockquote>
+<div>ENH: Make sure memory hash in a reproducible way</div></blockquote>
+</div>
+<div class="section" id="release-0-5-1">
+<h3>Release 0.5.1<a class="headerlink" href="#release-0-5-1" title="Permalink to this headline">¶</a></h3>
+<p>2011-04-12
+Gael varoquaux</p>
+<blockquote>
+<div>TEST: Better testing of parallel and pre_dispatch</div></blockquote>
+<p>Yaroslav Halchenko
+2011-04-12</p>
+<blockquote>
+<div>DOC: quick pass over docs &#8211; trailing spaces/spelling</div></blockquote>
+<p>Yaroslav Halchenko
+2011-04-11</p>
+<blockquote>
+<div>ENH: JOBLIB_MULTIPROCESSING env var to disable multiprocessing from the
+environment</div></blockquote>
+<p>Alexandre Gramfort
+2011-04-08</p>
+<blockquote>
+<div>ENH : adding log message to know how long it takes to load from disk the
+cache</div></blockquote>
+</div>
+<div class="section" id="release-0-5-0">
+<h3>Release 0.5.0<a class="headerlink" href="#release-0-5-0" title="Permalink to this headline">¶</a></h3>
+<p>2011-04-01
+Gael varoquaux</p>
+<blockquote>
+<div>BUG: pickling MemoizeFunc does not store timestamp</div></blockquote>
+<p>2011-03-31
+Nicolas Pinto</p>
+<blockquote>
+<div>TEST: expose hashing bug with cached method</div></blockquote>
+<p>2011-03-26...2011-03-27
+Pietro Berkes</p>
+<blockquote>
+<div>BUG: fix error management in rm_subdirs
+BUG: fix for race condition during tests in mem.clear()</div></blockquote>
+<p>Gael varoquaux
+2011-03-22...2011-03-26</p>
+<blockquote>
+<div>TEST: Improve test coverage and robustness</div></blockquote>
+<p>Gael varoquaux
+2011-03-19</p>
+<blockquote>
+<div>BUG: hashing functions with only *var **kwargs</div></blockquote>
+<p>Gael varoquaux
+2011-02-01... 2011-03-22</p>
+<blockquote>
+<div>BUG: Many fixes to capture interprocess race condition when mem.cache
+is used by several processes on the same cache.</div></blockquote>
+<p>Fabian Pedregosa
+2011-02-28</p>
+<blockquote>
+<div>First work on Py3K compatibility</div></blockquote>
+<p>Gael varoquaux
+2011-02-27</p>
+<blockquote>
+<div>ENH: pre_dispatch in parallel: lazy generation of jobs in parallel
+for to avoid drowning memory.</div></blockquote>
+<p>GaelVaroquaux
+2011-02-24</p>
+<blockquote>
+<div>ENH: Add the option of overloading the arguments of the mother
+&#8216;Memory&#8217; object in the cache method that is doing the decoration.</div></blockquote>
+<p>Gael varoquaux
+2010-11-21</p>
+<blockquote>
+<div>ENH: Add a verbosity level for more verbosity</div></blockquote>
+</div>
+<div class="section" id="release-0-4-6">
+<h3>Release 0.4.6<a class="headerlink" href="#release-0-4-6" title="Permalink to this headline">¶</a></h3>
+<p>Gael varoquaux
+2010-11-15</p>
+<blockquote>
+<div>ENH: Deal with interruption in parallel</div></blockquote>
+<p>Gael varoquaux
+2010-11-13</p>
+<blockquote>
+<div>BUG: Exceptions raised by Parallel when n_job=1 are no longer captured.</div></blockquote>
+<p>Gael varoquaux
+2010-11-13</p>
+<blockquote>
+<div>BUG: Capture wrong arguments properly (better error message)</div></blockquote>
+</div>
+<div class="section" id="release-0-4-5">
+<h3>Release 0.4.5<a class="headerlink" href="#release-0-4-5" title="Permalink to this headline">¶</a></h3>
+<p>Pietro Berkes
+2010-09-04</p>
+<blockquote>
+<div>BUG: Fix Windows peculiarities with path separators and file names
+BUG: Fix more windows locking bugs</div></blockquote>
+<p>Gael varoquaux
+2010-09-03</p>
+<blockquote>
+<div>ENH: Make sure that exceptions raised in Parallel also inherit from
+the original exception class
+ENH: Add a shadow set of exceptions</div></blockquote>
+<p>Fabian Pedregosa
+2010-09-01</p>
+<blockquote>
+<div>ENH: Clean up the code for parallel. Thanks to Fabian Pedregosa for
+the patch.</div></blockquote>
+</div>
+<div class="section" id="release-0-4-4">
+<h3>Release 0.4.4<a class="headerlink" href="#release-0-4-4" title="Permalink to this headline">¶</a></h3>
+<p>Gael varoquaux
+2010-08-23</p>
+<blockquote>
+<div>BUG: Fix Parallel on computers with only one CPU, for n_jobs=-1.</div></blockquote>
+<p>Gael varoquaux
+2010-08-02</p>
+<blockquote>
+<div>BUG: Fix setup.py for extra setuptools args.</div></blockquote>
+<p>Gael varoquaux
+2010-07-29</p>
+<blockquote>
+<div>MISC: Silence tests (and hopefuly Yaroslav :P)</div></blockquote>
+</div>
+<div class="section" id="release-0-4-3">
+<h3>Release 0.4.3<a class="headerlink" href="#release-0-4-3" title="Permalink to this headline">¶</a></h3>
+<p>Gael Varoquaux
+2010-07-22</p>
+<blockquote>
+<div>BUG: Fix hashing for function with a side effect modifying their input
+argument. Thanks to Pietro Berkes for reporting the bug and proving the
+patch.</div></blockquote>
+</div>
+<div class="section" id="release-0-4-2">
+<h3>Release 0.4.2<a class="headerlink" href="#release-0-4-2" title="Permalink to this headline">¶</a></h3>
+<p>Gael Varoquaux
+2010-07-16</p>
+<blockquote>
+<div>BUG: Make sure that joblib still works with Python2.5. =&gt; release 0.4.2</div></blockquote>
+</div>
+<div class="section" id="release-0-4-1">
+<h3>Release 0.4.1<a class="headerlink" href="#release-0-4-1" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Development</a><ul>
+<li><a class="reference internal" href="#getting-the-latest-code">Getting the latest code</a></li>
+<li><a class="reference internal" href="#installing">Installing</a></li>
+<li><a class="reference internal" href="#workflow-to-contribute">Workflow to contribute</a></li>
+<li><a class="reference internal" href="#running-the-test-suite">Running the test suite</a></li>
+<li><a class="reference internal" href="#building-the-docs">Building the docs</a></li>
+<li><a class="reference internal" href="#making-a-source-tarball">Making a source tarball</a></li>
+<li><a class="reference internal" href="#making-a-release-and-uploading-it-to-pypi">Making a release and uploading it to PyPI</a></li>
+<li><a class="reference internal" href="#updating-the-changelog">Updating the changelog</a><ul>
+<li><a class="reference internal" href="#licensing">Licensing</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#latest-changes">Latest changes</a><ul>
+<li><a class="reference internal" href="#release-0-9-0">Release 0.9.0</a></li>
+<li><a class="reference internal" href="#release-0-8-4">Release 0.8.4</a></li>
+<li><a class="reference internal" href="#release-0-8-3">Release 0.8.3</a></li>
+<li><a class="reference internal" href="#release-0-8-2">Release 0.8.2</a></li>
+<li><a class="reference internal" href="#release-0-8-1">Release 0.8.1</a></li>
+<li><a class="reference internal" href="#release-0-8-0">Release 0.8.0</a></li>
+<li><a class="reference internal" href="#release-0-8-0a3">Release 0.8.0a3</a></li>
+<li><a class="reference internal" href="#release-0-8-0a2">Release 0.8.0a2</a></li>
+<li><a class="reference internal" href="#release-0-8-0a">Release 0.8.0a</a></li>
+<li><a class="reference internal" href="#release-0-7-1">Release 0.7.1</a></li>
+<li><a class="reference internal" href="#release-0-7-0">Release 0.7.0</a></li>
+<li><a class="reference internal" href="#release-0-6-5">Release 0.6.5</a></li>
+<li><a class="reference internal" href="#release-0-6-4">Release 0.6.4</a></li>
+<li><a class="reference internal" href="#release-0-6-3">Release 0.6.3</a></li>
+<li><a class="reference internal" href="#release-0-6-2">Release 0.6.2</a></li>
+<li><a class="reference internal" href="#release-0-6-1">Release 0.6.1</a></li>
+<li><a class="reference internal" href="#release-0-6-0">Release 0.6.0</a></li>
+<li><a class="reference internal" href="#release-0-5-7">Release 0.5.7</a></li>
+<li><a class="reference internal" href="#release-0-5-6">Release 0.5.6</a></li>
+<li><a class="reference internal" href="#release-0-5-5">Release 0.5.5</a></li>
+<li><a class="reference internal" href="#release-0-5-4">Release 0.5.4</a></li>
+<li><a class="reference internal" href="#release-0-5-3">Release 0.5.3</a></li>
+<li><a class="reference internal" href="#release-0-5-2">Release 0.5.2</a></li>
+<li><a class="reference internal" href="#release-0-5-1">Release 0.5.1</a></li>
+<li><a class="reference internal" href="#release-0-5-0">Release 0.5.0</a></li>
+<li><a class="reference internal" href="#release-0-4-6">Release 0.4.6</a></li>
+<li><a class="reference internal" href="#release-0-4-5">Release 0.4.5</a></li>
+<li><a class="reference internal" href="#release-0-4-4">Release 0.4.4</a></li>
+<li><a class="reference internal" href="#release-0-4-3">Release 0.4.3</a></li>
+<li><a class="reference internal" href="#release-0-4-2">Release 0.4.2</a></li>
+<li><a class="reference internal" href="#release-0-4-1">Release 0.4.1</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="parallel.html"
+                        title="previous chapter">Embarrassingly parallel for loops</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="generated/joblib.Memory.html"
+                        title="next chapter">joblib.Memory</a></p>
+
+    <hr/>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+    <hr/>
+    <div>
+	<h3>Mailing list</h3>
+	<a href="http://librelist.com/browser/joblib/">joblib@librelist.com</a>
+    <p class="searchtip" style="font-size: 80%">
+    Send an email to subscribe</p>
+    </div>
+<hr/>
+<small><a href="_sources/developing.txt"
+           rel="nofollow">Show this page source</a>
+</small>
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="generated/joblib.Memory.html" title="joblib.Memory"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="parallel.html" title="Embarrassingly parallel for loops"
+             >previous</a> |</li>
+        <li><a href="index.html">joblib 0.9.0.dev0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2009, Gael Varoquaux.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
