@@ -1,0 +1,26 @@
+* A very interesting slide
+
+- bullet points can be added in moderation
+- dont get too carried away with them
+
+
+:PROPERTIES:
+:reveal_background: #FF0000
+:END:
+
+:PROPERTIES:
+:reveal_background: ./logos/github-octopus.png
+:reveal_background_trans: slide
+:END:
+
+
+#+ATTR_REVEAL: :frag roll-in
+- show bullet-points
+- one by one
+
+- all these bullet-points
+- show up on the page
+- as soon as its shown
+
+#+ATTR_REVEAL: :frag highlight-red
+- this last one is then highlighted in red

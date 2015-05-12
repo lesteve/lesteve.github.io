@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>BIS big data panel</title>
+<meta name="author" content="(Loïc Estève)"/>
+
+<link rel="stylesheet" href="./reveal.js/css/reveal.css"/>
+<link rel="stylesheet" href="./reveal.js/css/theme/default.css" id="theme"/>
+<link rel="stylesheet" href="./custom.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = './reveal.js/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide">
+<h1>BIS big data panel</h1>
+<h2>Loïc Estève</h2>
+<h2><a href="mailto:loic.esteve@inria.fr">loic.esteve@inria.fr</a></h2>
+<h2></h2>
+</section>
+
+<section>
+<section id="slide-sec-1">
+<h2 id="sec-1"><a href="https://team.inria.fr/parietal/">Parietal</a> team @ Inria</h2>
+<p>
+try to learn a two-way mapping between brain activity and cognitive function
+</p>
+
+
+<div class="figure">
+<p><img src="./images/parietal.png" alt="parietal.png" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/inria.jpg" alt="inria.jpg" />
+</p>
+</div>
+
+
+<div class="figure">
+<p><img src="./images/fMRI.png" alt="fMRI.png" />
+</p>
+</div>
+
+<p>
+Disclaimer: datasets up to ~TB but more typically 1-100GB
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-2">
+<h2 id="sec-2">Why Python?</h2>
+<ul>
+<li>interactive language, key for data exploration</li>
+<li>General purpose language</li>
+<li>Easy to read/write</li>
+<li>mature scientific Python stack (numpy, scipy, matplotlib, etc &#x2026;)</li>
+<li>Performance through numpy, cython</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-3">
+<h2 id="sec-3">scikit-learn vision</h2>
+<ul>
+<li>an enabler: machine learning without having to learn the machinery</li>
+<li>High quality Pythonic software library: interfaces designed for users</li>
+<li>community-driven development: BSD licensed with diverse contributors</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-4">
+<h2 id="sec-4">scikit-learn overview</h2>
+<ul>
+<li>very rich feature set:
+<ul>
+<li>supervised learning: decision trees, linear models, SVM, &#x2026;</li>
+<li>unsupervised learning: clustering, dictionary learning, &#x2026;</li>
+<li>model selection: built-in cross-validation, parameter optimization</li>
+
+</ul></li>
+<li>performance matters</li>
+
+</ul>
+<p>
+For more details see <a href="http://scikit-learn.org/">http://scikit-learn.org/</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-5">
+<h2 id="sec-5">Strategies for tackling big data</h2>
+<ul>
+<li>feature reduction
+<ul>
+<li>randomized projections: embedding into a lower dimensional space
+that conserves distances</li>
+<li>feature clustering: on images super-pixel strategy</li>
+
+</ul></li>
+
+<li>online learning: learn one sample at a time, e.g. IncrementalPCA</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-6">
+<h2 id="sec-6">joblib</h2>
+<ul>
+<li>never recompute the same thing twice. Cache results of costly
+computations to disk</li>
+<li>fast hashing of input numpy arrays</li>
+<li>helper functions for parallel computing. memmapping input arrays
+allow to share input data across workers.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-7">
+<h2 id="sec-7">Hardware aspects</h2>
+<ul>
+<li>Parietal team workhorse (~15 k€): single server with 384 GB RAM, 48 cores, 70
+TB storage (SSD cache on RAID controller)</li>
+<li>gets the work done faster than our 800 CPU cluster</li>
+
+</ul>
+
+<p>
+<a href="http://research.microsoft.com/pubs/163083/hotcbp12%20final.pdf">Nobody ever got fired for buying an Hadoop cluster</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-sec-8">
+<h2 id="sec-8">Summary</h2>
+<ul>
+<li>scikit-learn: machine learning library focused on usability and
+performance</li>
+<li>different strategies can be used to scale to big data</li>
+<li>single big memory server can outperform cluster depending on your
+exact use case</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+
+<script src="./reveal.js/lib/js/head.min.js"></script>
+<script src="./reveal.js/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: false,
+center: false,
+slideNumber: true,
+rollingLinks: false,
+keyboard: true,
+overview: true,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'linear', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: './reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+ { src: './reveal.js/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: './reveal.js/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+ { src: './reveal.js/plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: './reveal.js/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+]
+});
+</script>
+</body>
+</html>
