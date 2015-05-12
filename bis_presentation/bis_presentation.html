@@ -105,7 +105,7 @@ For more details see <a href="http://scikit-learn.org/">http://scikit-learn.org/
 <li>feature reduction
 <ul>
 <li>randomized projections: embedding into a lower dimensional space
-that conserves distances</li>
+that preserve distances</li>
 <li>feature clustering: on images super-pixel strategy</li>
 
 </ul></li>
@@ -120,11 +120,11 @@ that conserves distances</li>
 <section id="slide-sec-6">
 <h2 id="sec-6">joblib</h2>
 <ul>
-<li>never recompute the same thing twice. Cache results of costly
+<li>never compute the same thing twice. Cache results of costly
 computations to disk</li>
 <li>fast hashing of input numpy arrays</li>
 <li>helper functions for parallel computing. memmapping input arrays
-allow to share input data across workers.</li>
+allow to share input data between workers</li>
 
 </ul>
 
