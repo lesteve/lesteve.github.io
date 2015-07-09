@@ -1,0 +1,364 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+
+        <title>Big data in practice: the example of nilearn for mining brain imaging data</title>
+
+        <meta name="author" content="Loïc Estève">
+
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+        <meta name="viewport" content="width=200, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ii">
+
+        <link rel="stylesheet" href="css/reveal.css">
+        <link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+        <!-- Code syntax highlighting -->
+        <link rel="stylesheet" href="lib/css/zenburn.css">
+
+        <!-- Printing and PDF exports -->
+        <script>
+            var link = document.createElement( 'link' );
+            link.rel = 'stylesheet';
+            link.type = 'text/css';
+            link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+            document.getElementsByTagName( 'head' )[0].appendChild( link );
+        </script>
+
+        <!--[if lt IE 9]>
+        <script src="lib/js/html5shiv.js"></script>
+        <![endif]-->
+
+        <style type="text/css">
+        .reveal section img.border {
+              margin: 15px 0px;
+              background: rgba(255, 255, 255, 0.12);
+              border: 4px solid #000;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .reveal section img {
+            border: 0;
+            box-shadow: 0 0 0 0;
+            margin: 0 0 0 0;
+        }
+
+        .reveal span.cite {
+            color: gray
+        }
+
+        .reveal p {
+            text-align: left
+        }
+        </style>
+        </head>
+
+    <body>
+
+        <div class="reveal">
+
+            <!-- Any section element inside of this container is displayed as a slide -->
+            <div class="slides">
+            <section data-markdown data-separator="\n0-==-0\n"
+                     data-separator-vertical="\n==\n" >
+                <script type="text/template">
+
+## Big data in practice
+### The example of nilearn for mining brain imaging data
+-----
+
+### Loïc Estève
+<div style="text-align: center">
+  <img style="margin-top: 20px" src="img/parietal.png" alt="Inria" height="80px"/> <br />
+  <img src="img/inria.png" alt="Inria" height="70px"/>
+  <img src="img/neurospin.svg" alt="Neurospin" height="70px" />
+</div>
+
+0-==-0
+
+## Big data, really ?
+
+* Google: petabytes of data, distributed storage, map-reduce framework <!-- .element: class="fragment" data-fragment-index="1" -->
+* Neuroimaging larger datasets: ~100 GB to ~1TB <!-- .element: class="fragment" data-fragment-index="2" -->
+* Pragmatic approach: big data = data that doesn't fit in RAM <!-- .element: class="fragment" data-fragment-index="3" -->
+
+0-==-0
+
+## Neuroimaging context
+
+<div style="vertical-align: middle">
+  <img style="margin-right=30px" alt="scanner" src="img/scanner.jpg" height="200px">
+  <img style="background: none; border: 0px none; margin-left: 30px" alt="epis" src="img/epis_.png" height="200px"/> <br />
+</div>
+
+<div style="text-align: middle">3D volumes of brain activity along time</div>
+
+<div style="margin-top: 100px"><div>
+
+Why large datasets matter in neuroimaging:
+<!-- TODO: better phrasing here -->
+
+* Large-scale functional connectivity studies can be used for diagnosis
+* Large-scale cognitive studies allow a more detailed and reliable
+mapping of brain function
+
+0-==-0
+
+## Talk overview
+
+<p class="fragment">
+  Multi-variate statistical learning on HCP data (fMRI rest data ~  
+  2TB). See nilearn [example](http://nilearn.github.io/auto_examples/connectivity/plot_canica_resting_state.html#example-connectivity-plot-canica-resting-state-py)
+  for more details. 
+</p>
+
+
+<br>
+
+* ~140GB subset of the HCP data on my laptop  <!-- .element: class="fragment" -->
+* process it with a simple script  <!-- .element: class="fragment" -->
+* visualize the results in a way that 
+makes sense for domain experts  <!-- .element: class="fragment" -->
+
+
+<br>
+
+While this runs, show a few Python patterns that make this possible  <!-- .element: class="fragment" -->
+
+0-==-0
+
+## Online learning
+
+Compute the mean of a gazillion numbers, how hard? <!-- .element: class="fragment" -->
+
+Just do a running mean ! <!-- .element: class="fragment" -->
+
+
+<div class="fragment">
+<div style="text-align: left">Coming soon in nilearn CanICA:</div>
+<figure style="display: inline-block">
+  <img src="img/canica_memory_profile_master.png" width="500px"/>
+  <figcaption>PCA<br><span style="color: rgba(0, 0, 0, 0)">bla</span></figcaption>
+</figure>
+<figure style="display: inline-block">
+  <img src="img/canica_memory_profile_pr.png" width="500px"/>
+  <figcaption>IncrementalPCA<br>(new in sklearn 0.16)</figcaption>
+</figure>
+
+plots obtained via [memory_profiler](https://github.com/fabianp/memory_profiler)
+</div>
+<!-- Should I show a difference of the code difference in CanICA ? In any -->
+<!-- case mention that it is ongoing and put the name of the branch with a -->
+<!-- link? Noooooooooooooo people can not even use it for now -->
+
+0-==-0
+
+## Caching
+* Reproducibility: avoid manually-chained scripts
+* Performance: avoid recomputing the same thing twice
+
+joblib.Memory usage: 
+```python
+from joblib import Memory
+
+mem = Memory(cachedir='.')
+
+cached_func = mem.cache(func)
+cached_func(a)  # computes func using a as input
+cached_func(a)  # fetches result from store
+```
+
+* Fast input hashing, with optimization for numpy arrays
+* Fast I/O for result persistence (joblib.dump/joblib.load)
+
+0-==-0
+
+## Parallel computation
+
+* Focus on embarassingly parallel code
+* Both multiprocessing and threading backends
+
+<!-- TODO not sure whether that should be a bullet point or just say it in the talk -->
+<!-- * Used in/shipped with scikit-learn as the parallel execution engine, each time you set -->
+<!-- n_jobs this is joblib doing it behind the scenes. -->
+
+joblib.Parallel usage:
+```python
+>>> from math import sqrt
+>>> from joblib import Parallel, delayed
+>>> Parallel(n_jobs=2)(delayed(sqrt)(i ** 2) for i in range(10))
+[0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0]
+```
+
+
+==
+
+<h2 style="text-transform: none">
+joblib.Parallel advantages
+</h2>
+
+* high-level parallelism without a framework
+* no dependencies
+(optional numpy one)
+* memmapping of input arrays allows
+them to be shared between worker processes
+* Coming soon (O. Grisel,
+V. Niculae): automatic task-batching for multiprocessing
+backend. Useful for short tasks.
+
+<!-- Mention cache_and_shelve ???? I have to say I don't really understand -->
+<!-- it atm. Maybe I should try with <a href=""></a> small example to see what -->
+<!-- happens. My guess each element of the iterator result will be saved to -->
+<!-- disk ... -->
+
+<!-- 0-==-0 -->
+<!-- TODO all of this is very crap ... -->
+<!-- ## Dimension reduction -->
+
+<!-- Talk about PCA which I guess is a big thing here ? And others: random -->
+<!-- projections, clustering, etc... -->
+
+<!-- 0-==-0 -->
+
+<!-- ## random projections -->
+<!-- keep distance but projecting in a smaller dimension Euclidian space -->
+
+<!-- randomized_svd example -->
+
+0-==-0
+
+## Hardware aspects
+<!-- TODO: put image ... -->
+
+Parietal team biggish iron:
+
+* 48 cores
+* 384 GB RAM
+* 70 TB storage (SSD cache on RAID controller)
+
+Gets the job done faster than a 800 CPU cluster
+
+<!-- TODO ask Gael why exactly. Is that because the shared network is slow -->
+<!-- ??? -->
+
+<p>
+[Nobody ever got fired for using Hadoop on a cluster](http://research.microsoft.com/pubs/163083/hotcbp12%20final.pdf)<br>
+A. Rowstron et al., HotCDP ’12
+</p>
+<!-- TODO: find name of the guy and reference (if easy I seem to remember -->
+<!-- it is more a quote from a guy that heard another guy) ...  Guy from -->
+<!-- Stanford that says a TB RAM is plenty enough for interesting datasets. -->
+
+0-==-0
+
+## nilearn overview
+<!-- TODO: do the magic with the annotations. They are quite useful ... -->
+
+* Getting the data
+```python
+filenames = datasets.fetch_haxby()
+```
+
+* Massaging the data for machine learning
+```python
+masker = NiftiMasker(mask_img='mask.nii',
+                       standardize=True)
+data = masker.fit_transform('fmri.nii')
+```
+
+* Learning with scikit-learn
+```python
+estimator.fit(data, labels)
+```
+
+* Output
+```python
+plot_stat_map(masker.inverse_transform(
+                estimator.weights_))
+```
+
+<!-- 0-==-0 -->
+
+<!-- ## If more time ???? -->
+
+<!-- * Maybe other useful patterns not necessary used in this talk ??? -->
+<!--   feature reduction e.g. clustering -->
+
+==
+
+## nilearn gallery examples
+
+<img src="img/nilearn_examples.png" width="85%"/>
+http://nilearn.github.io/auto_examples/index.html
+
+0-==-0
+
+## Conclusion
+
+Even if your data doesn't fit in RAM, you can process it
+
+* with Python
+* without necessarily using a distributed array/map-reduce framework
+
+Simple Python patterns were presented to tackle big data
+
+* online learning via scikit-learn
+* joblib caching + parallel
+
+<!-- TODO: clean that up Bla about nilearn and associated links, nilearn, -->
+<!-- joblib, scikit-learn "scaling up" doc page, sphinx_gallery, etc ... -->
+
+nilearn: machine learning for neuroimaging
+
+0-==-0
+
+## The end
+
+<div style="text-align: middle">
+Thanks for your attention !<br><br>
+Questions?
+</div>
+                </script>
+            </section>
+
+            </div>
+        </div>
+
+        <script src="lib/js/head.min.js"></script>
+        <script src="js/reveal.js"></script>
+
+        <script>
+
+            // Full list of configuration options available at:
+            // https://github.com/hakimel/reveal.js#configuration
+            Reveal.initialize({
+                controls: true,
+                progress: true,
+                history: true,
+                slideNumber: true,
+                transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                width:1024,
+                height:768,
+
+                // Optional reveal.js plugins
+                dependencies: [
+                    { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+                    { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+                    { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return true; }, callback: function() { hljs.initHighlightingOnLoad(); } },
+<!-- This doesn't work so hacked the line as above to always do code highlighting -->
+<!-- { src: 'plugin/highlight/highlight.js', async: true, condition: function() { console.log('bla'); ret = document.querySelector( 'pre code' ); console.log(ret); return !!ret;}, callback: function() { console.log('Yeah'); hljs.initHighlightingOnLoad(); } }, -->
+                    { src: 'plugin/zoom-js/zoom.js', async: true },
+                    { src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true }
+                ]
+            });
+
+        </script>
+
+    </body>
+</html>

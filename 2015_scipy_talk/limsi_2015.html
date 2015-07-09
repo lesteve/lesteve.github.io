@@ -1,0 +1,885 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Learning functional brain atlases modeling inter-subject variability</title>
+
+		<meta name="author" content="Alexandre Abraham">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=200, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/simple.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+
+        <style type="text/css">
+        
+        .reveal section img.border {
+              margin: 15px 0px;
+              background: rgba(255, 255, 255, 0.12);
+              border: 4px solid #000;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+        }
+
+        .reveal section img {
+            border: 0;
+            box-shadow: 0 0 0 0;
+            margin: 0 0 0 0;
+        }
+
+        .reveal span.cite {
+            color: gray
+        }
+        </style>  
+    
+        </head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+            <section data-markdown data-separator="\n\n---\n\n"
+                data-separator-vertical="\n\n--\n\n" >
+
+                <script type="text/template">
+
+##Learning functional brain atlases modeling inter-subject variability
+-----
+
+### Alexandre ABRAHAM
+
+Elvis DOHMATOB, Bertrand THIRION, Dimitris SAMARAS,<br />
+Gaël VAROQUAUX
+
+<img style="margin-top: 20px" src="img/parietal.png" alt="Inria" height="80" /> <br />
+<img src="img/inria.png" alt="Inria" height="70" />
+<img src="img/digiteo.jpg" alt="Digiteo" height="70" />
+<img src="img/neurospin.svg" alt="Neurospin" height="70" />
+
+---
+
+## Neurological / Mental Disorders
+
+* Hard to diagnose because based on personal experience
+* Cover a wide range of behaviors and symptoms
+* Can be caused by structural anomalies
+
+<img src="img/psycho.jpg" alt="Psycho" width="40%" />
+
+<span style="color:red">We need a way to study the functional mechanisms of
+the brain</span>
+
+---
+
+## Magnetic Resonance Imaging (MRI)
+
+* Non invasive neuroimaging
+* **Is already present in a lot of medical imaging centers**
+* Is versatile
+  * Anatomical (sMRI)
+  * Functional (fMRI)
+  * Diffusion Tensor Imaging (DTI)
+
+<img src="img/irm.jpeg" alt="MRI" height="300px" />
+<img src="img/muse.jpeg" alt="DTI" height="300px" />
+
+---
+
+## Task oriented fMRI
+
+* Targets a specific function of the brain
+* Follows a carefully designed paradigm
+* Requires cooperative patient
+
+<img src="img/auditory.png" alt="Auditory" width="40%" />
+
+---
+
+## Resting State fMRI
+
+Brain spontaneous activity
+
+* unveils underlying functional organization
+* can be acquired on disable, injured or sedated subjects
+* does not present salient features
+
+<video data-autoplay class="stretch" data-src="img/localizer.mp4" type="video/mp4">
+</video>
+
+---
+
+## BOLD signals
+
+![](img/niimgs.jpg)
+
+---
+
+## Mining resting state fMRI
+
+* Extraction of the underlying components
+  * unsupervised learning
+  * impose a sparse prior (from neuroscientific knowledge)
+* Study the connections between these brain regions (connectome)
+* Use this model to predict phenotypic information (disease...)
+
+<img src="img/yeo.png" alt="" height="300px" style="margin-right: 100px" /> <img src="img/activation_graph.png" alt="" height="300px" />
+
+---
+
+## Extracting brain atlas
+
+---
+
+## Functional Networks
+
+* Brain voxels coactivating together
+* Composed of one or several brain regions
+
+<img src="img/dmn_wiki.png" alt="" height="400px" style="margin-right: 50px"
+/><img src="img/visual.jpeg" alt="" height="400px" />
+
+---
+
+## Toward Machine Learning: Decomposition Model
+
+<img src="img/dictionary_learning.png" width="80%" />
+    
+* $\mathbf{Y} \in \mathbb{R}^{n \times p}$: $n$-long time series observed on $p$ voxels
+* $\mathbf{U} \in \mathbb{R}^{n \times k}$ are the $k$ time series associated to the maps $\mathbf{V} \in \mathbb{R}^{p \times k}$
+* $\mathbf{E} \in \mathbb{R}^{n \times p}$: model residuals
+
+---
+
+## <span class="fragment" data-fragment-index="1"> Multi Subject </span>Dictionary Learning
+
+$\underset{\mathbf{U}, \mathbf{V}}{\text{min}}\ \|\mathbf{Y} -
+\mathbf{U}\mathbf{V}^\top\|^2_2 + \Omega(\mathbf{V})$
+
+<img src="img/multi_subject_dict_learning_embedded_0.svg" alt="MSDL"
+width="80%" style="border: 0; box-shadow: 0 0 0 0; margin: -60px 0 -50px 0;" />
+<img src="img/multi_subject_dict_learning_embedded_1.svg" alt="MSDL" width="80%"
+style="border: 0; box-shadow: 0 0 0 0; margin: -100% 0 -30px 0;"
+class="fragment" data-fragment-index="1" />
+
+$\underset{\mathbf{U}^s, \mathbf{V}^s}{\text{min}}\ \|\mathbf{Y}^s -
+\mathbf{U}^s{\mathbf{V}^s}^\top\|^2_2 + \|\mathbf{V}^s - \mathbf{V}\|^2_2 + \Omega(\mathbf{V})$ <!-- .element: class="fragment" data-fragment-index="1" -->
+
+* $\Omega$ is typically a sparsity-inducing norm (typically $\ell_1$)
+
+---
+
+## Multi Subject Dictionary Learning
+
+<img src="img/bigeq.png" alt="MSDL" width="100%"
+style="border: 0; box-shadow: 0 0 0 0;" />
+
+* Parametrized by $\mu$ and $\alpha$
+* Separately convex optimization problem
+  * Minimization regarding to $\mathbf{U}_s$: <span style="color:red"/>ordinary least square</span>
+  * Minimization regarding to $\mathbf{V}_s$: <span style="color:purple"/>ridge regression</span>
+  * Minimization regarding to $\mathbf{V}$: <span style="color:blue"/>proximal operator</span>
+    * $\ell_1 + \ell_2$ <span class="cite">[Varoquaux et al., 2011]</span>
+    * Total Variation + $\ell_1$ 
+
+---
+
+## Total Variation Denoising
+
+$$TV(\mathbf{V}) = \|\nabla\mathbf{V}\|_1$$
+
+* Remove noise whilst keeping edges
+* Promotes flat regions
+
+<span style="color: red" class="fragment" data-fragment-index="1"> Gives
+a clustering flavor to the dictionary learning<br />
+Promotes large regions </span>
+
+<div>
+<figure style="display: inline-block">
+    <img src="img/lena.png" alt="Lena" width="100%" />
+    <figcaption>Original</figcaption>
+</figure>
+<figure style="display: inline-block">
+    <img src="img/lena_tv.png" alt="Lena" width="100%" />
+    <figcaption>Total Variation</figcaption>
+</figure>
+<figure style="display: inline-block" class="fragment" data-fragment-index="1">
+    <img src="img/lena_ward.png" alt="Lena" width="100%" />
+    <figcaption>Clustering</figcaption>
+</figure>
+</div>
+
+---
+
+## Total Variation + $\ell_1$
+    
+<img src="img/tv_auditory.png" alt="" width="20%" style="margin-right: 50px" />
+<img src="img/l1_auditory.png" alt="" width="20%" />
+
+$$TV\ell_1(\mathbf{V}) = \|\nabla\mathbf{V}\|_1 + \rho\|\mathbf{V}\|_1$$
+
+* Enforces sparsity
+* Promotes little flat regions on each map
+* Positivity constraint on maps to separate features
+
+---
+
+## Scaling to many subjects
+
+* Stochastic Coordinate Descent (SCD)
+  * Treat subsets of the subjects at each step
+  * Treat all subjects in the last step
+
+<img src="img/speedup_time_hbm.png" height="300px" style="border: 0; box-shadow: 0 0 0 0;" />
+<img src="img/stochastic.png" height="300px" style="border: 0; box-shadow: 0 0 0 0;" />
+
+---
+
+## Results: atlas from resting-state fMRI
+
+---
+
+## ROIs extraction methods
+
+Extraction of 84 regions using different models
+
+* Decomposition models
+  * Spatial Group ICA <span class="cite">[Beckmann and Smith, 2004]</span>
+  * TV-MSDL <span class="cite">[Abraham et al., 2013]</span>
+
+* Clusterings
+  * Ward’s builds a tree by recursively aggregating regions (spatially
+constrained)
+  * K-Means uses a centroid based approach
+
+* Reference atlases
+  * Harvard-Oxford <span class="cite">[Desikan et al., 2006]</span>
+  * Yeo <span class="cite">[Yeo et al., 2011]</span>
+
+---
+
+## TVMSDL Results
+
+<img src="img/figure_1.png" alt="" width="70%" />
+
+---
+
+## Networks for different methods
+Ventricular system
+
+<div>
+<figure style="display: inline-block; width:48%">
+    <img src="img/tvmsdl_ventricular.png" alt="" />
+    <figcaption>TVMSDL</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ica_ventricular.png" alt="" />
+    <figcaption>ICA</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/kmeans_ventricular.png" alt="" />
+    <figcaption>K-Means</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ward_ventricular.png" alt="" />
+    <figcaption>Ward</figcaption>
+</figure>
+</div>
+
+---
+
+## Networks for different methods
+Default mode network
+
+<div>
+<figure style="display: inline-block; width:48%">
+    <img src="img/tvmsdl_dmn.png" alt="" />
+    <figcaption>TVMSDL</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ica_dmn.png" alt="" />
+    <figcaption>ICA</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/kmeans_dmn.png" alt="" />
+    <figcaption>K-Means</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ward_dmn.png" alt="" />
+    <figcaption>Ward</figcaption>
+</figure>
+</div>
+
+---
+
+## Networks for different methods
+Basal Nuclei
+
+<div>
+<figure style="display: inline-block; width:48%">
+    <img src="img/tvmsdl_basal_nuclei.png" alt="" />
+    <figcaption>TVMSDL</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ica_basal_nuclei.png" alt="" />
+    <figcaption>ICA</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/kmeans_basal_nuclei.png" alt="" />
+    <figcaption>K-Means</figcaption>
+</figure>
+<figure style="display: inline-block; width:48%">
+    <img src="img/ward_basal_nuclei.png" alt="" />
+    <figcaption>Ward</figcaption>
+</figure>
+</div>
+
+---
+
+## Brain Clusterings
+
+Regions extracted using different methods (colors are random).
+
+<div>
+<figure style="display: inline-block; width:35%; margin-right: 80px; margin-bottom:50px">
+    <img src="img/tvmsdl_contour.png" alt="" />
+    <figcaption>TVMSDL</figcaption>
+</figure>
+<figure style="display: inline-block; width:35%">
+    <img src="img/ica_contour.png" alt="" />
+    <figcaption>Group ICA</figcaption>
+</figure>
+<figure style="display: inline-block; width:35%; margin-right: 80px">
+    <img src="img/ward_contour.png" alt="" />
+    <figcaption>Ward's clustering</figcaption>
+</figure>
+<figure style="display: inline-block; width:35%">
+    <img src="img/kmeans_contour.png" alt="" />
+    <figcaption>K-Means</figcaption>
+</figure>
+</div>
+
+---
+
+## Model Selection
+
+We want numbers!
+
+---
+
+## Data faithfulness
+Explained variance
+
+* Explains how much the computed model accounts for the variance of a dataset
+* Maximized on train set by the PCA (0.22)
+* Measured on test set to evaluate generalization power of the model
+
+<img src="img/variance.png" width="40%" /> <img
+src="img/train_test.svg" width="58%"/>
+
+---
+
+<img src="img/consensus.svg" width="40%" style="float: right;"/>
+<h2>Stability of regions</h2>
+Normalized Mutual Information
+<ul style="width: 55%">
+<li>Maximized by clustering methods</li>
+<li>Measured on several runs to estimate model
+stability</li>
+</ul>
+
+<img src="img/nmi.svg" alt="" width="80%" />
+<div style="margin-top: -40px">
+<math xmlns="http://www.w3.org/1998/Math/MathML">
+<mrow>
+	<mi>M</mi>
+	<mi>I</mi>
+	<mrow>
+		<mo form="prefix">(</mo>
+		<mi>U</mi>
+		<mo>,</mo>
+		<mi>V</mi>
+		<mo form="postfix">)</mo>
+	</mrow>
+	<mo>=</mo>
+	<mstyle displaystyle="true">
+		<munderover>
+			<mo>&#x02211;</mo>
+			<mrow>
+				<mi>i</mi>
+				<mo>=</mo>
+				<mn>1</mn>
+			</mrow>
+			<mrow>
+				<msub>
+					<mi>n</mi>
+					<mi>u</mi>
+				</msub>
+			</mrow>
+		</munderover>
+	</mstyle>
+	<mstyle displaystyle="true">
+		<munderover>
+			<mo>&#x02211;</mo>
+			<mrow>
+				<mi>j</mi>
+				<mo>=</mo>
+				<mn>1</mn>
+			</mrow>
+			<mrow>
+				<msub>
+					<mi>n</mi>
+					<mi>v</mi>
+				</msub>
+			</mrow>
+		</munderover>
+	</mstyle>
+	<mi>P</mi>
+	<mrow>
+		<mo form="prefix">(</mo>
+		<msub>
+			<mi>u</mi>
+			<mi>i</mi>
+		</msub>
+		<mo>,</mo>
+		<msub>
+			<mi>v</mi>
+			<mi>j</mi>
+		</msub>
+		<mo form="postfix">)</mo>
+	</mrow>
+	<mi>log</mi>
+	<mfrac linethickness="1">
+		<mrow>
+			<mi>P</mi>
+			<mrow>
+				<mo form="prefix">(</mo>
+				<msub>
+					<mi>u</mi>
+					<mi>i</mi>
+				</msub>
+				<mo>,</mo>
+				<msub>
+					<mi>v</mi>
+					<mi>j</mi>
+				</msub>
+				<mo form="postfix">)</mo>
+			</mrow>
+		</mrow>
+		<mrow>
+			<mi>P</mi>
+			<mrow>
+				<mo form="prefix">(</mo>
+				<msub>
+					<mi>u</mi>
+					<mi>i</mi>
+				</msub>
+				<mo form="postfix">)</mo>
+			</mrow>
+			<mi>P</mi>
+			<mrow>
+				<mo form="prefix">(</mo>
+				<msub>
+					<mi>v</mi>
+					<mi>j</mi>
+				</msub>
+				<mo form="postfix">)</mo>
+			</mrow>
+		</mrow>
+	</mfrac>
+</mrow>
+</math>
+        </div>
+
+---
+
+## Methods Comparison
+
+<div style="display: inline-block; width=40%">
+Data faithfulness
+<br/>
+<span style='font-size: 70%'>Explained Variance</span>
+<br/>
+<img src="img/exp_var_bloxplot.svg" alt="" />
+</div>
+<div style="display: inline-block; width=40%">
+Stability
+<br/>
+<span style='font-size: 70%'>Normalized Mutual Information</span>
+<br/>
+<img src="img/mutual_inf_boxplot.svg" alt="" />
+</div>
+
+### <span style='color: red'>Data fidelity / Stability tradeoff</span>
+
+---
+
+## Conclusion
+
+* Our approach improves aspect of extracted regions
+  * Total Variation remove spurious details
+  * $\ell_1$ enforces sparsity and shrinks regions
+  * Overlapping probabilistic regions
+* Better results in term of quantitative metrics
+  * Explained variance
+  * Mutual information
+
+---
+
+## Diagnosing Autism
+
+<img src="img/gump.png" alt="" style="float: right" />
+
+---
+
+## Autism Spectrum Disorders
+
+* Represents 1% of children between 3 and 17 <span class="cite">[Kogan et al.,
+2009]</span>
+* Diagnosis has a great impact on patient’s life
+* Considered as a spectrum by Diagnostic and Statistical Manual of Mental Disorders (DSM)
+
+<div>
+<figure style="display: inline-block; width: 48%">
+    <img src="img/dsm_iv.png" alt="DSM IV" />
+    <figcaption>DSM IV</figcaption>
+</figure>
+<figure style="display: inline-block; width: 48%">
+    <img src="img/dsm_v.png" alt="DSM V" />
+    <figcaption>DSM V</figcaption>
+</figure>
+</div>
+
+---
+
+## Physiology
+<span class="cite">[Amaral et al., 2008]</span>
+
+* Developmental disorders
+  * Myelination problem
+  * Abnormal growth of the brain
+
+* Anatomical anomalies
+  * oversized cerebellum with less Purkinje cells
+  * amygdala oversized during childhood but less neurons during adulthood
+  * undersized corpus callosum
+  * Problem observed in thalamus, basal ganglia, hippocampus...
+
+There is no consensus on all these anomalies
+
+---
+
+## Impact on brain function
+
+![autism_areas](img/brain_areas_.jpg)
+
+---
+
+## Autism Brain Imaging Data Exchange
+
+* 1112 subjects across 16 sites
+* Several phenotyic information
+  * age
+  * gender
+  * handedness
+  * autism test scores
+* But
+  * very heterogeneous data
+  * high inter-site variability
+  * not preprocessed
+
+---
+
+## Exploring variability
+
+* Varying subject number
+  * 871 available after preprocessing
+  * 736 after elimination of small sites
+  * 629 after removing women and left-handed
+  * 420 after restraing between 9 and 18 year old
+
+* Cross validation
+  * prediction on seen sites
+  * prediction on new sites
+
+---
+
+## Pipeline
+							
+<img src="img/diagram.png" width="80%" />
+
+1. Atlas and region extraction
+2. Time series extraction
+3. Correlation matrix estimation
+4. Classification
+
+---
+
+## ROIs extraction methods
+
+Extraction of 84 regions using different models
+
+* Decomposition models
+  * Spatial Group ICA <span class="cite">[Beckmann and Smith, 2004]</span>
+  * TV-MSDL <span class="cite">[Abraham et al., 2013]</span>
+
+* Clusterings
+  * Ward’s builds a tree by recursively aggregating regions (spatially
+constrained)
+  * K-Means uses a centroid based approach
+
+* Reference atlases
+  * Harvard-Oxford <span class="cite">[Desikan et al., 2006]</span>
+  * Yeo <span class="cite">[Yeo et al., 2011]</span>
+
+---
+
+## Correlation matrix estimation
+
+* Several estimators
+  * Ledoit-Wolf
+  * Shrunk Covariance
+  * Graph Lasso
+
+* Matrix types
+  * Correlation
+  * Partial correlation
+  * Projection on mean covariance tangent space<br /> <span
+class="cite">[Varoquaux et al., 2010]</span>
+
+---
+
+## Prediction
+
+* $\ell_1$ regularized SVC
+* $\ell_2$ regularized SVC
+* Ridge classifier
+
+Parameter estimated by cross validation on train set
+
+---
+
+# Results
+
+### What is the most important step?
+
+### Which method is the best?
+
+---
+
+## Importance of pipeline steps
+Seen sites
+
+<img src="img/pipeline_steps_sss.svg" width="70%" />
+
+---
+
+## Importance of pipeline steps
+Unseen sites
+
+<img src="img/pipeline_steps_loso.svg" width="70%" />
+
+--
+
+## Atlas Extraction
+![](img/plot_model_.svg)
+
+TVMSDL surpass any other ROI extraction method
+
+--
+
+## Correlation Estimation
+![](img/plot_matrix_.svg)
+
+Tangent space embedding is significantly better
+
+--
+
+## Predictors
+![](img/plot_predictor_.svg)
+
+$\ell_2$ regularized models predict better
+
+---
+
+# Results
+
+### What about the other parameters?
+
+### Is a big dataset helpful?
+
+---
+
+## Number of ROIs
+Seen sites
+
+![](img/regions_sss.svg)
+
+---
+
+## Number of ROIs
+Unseen sites
+
+![](img/regions_loso.svg)
+
+---
+
+## Learning Curves
+Seen sites
+
+![](img/lc_sss.svg)
+
+---
+
+## Learning Curves
+Unseen sites
+
+![](img/lc_loso.svg)
+
+---
+
+# Results
+
+### What are the brain regions implied in autism?
+
+(Preliminary results)
+
+---
+
+## Finding significant connections
+
+* On the best TVMSDL model:
+  * Take the common regions across folds
+  * Extract the weights of the classifiers
+  * Compare these weights to prediction on permuted labels
+
+![](img/atlas.png)
+
+---
+
+## Default mode network
+
+<img src="img/dmn.png" width="60%" />
+<img src="img/dmn_conn.svg" width="60%" />
+
+---
+
+## Language network
+
+<img src="img/lang.png" width="60%" />
+<img src="img/lang_conn.svg" width="60%" />
+
+---
+
+## Conclusion
+
+* Automatic and parameter free pipeline
+  * learns an atlas from the data
+  * use it for diagnosis
+  * better prediction scores than state of the art
+* ROIs choice
+  * is the most important step for prediction
+  * gives better results if data-driven
+
+---
+
+# Software Development
+
+---
+
+## Nilearn
+How to impact on another domain
+
+* Extensive documentation
+* Lots of detailed examples
+* Complete analysis pipeline
+* For technical people
+  * Based on scikit-learn paradigms and technical architecture
+  * Progressive integration in the Neuroimaging Python stack
+  * Get rid of Matlab
+
+**Live demo**
+
+---
+
+# Wrapping up
+
+---
+
+## Conclusion
+
+* Data scientists are needed in the neuroimaging domain
+* Mutually enriching experience
+* Method and software development are at the core of this collaboration
+
+We are always open to collaboration
+
+We are hiring
+
+---
+
+## Thanks for your attention
+
+                </script>
+            </section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+                slideNumber: true,
+                center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                width:1024,
+                height:768,
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

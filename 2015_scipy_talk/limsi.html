@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Learning functional brain atlases modeling inter-subject variability</title>
+
+		<meta name="author" content="Alexandre Abraham">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=200, height=device-height, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+            <section data-markdown data-separator="\n\n---\n\n">
+                <script type="text/template">
+
+#Learning functional brain atlases modeling inter-subject variability
+
+## Alexandre ABRAHAM
+
+![Inria][img/inria.png]
+
+---
+
+## Blood Oxygen Level Dependent (BOLD) Signal
+
+![bold](img/bold.png)
+
+---
+
+## BOLD signals
+
+![](img/niimgs.jpg)
+
+---
+
+## Resting State fMRI
+
+Brain spontaneous activity
+
+* unveils underlying functional organization
+* can be acquired on disable, injured or sedated subjects
+* does not present salient features
+
+
+---
+
+## Toward Machine Learning: Decomposition Model
+
+![decomposition](img/dictionary_learning.png)
+    
+* $\mathbf{Y} \in \mathbb{R}^{n \times p}$: $n$-long time series observed on $p$ voxels
+* $\mathbf{U} \in \mathbb{R}^{n \times k}$ are the $k$ time series associated to the maps $\mathbf{V} \in \mathbb{R}^{p \times k}$
+* $\mathbf{E} \in \mathbb{R}^{n \times p}$: model residuals
+
+---
+
+## Design matrix
+
+<img src="img/u.svg" alt="U" width="50%">
+
+<div style='float:left; width:60%'>
+Task<br />
+<img src="img/design.png" alt="design" width="100%">
+</div>
+<div style='float:right; width:38%'>
+Resting state<br />
+<br />
+<h1>?</h1>
+</div>
+
+---
+
+## Autism Brain Imaging Data Exchange
+
+* 1112 subjects across 16 sites
+* Several phenotyic information:
+  * age
+  * gender
+  * handedness
+  * autism test scores
+* But:
+  * very heterogeneous data
+  * high inter-site variability
+  * not preprocessed
+
+---
+
+## Autism Spectrum Disorders
+
+* Represents 1% of children between 3 and 17 [Kogan et al., 2009]
+* Diagnosis has a great impact on patient’s life
+* Unanimously recognized as a spectrum
+
+<img src="img/dsm_iv.png" alt="DSM IV" width="48%">
+<img src="img/dsm_v.png" alt="DSM V" width="48%">
+
+---
+
+## Physiology<br /> [Amaral et al., 2008]
+
+* Developmental disorders
+  * Myelination problem
+  * Abnormal growth of the brain
+* Anatomical anomalies
+  * oversized cerebellum with less Purkinje cells
+  * amygdala oversized during childhood but less neurons during adulthood
+  * undersized corpus callosum
+  * Problem observed in thalamus, basal ganglia, hippocampus...
+
+ There is no consensus on all these anomalies
+
+---
+
+## Impact on brain function
+
+![autism_areas](img/brain_areas_.jpg)
+
+---
+
+## Exploring variability
+
+* Varying subject number:
+  * 871 available after preprocessing
+  * 736 after elimination of small sites
+  * 629 after removing women and left-handed
+  * 420 after restraing between 9 and 18 year old
+
+* Cross validation:
+  * prediction on seen sites
+  * prediction on new sites
+
+---
+
+## Pipeline
+							
+![test](img/diagram.png)
+
+1. Atlas and region extraction
+2. Time series extraction
+3. Correlation matrix estimation
+4. Classification
+
+---
+
+## ROIs extraction methods
+
+* Spatial Group ICA [Beckmann and Smith, 2004]
+  * 84 regions extracted from 42 computed maps
+  * reference method for resting state networks
+* Clusterings
+  * 84 regions segmented
+  * Ward’s builds a tree by recursively aggregating regions
+  * K-Means uses a centroid based approach
+* TV-MSDL [Abraham et al., 2013]
+  * 84 regions extracted from 42 computed maps
+* Reference atlases
+  * 84 regions extracted
+  * Harvard-Oxford [Desikan et al., 2006]
+  * Yeo [Yeo et al., 2011]
+
+---
+
+## Correlation matrix estimation
+
+* Several estimators
+  * Ledoit-Wolf
+  * Shrunk Covariance
+  * Graph Lasso
+
+* Matrix types
+  * Correlation
+  * Partial correlation
+  * Projection on mean covariance tangent space [Varoquaux et al., 2010]
+
+---
+
+## Prediction
+
+* $\ell_1$ regularized SVC
+* $\ell_2$ regularized SVC
+* Ridge classifier
+
+* Parameter estimated by cross validation on train set
+
+---
+
+# Results
+
+### What is the most important step?
+
+### Which method is the best?
+
+---
+
+## Importance of pipeline steps (seen sites)
+![](img/pipeline_steps_sss.svg)
+
+---
+
+## Importance of pipeline steps (unseen sites)
+![](img/pipeline_steps_loso.svg)
+
+---
+
+## Atlas Extraction
+![](img/plot_model_.svg)
+
+TVMSDL surpass any other ROI extraction method
+
+---
+
+## Correlation Estimation
+![](img/plot_matrix_.svg)
+
+Tangent space embedding is significantly better
+
+---
+
+## Predictors
+![](img/plot_predictor_.svg)
+
+$\ell_2$ regularized models predict better
+
+---
+
+# Results
+
+### What about the other parameters?
+
+### Is a big dataset helpful?
+
+---
+
+## Number of ROIs (seen sites)
+
+![](img/regions_sss.svg)
+
+---
+
+## Number of ROIs (unseen sites)
+
+![](img/regions_loso.svg)
+
+---
+
+## Learning Curves (seen sites)
+
+![](img/lc_sss.svg)
+
+![](img/lc_loso.svg)
+
+---
+
+# Results
+
+### What are the brain regions implied in autism?
+
+(Preliminary results)
+
+---
+
+## Finding significant connections
+
+* On the best TVMSDL model:
+  * Take the common regions across folds
+  * Extract the weights of the classifiers
+  * Compare these weights to prediction on permuted labels
+
+![](img/atlas.png)
+
+---
+
+## Default mode network
+
+<img src="img/dmn.png" width="80%" />
+<img src="img/dmn_conn.svg" width="80%" />
+
+---
+
+## Default mode network
+
+* Long distance connections are weaker
+* Short distance connections are stronger
+
+<img src="img/dmn_corr.png" width="60%" />
+
+---
+
+## Language network
+
+<img src="img/lang.png" width="80%" />
+<img src="img/lang_conn.svg" width="80%" />
+
+---
+
+## Language network
+
+* Left / Right connection is significant
+* Network impaired in ASD subjects
+
+<img src="img/lang_corr.svg" width="60%" />
+
+
+                </script>
+            </section>
+
+			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+                slideNumber: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+                width:1024,
+                height:768,
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+                    { src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
