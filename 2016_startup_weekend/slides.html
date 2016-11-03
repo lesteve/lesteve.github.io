@@ -93,25 +93,37 @@
 
 ## Machine learning (classification)
 
-Big data isn't interesting without machine learning
+Big data isn't interesting without machine learning   <!-- .element class="fragment" -->
 
-Example: telling apples from oranges
 
+Example: telling apples from oranges  <!-- .element class="fragment" -->
+
+<div class="fragment">
 <span style="width: 200px; display: inline-block">Learning from data</span>
 <img src="img/apples-and-oranges.png" height="220px" style="vertical-align: middle"/>
+</div>
 
+<div class="fragment">
 <span style="width: 200px; display: inline-block">Predicting on new data</span>
 <img src="img/new-apples.png" height="130px" style="vertical-align: middle"/>
+</div>
 
-Learn as much as possible from the data but not too much
-
+Learn as much as possible from the data but not too much <!-- .element class="fragment" -->
 ....
 
 ## Machine learning (regression)
 
-<img src="img/regression-overfit-1.png" width="48%"/>
-<img src="img/regression-overfit-2.png" width="48%" class="fragment"/>
+<img src="img/regression-overfit-1.png" width="90%"/>
 
+....
+## Machine learning (regression)
+
+<img src="img/regression-overfit-2.png" width="90%"/>
+
+....
+## Machine learning (regression)
+
+<img src="img/regression-overfit-3.png" width="90%"/>
 
 ====
 
@@ -220,6 +232,95 @@ Jupyter notebook: predicting house prices on Boston housing dataset
 
 <center><img src="img/scikit-learn-logo-notext.png" alt="scikit-learn logo" height="180px"></center> <!-- .element style="margin-top: 100px" -->
 
+====
+
+====
+
+## Combining models
+
+```python
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import RandomizedPCA
+from sklearn.svm import SVC
+
+scaler = StandardScaler()
+X_train_scaled = scaler.fit_transform(X_train)
+
+pca = RandomizedPCA(n_components=10)
+X_train_pca = pca.fit_transform(X_train_scaled)
+
+svm = SVC(C=0.1, gamma=1e-3)
+svm.fit(X_train_pca, y_train)
+```
+
+====
+
+## Pipeline
+
+```python
+from sklearn.preprocessing import StandardScaler
+from sklearn.decomposition import RandomizedPCA
+from sklearn.svm import SVC
+from sklearn.pipeline import make_pipeline
+
+pipeline = make_pipeline(
+    StandardScaler(),
+    RandomizedPCA(n_components=10),
+    SVC(C=0.1 ,gamma=1e-3))
+pipeline.fit(X_train, y_train)
+```
+
+====
+
+## Scoring manually stacked models
+
+```python
+scaler = StandardScaler()
+X_train_scaled = scaler . fit_transform(X_train)
+
+pca = RandomizedPCA(n_components = 10)
+X_train_pca = pca . fit_transform(X_train_scaled)
+
+svm = SVC(C = 0.1 , gamma = 1e-3)
+svm.fit(X_train_pca, y_train)
+
+X_test_scaled = scaler.transform(X_test)
+X_test_pca = pca.transform(X_test_scaled)
+y_pred=svm.predict(X_test_pca) accuracy_score(y_test, y_pred)
+```
+
+====
+
+## Scoring a pipeline
+
+```py
+pipeline = make_pipeline(
+    StandardScaler(),
+    RandomizedPCA(n_components=10),
+    SVC(C=0.1 ,gamma=1e-3))
+
+pipeline.fit(X_train, y_train)
+y_pred = pipeline.predict(X_test)
+accuracy_score(y_test, y_pred)
+```
+
+====
+
+## Parameter search
+
+```py
+import numpy as np
+from sklearn.grid_search import RandomizedSearchCV
+
+params = {'randomizedpca__n_components' : [5 , 10 , 20],
+          'svc__C' : np.logspace(- 3 , 3 , 7),
+          'svc__gamma' : np.logspace(- 6 , 0 , 7)}
+
+search=RandomizedSearchCV(pipeline, params, n_iter=30 , cv=5)
+search.fit(X_train, y_train)
+# search.best_params_, search.grid_scores_
+```
+
 <!-- ## The end -->
 
 <!-- <div style="text-align: middle"> -->
@@ -255,15 +356,13 @@ Jupyter notebook: predicting house prices on Boston housing dataset
                     { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
                     { src: 'plugin/highlight/highlight.js', async: true, condition: function() { return true; }, callback: function() { hljs.initHighlightingOnLoad(); } },
-<!-- This doesn't work so hacked the line as above to always do code highlighting -->
-<!-- { src: 'plugin/highlight/highlight.js', async: true, condition: function() { console.log('bla'); ret = document.querySelector( 'pre code' ); console.log(ret); return !!ret;}, callback: function() { console.log('Yeah'); hljs.initHighlightingOnLoad(); } }, -->
                     { src: 'plugin/zoom-js/zoom.js', async: true },
                     { src: 'plugin/notes/notes.js', async: true },
                     { src: 'plugin/math/math.js', async: true }
                 ]
             });
 
-p        </script>
+        </script>
 
     </body>
 </html>
