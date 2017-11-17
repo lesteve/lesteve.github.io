@@ -1,0 +1,931 @@
+/* ============== Browser Support ============== */
+/* ================== Colors ================== */
+/* ================ Typography ================= */
+/* ============ Heights and Widths ============= */
+/* ========== Responsive breakpoints =========== */
+/* ================= Elevations ================ */
+/* ================= Animations ================ */
+/* =================== Icons =================== */
+/* ============== Module specific ============== */
+/* ============== Accordion ============== */
+/* ============== Avatar ============== */
+/* ============== Badge ============== */
+/* ============== Button ============== */
+/* ============== Card ============== */
+/* ============== Event Cards ============== */
+/* ============== Form ============== */
+/* ============== Overlay ============== */
+/* ============== Reports ============== */
+/* ============== Responsive Form ============== */
+/* ============== Segmented Control ============== */
+/* ============== Ticket Types ============== */
+/* ============== Toggle / Switch ============== */
+/* ---------------------------------------------------------- */
+/*                                                            */
+/* A media query that captures:                               */
+/*                                                            */
+/* - Retina iOS devices                                       */
+/* - Retina Macs running Safari                               */
+/* - High DPI Windows PCs running IE 8 and above              */
+/* - Low DPI Windows PCs running IE, zoomed in                */
+/* - Low DPI Windows PCs and Macs running Firefox, zoomed in  */
+/* - Android hdpi devices and above                           */
+/* - Android tvdpi devices, including Google Nexus 7          */
+/* - Chrome running on high DPI Macs and PCs                  */
+/* - Opera running on high DPI Macs, PCs and mobile devices   */
+/*                                                            */
+/* Please note that that this code assumes you'll swap a      */
+/* 2× version of your images. If you'd like to supply         */
+/* finer increments, other thresholds might be appropriate.   */
+/*                                                            */
+/* A test for CSS pixel densites can be found here:           */
+/* http://bjango.com/articles/min-device-pixel-ratio/         */
+/*                                                            */
+/*                                  @marcedwards from @bjango */
+/*                                                            */
+/* ---------------------------------------------------------- */
+/* This is hacky and awesome. it should be part of mixins or something.
+   I found it once on stack overflow and couldn't find it later when I looked */
+/* XXX: test in browsers */
+/* ratio is the height divided by width in percentage form */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000338}}
+.header-link {
+  display: inline-block;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 19px;
+  vertical-align: top;
+  color: #45494E;
+  text-transform: uppercase;
+  border-left: 1px solid #EFF2F5;
+  padding: 22px 20px 19px 20px;
+  letter-spacing: 0.5px;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000352}}
+.header-link:hover, .header-link:focus, .header-link.active, .header-link.locked {
+  text-decoration: none;
+  color: #45494E;
+  background-color: #EFF2F5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000361}}
+.header-link:focus {
+  outline: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000365}}
+.header-link .ico-arrow-tail-down {
+  font-size: 12px;
+  display: inline-block;
+  left: 3px;
+  top: 0;
+  line-height: 15px;
+  position: relative;
+  color: #D2D6DF;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000377}}
+.global-header .search-autocomplete .search-autocomplete__query-input input, .global-header .search-autocomplete input.search-autocomplete-input--large {
+  font-size: 15px;
+  font-weight: 400;
+  height: 60px;
+  line-height: 1.2em;
+  box-shadow: none;
+  border: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  padding-left: 48px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000391}}
+.global-header, .global-sub-header .g-group {
+  margin: 0 auto;
+  position: relative;
+  width: 100%;
+  max-width: 1080px;
+  min-width: 220px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\0000399}}
+.header-search {
+  border-left: 1px solid #EFF2F5;
+  -webkit-flex-grow: 10;
+  -moz-flex-grow: 10;
+  -ms-flex-grow: 10;
+  flex-grow: 10;
+  border-bottom: 1px solid #D2D6DF;
+  height: 60px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003109}}
+.header-browse {
+  border-bottom: 1px solid #D2D6DF;
+  height: 60px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003114}}
+.sill {
+  box-shadow: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003117}}
+.sill.sill--with-borders {
+  box-shadow: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003122}}
+.search-autocomplete {
+  background-color: white;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003128}}
+.global-header .search-autocomplete {
+  position: relative;
+  background-color: white;
+  z-index: 2;
+  max-width: 400px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003281}}
+.global-header .search-autocomplete input[type="search"].placeholder {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003282}}
+.global-header .search-autocomplete input[type="search"][placeholder] {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003283}}
+.global-header .search-autocomplete input[type="search"]:-moz-placeholder {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003284}}
+.global-header .search-autocomplete input[type="search"]::-moz-placeholder {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003285}}
+.global-header .search-autocomplete input[type="search"]:-ms-input-placeholder {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/node_modules\/eb-styleguide\/sass\/base\/_mixins\.scss}line{font-family:\00003286}}
+.global-header .search-autocomplete input[type="search"]::-webkit-input-placeholder {
+  text-overflow: ellipsis;
+  border-color: transparent;
+  border-radius: 0px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003142}}
+.global-header .search-autocomplete .list--divider {
+  line-height: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003146}}
+.global-header .search-autocomplete .responsive-form__input--icon__container {
+  border-top-right-radius: 1px;
+  border-bottom-right-radius: 1px;
+  background-color: white;
+  border: none;
+  padding-right: 0;
+  padding-left: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003153}}
+.global-header .search-autocomplete .responsive-form__input--icon__container .ico-search-v2,
+.global-header .search-autocomplete .responsive-form__input--icon__container .ico-location-v2 {
+  color: #D2D6DF;
+  padding: 0px;
+  line-height: 53px;
+  font-size: 19px;
+  -webkit-transition-property: color;
+  -moz-transition-property: color;
+  transition-property: color;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003164}}
+.global-header .search-autocomplete .responsive-form__input--icon__container .ico-search-v2.is-focus,
+.global-header .search-autocomplete .responsive-form__input--icon__container .ico-location-v2.is-focus {
+  color: #666A73;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003171}}
+.global-header .search-autocomplete .search-autocomplete__query-input input {
+  padding-left: 48px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003177}}
+.global-header .search-autocomplete .pac-container {
+  padding-top: 45px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003181}}
+.global-header .search-autocomplete .search-autocomplete__location {
+  position: relative;
+  outline: 1px solid #D2D6DF;
+  top: 1px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003186}}
+.global-header .search-autocomplete .search-autocomplete__location .ui-autocomplete {
+  background: white url('../../../../images/logos/powered-by-google-on-white.png?1465578510') no-repeat bottom right;
+  padding-bottom: 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003191}}
+.global-header .search-autocomplete .search-autocomplete__location .responsive-form__input--icon {
+  width: calc(100% - 54px);
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003197}}
+.global-header .search-autocomplete .search-autocomplete__button {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003202}}
+.global-header .search-autocomplete .search-autocomplete__button input[type="submit"] {
+  font-family: "briteicons", "Benton Sans", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  font-size: 17px;
+  line-height: 30px;
+  height: 60px;
+  padding: 3px 20px 8px 20px;
+  border: 0;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003211}}
+.global-header .search-autocomplete .search-autocomplete__button input[type="submit"]:hover, .global-header .search-autocomplete .search-autocomplete__button input[type="submit"]:focus {
+  text-decoration: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003217}}
+.global-header .search-autocomplete .search-autocomplete__button .search-autocomplete__location-display a {
+  color: #00a1ee !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003228}}
+.eb-logo {
+  display: block;
+  float: left;
+  margin: 0px 20px;
+  width: 110px;
+  height: 60px;
+  color: #f6682F;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003236}}
+.eb-logo:link, .eb-logo:visited, .eb-logo:hover, .eb-logo:focus, .eb-logo:active {
+  text-decoration: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003244}}
+.eb-logo i {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 39px;
+  line-height: 49px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003251}}
+.global-header {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 60px;
+  max-width: none;
+  width: 100%;
+  background-color: white;
+  border-bottom: 1px solid #D2D6DF;
+  z-index: 40000;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003264}}
+.global-header .btn.btn--link {
+  height: auto;
+  vertical-align: top;
+  font-weight: 600;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003269}}
+.global-header .btn.btn--link.header-link {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  line-height: 15px;
+  height: 60px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003275}}
+.global-header .btn.btn--link:hover, .global-header .btn.btn--link:active, .global-header .btn.btn--link:focus {
+  text-decoration: none;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003283}}
+.global-header .btn.btn--block {
+  margin: 20px;
+  color: white !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003287}}
+.global-header .btn.btn--block:hover, .global-header .btn.btn--block:active, .global-header .btn.btn--block:focus {
+  background-color: #00affc;
+  color: white;
+  border: none;
+  padding: 16px 20px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003297}}
+.global-header .major {
+  -webkit-flex-grow: 2;
+  -moz-flex-grow: 2;
+  -ms-flex-grow: 2;
+  flex-grow: 2;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  float: left;
+  background-color: white;
+  z-index: 39000;
+  border-bottom: 1px solid #D2D6DF;
+  height: 60px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003309}}
+.global-header .major .header-link {
+  -webkit-transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  -moz-transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  transition: visibility 0.2s ease-in-out, opacity 0.2s ease-in-out;
+  z-index: 1;
+  float: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003314}}
+.global-header .major .header-link:hover, .global-header .major .header-link:active, .global-header .major .header-link.active, .global-header .major .header-link:focus {
+  color: #00a1ee !important;
+  background-color: transparent;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003324}}
+.global-header .minor {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  font-size: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003329}}
+.global-header .mobile-action-a,
+.global-header .mobile-action-b {
+  line-height: 1;
+  font-size: 19px;
+  position: absolute;
+  padding: 16px 20px;
+  top: 0;
+  color: #D2D6DF;
+  text-decoration: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003339}}
+.global-header .mobile-action-a.active,
+.global-header .mobile-action-b.active {
+  color: #00a8f2;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003344}}
+.global-header .mobile-action-a,
+.global-header .mobile-action-a-menu {
+  left: 0;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003348}}
+.global-header .mobile-action-b,
+.global-header .mobile-action-b-menu {
+  left: auto;
+  right: 95px;
+  top: -57px;
+  z-index: 200;
+  color: #666A73;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003359}}
+.global-header .mobile-action-a-menu,
+.global-header .mobile-action-b-menu {
+  width: 220px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003364}}
+.global-header .user-avatar {
+  position: relative;
+  height: 19px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003368}}
+.global-header .user-avatar.user-avatar-no-img {
+  padding-left: 50px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003372}}
+.global-header .user-avatar .name,
+.global-header .user-avatar .email {
+  line-height: 1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003377}}
+.global-header .user-avatar .user-name {
+  vertical-align: top;
+  max-width: 110px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003382}}
+.global-header .user-avatar .user-avatar-icon {
+  top: 19px;
+  left: 20px;
+  position: absolute;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003388}}
+.global-header .user-avatar .user-avatar-image {
+  height: 30px;
+  width: 30px;
+  max-height: 30px;
+  max-width: 30px;
+  margin: -9px 5px 0px 0px;
+  border: 3px solid #D2D6DF;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003400}}
+.global-header .list .user-avatar {
+  padding: 13px 13px 13px 38px;
+  line-height: normal;
+  background-color: #D2D6DF;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003405}}
+.global-header .list .user-avatar .user-avatar-icon {
+  top: 8px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003411}}
+#global-header {
+  z-index: 10;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003415}}
+.global-mask {
+  display: none;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003420}}
+.gh-dd {
+  position: relative;
+  display: inline-block;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003425}}
+.gh-dd-menu {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  z-index: -1;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003431}}
+.gh-dd-menu.on-right {
+  right: 0;
+  left: auto;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003437}}
+.js-gh-dd-menu {
+  opacity: 0;
+  visibility: hidden;
+  top: 60px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003443}}
+.global-header .js-gh-dd-menu--show {
+  display: inline-block;
+  top: 61px;
+  opacity: 1;
+  visibility: visible;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003450}}
+.gh-help {
+  z-index: 400;
+  position: relative;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 60px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003457}}
+.gh-help-box {
+  border-bottom: 1px solid #D2D6DF;
+  height: 60px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003462}}
+.gh-help-box .gh-dd-menu {
+  width: 330px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003467}}
+.gh-profile-box {
+  border-bottom: 1px solid #D2D6DF;
+  height: 60px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003472}}
+.gh-profile-box .gh-dd-menu {
+  width: 250px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003477}}
+.global-sub-header {
+  background-color: #F8F8FA;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003484}}
+.global-sub-header .sub-text {
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 22px;
+  float: right;
+  clear: right;
+  text-align: justify;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003493}}
+.global-sub-header .sub-text:only-child {
+  padding-top: 14px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003498}}
+.auth-modal {
+  max-width: 330px;
+  margin: auto;
+  margin-top: 18px;
+  margin-bottom: 64px;
+  min-height: 300px;
+  text-align: left;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003506}}
+.auth-modal .loading-spinner {
+  position: absolute;
+  top: 50%;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003511}}
+.auth-modal .activation-sent {
+  font-size: 60px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003516}}
+.recaptcha_input_area_text {
+  line-height: 0;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003520}}
+#recaptcha_response_field {
+  height: 18px;
+  line-height: 18px;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003527}}
+body.show-chrome.ui-mobile-viewport .global-header {
+  text-shadow: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003530}}
+body.show-chrome.ui-mobile-viewport .ui-mobile [data-role=page],
+body.show-chrome.ui-mobile-viewport .ui-mobile [data-role=dialog],
+body.show-chrome.ui-mobile-viewport .ui-page {
+  top: 60px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003535}}
+body.show-chrome.ui-mobile-viewport .ui-dialog-contain > .ui-header {
+  z-index: 9;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003538}}
+body.show-chrome.ui-mobile-viewport .search-autocomplete .ui-autocomplete {
+  position: initial !important;
+}
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003545}}
+.ie8 .global-header {
+  width: 1080px;
+}
+
+@media only screen and (max-width: 1079px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003551}}
+  .logged-out .gh-help-box {
+    display: none;
+  }
+}
+@media only screen and (max-width: 999px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003557}}
+  .gh-help-box,
+  .gh-discover,
+  .gh-signup {
+    display: none;
+  }
+}
+@media only screen and (max-width: 919px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003565}}
+  .gh-profile-box .user-avatar {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003568}}
+  .gh-profile-box .user-avatar .user-avatar-icon {
+    left: 20px;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003572}}
+  .gh-profile-box .user-avatar .user-name {
+    display: none;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003576}}
+  .gh-profile-box .user-avatar .ico-arrow-tail-down {
+    display: inline-block;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003580}}
+  .gh-profile-box .user-avatar .ico-menu-v2 {
+    color: #666A73;
+    left: 25px;
+    top: 20px;
+    font-size: 20px;
+  }
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003590}}
+.ie8 .global-header .search-autocomplete {
+  -webkit-transition-property: width;
+  -moz-transition-property: width;
+  transition-property: width;
+  -webkit-transition-duration: 0.5s;
+  -moz-transition-duration: 0.5s;
+  transition-duration: 0.5s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003598}}
+.ie8 .js-gh-dd-menu {
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.2s;
+  -moz-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+}
+
+@media only screen and (min-width: 800px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003590}}
+  .global-header .search-autocomplete {
+    -webkit-transition-property: width;
+    -moz-transition-property: width;
+    transition-property: width;
+    -webkit-transition-duration: 0.5s;
+    -moz-transition-duration: 0.5s;
+    transition-duration: 0.5s;
+    -webkit-transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003598}}
+  .js-gh-dd-menu {
+    -webkit-transition-property: all;
+    -moz-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: 0.2s;
+    -moz-transition-duration: 0.2s;
+    transition-duration: 0.2s;
+    -webkit-transition-timing-function: ease-in-out;
+    -moz-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+  }
+}
+@media only screen and (max-width: 799px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003609}}
+  .global-header .major {
+    overflow: visible;
+    width: 100%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003614}}
+  .global-header .list .user-avatar {
+    min-height: 25px;
+    height: 100px;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003619}}
+  .global-header .header-link .user-avatar {
+    min-width: 95px;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003623}}
+  .global-header .gh-dd-menu {
+    border-top: none;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003627}}
+  .global-header .close-button {
+    display: none;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003632}}
+  .is-active .mobile-action-b {
+    color: #00a8f2;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003637}}
+  .search-autocomplete-is-active .header-search {
+    outline: 1px solid #D2D6DF;
+    height: 100%;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003643}}
+  .header-search {
+    display: block;
+    position: absolute;
+    top: 61px;
+    border: none;
+    left: auto;
+    margin: 0;
+    right: 0;
+    height: 0px;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003654}}
+  .header-search .search-autocomplete {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 400px;
+    max-width: 100%;
+  }
+}
+@media only screen and (max-width: 799px) and (max-width: 479px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003654}}
+  .header-search .search-autocomplete {
+    min-width: initial;
+  }
+}
+@media only screen and (max-width: 799px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003665}}
+  .header-search .search-autocomplete .ui-autocomplete {
+    top: auto !important;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003669}}
+  .header-search .search-autocomplete .ui-autocomplete.search-query-autocomplete {
+    top: auto !important;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003675}}
+  .header-search .search-autocomplete .search-autocomplete__query-input input,
+  .header-search .search-autocomplete .search-autocomplete__location input {
+    font-size: 16px;
+  }
+
+  /* .clearable-input needs to use with .responsive-form__input--icon--right
+      But we want to show search and location icon to the left on large screen.
+      Manully align the 'X' icon to the right for medium and down size.
+  */
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003687}}
+  .search-autocomplete .responsive-form__input--icon .responsive-form__input--icon__container {
+    left: auto;
+    right: 1px;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003692}}
+  .search-autocomplete .responsive-form__input--icon input[type="search"],
+  .search-autocomplete .responsive-form__input--icon input[type="text"] {
+    padding-left: 20px;
+    padding-right: 40px;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003699}}
+  .global-header-container.logged-out .user-avatar {
+    padding-left: 50px;
+    border-left: none;
+  }
+}
+@media only screen and (max-width: 479px) {
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003708}}
+  .global-mask {
+    position: fixed;
+    top: 0;
+    z-index: 9;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+    opacity: 0.9;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003718}}
+  .minor {
+    z-index: 40000;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003722}}
+  .show-menu-mask .global-mask,
+  .show-search-mask .global-mask {
+    display: block;
+  }
+
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003729}}
+  .global-header .major {
+    width: auto;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003733}}
+  .global-header .mobile-action-a-menu,
+  .global-header .header-search {
+    width: 100%;
+  }
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003737}}
+  .global-header .mobile-action-a-menu.sill--with-borders,
+  .global-header .header-search.sill--with-borders {
+    border-right: none;
+    border-left: none;
+  }
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003747}}
+body .global-header {
+  font-family: "Benton Sans", "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans-serif;
+  color: #45494E;
+  font-size: 15px;
+  font-weight: 400;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003753}}
+body .global-header a.header-link {
+  text-transform: uppercase;
+  border-left: 1px solid #EFF2F5;
+  padding-left: 20px;
+  padding-right: 20px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  border-radius: 0px;
+  color: #45494E;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003766}}
+body .global-header .list {
+  font-size: 15px;
+  font-weight: 400;
+  outline: 1px solid #D2D6DF;
+  overflow: hidden;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003775}}
+body .global-header .list .list--with-divider-top,
+body .global-header .list .list--with-divider-bottom {
+  outline: none;
+  border-color: #EFF2F5;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003781}}
+body .global-header .list .list--has-highlight {
+  outline: none;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003785}}
+body .global-header .list .list--stub-link a {
+  background-color: #00a1ee;
+  color: white !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003793}}
+body .global-header .list .list--stub-link a:hover, body .global-header .list .list--stub-link a:active, body .global-header .list .list--stub-link a:focus {
+  background-color: #F8F8FA;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003800}}
+body .global-header .list a {
+  -webkit-transition-property: background-color;
+  -moz-transition-property: background-color;
+  transition-property: background-color;
+  -webkit-transition-duration: 0.1s;
+  -moz-transition-duration: 0.1s;
+  transition-duration: 0.1s;
+  -webkit-transition-timing-function: ease-in-out;
+  -moz-transition-timing-function: ease-in-out;
+  transition-timing-function: ease-in-out;
+  padding: 16px 20px;
+  color: #666A73 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003808}}
+body .global-header .list a:hover, body .global-header .list a.ui-state-hover {
+  background-color: #EFF2F5;
+  color: #666A73;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003814}}
+body .global-header .list a:active, body .global-header .list a.ui-state-active {
+  background-color: #D2D6DF;
+  color: #666A73;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003820}}
+body .global-header .list a:focus, body .global-header .list a.ui-state-focus {
+  background-color: #EFF2F5;
+  border: 1px dotted #666A73;
+  padding: 15px 19px;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003828}}
+body .global-header .list .ui-menu-item:hover {
+  color: #666A73;
+  background-color: white;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003833}}
+body .global-header .list .help-link {
+  color: #00a8f2 !important;
+}
+@media -sass-debug-info{filename{font-family:file\:\/\/\/mnt\/jenkins\/workspace\/ebcore-build_12\.04\/django\/media\/django\/compass\/sass\/non_modular\/global_header\.scss}line{font-family:\00003837}}
+body .global-header .list p {
+  border-bottom: none;
+  padding: 12px 20px;
+}

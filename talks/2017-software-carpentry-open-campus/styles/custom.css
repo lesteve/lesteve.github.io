@@ -1,0 +1,24 @@
+.reveal section img {
+    border: none;
+    box-shadow: none;
+}
+
+.reveal section .big-number {
+    font-size: 200%;
+    font-family: courier;
+}
+
+.reveal section ul.stats {
+    list-style-type: none;
+}
+
+.reveal section ul.stats li {
+    margin-bottom: 40px;
+}
+
+.reveal section ul.two-columns {
+    list-style-type: none;
+    columns: 2;
+    -webkit-columns: 2;
+    -moz-columns: 2;
+}

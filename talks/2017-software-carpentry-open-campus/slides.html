@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Software Carpentry: Teaching basic lab skills for research computing</title>
+
+		<meta name="description" content="Scikit-learn day, June 15th, 2016">
+		<meta name="author" content="Loïc Estève">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="reveal.js/css/reveal.css">
+		<link rel="stylesheet" href="reveal.js/css/theme/white.css" id="theme">
+		<link rel="stylesheet" href="styles/custom.css" id="custom">
+
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+                    <img src="images/swc-logo-blue.svg" width="90%"></img>
+					<h3>Teaching basic lab skills for research computing</h3>
+					<p>
+						<small>by Loïc Estève (Inria)</small>
+                        <br/>
+						<small><a href="http://paris-swc.github.io">Software Carpentry Paris</a> group / <a href="http://github.com/paris-swc">@paris-swc</a></small><br/>
+						<small>and <a href="http://software-carpentry.org"> Software Carpentry</a> community / <a href="http://github.com/swcarpentry">@swcarpentry</a></small>
+                                                <small style="margin-top: 100px">Strongly inspired from <a href="http://neuroscience.telenczuk.pl">Bartosz Telenczuk</a>'s talk at Scikit-learn day in June 2016</small>
+					</p>
+				</section>
+                <section>
+                  <h3>Mission</h3>
+                      Software Carpentry's mission is to help scientists and engineers get more
+                      research done in less time and with less pain by teaching them basic lab skills
+                      for scientific computing.
+                </section>
+                <section>
+                  <h3>Target Audience</h3>
+                  <ul>
+                    <li class="fragment">Scientists without prior knowledge</li>
+                    <li class="fragment">My 2c: mostly beneficial to
+                    scientists who have at least a hint they have problems that
+                      programming could solve better</li>
+                    <li class="fragment">My 2.5c: even better if you have previous exposure to a programming language</li>
+                  </ul>
+                  <div style="margin-top: 50px"><small>Truer than life examples at
+                    <a href="https://software-carpentry.org/audience">https://software-carpentry.org/audience</a>
+                  </small></div>
+                </section>
+                <section>
+                  <h3>Typical SWC workshop</h3>
+                  <ul>
+                    <li class="fragment">shell: 1/2 day</li>
+                    <li class="fragment">git + github: 1/2 day</li>
+                    <li class="fragment">Python: 1 day</li>
+                  </ul>
+                </section>
+                <section>
+                    <img src="images/software-carpentry-workshops-2016-06.png" width="100%"></img>
+                    June 2016
+                </section>
+                <section>
+                    <img src="images/software-carpentry-workshops-2017-11-07.png" width="100%"></img>
+                    November 2017
+                </section>
+                <section>
+                  <img src="images/workshops.svg" width="45%"/>
+                  <img src="images/learners.svg" width="45%"/>
+                    <tspan class="big-number">863</tspan> workshops worldwide <br/>
+
+                    <tspan class="big-number">22353</tspan> students  trained <br/>
+                    <small>(as of November 7th, 2017)</small>
+                </section>
+
+                <section data-background-image="images/2016-05-24-proto204-DSC0135.jpg">>
+                  <h2 style="color:black; background: rgba(255,255,255,0.5)"> Our teaching method </h2>
+                </section>
+                <section>
+                  <h3>Basic principles</h3>
+                  <ul>
+                    <li class="fragment">Live coding</li>
+                    <li class="fragment">Lessons materials on github with a Creative Commons licence</li>
+                    <li class="fragment">Frequent quizzes and hands-on exercises to keep audience interested/awake</li>
+                    <li class="fragment">Feed-back: red/green sticky notes, Etherpad during and after each session, pre- and post-workshop survey</li>
+                  </ul>
+                </section>
+                <section data-background-image="images/2016-05-24-proto204-DSC0153.jpg">
+                </section>
+                <section>
+                    <h2>Software Carpentry as an open source community</h2>
+                </section>
+                <section>
+                    <h3>Common Characteristics of an Open Source Community</h3>
+                    <ul>
+                        <li>inclusive and transparent,</li>
+                        <li>distributed contributors,</li>
+                        <li>working together on an open source "product",</li>
+                        <li>communicating through internet channels.</li>
+                    </ul>
+                </section>
+                <section>
+                    <img src="images/software-carpentry-team-2016-06.png" width="100%"></img>
+                  <small>June 2016</small>
+                </section>
+                <section>
+                    <img src="images/software-carpentry-team-2017-11-07.png" width="100%"></img>
+                  <small>November 2017</small>
+                </section>
+                <section>
+                    <ul class="stats">
+                        <li><span class="big-number">968</span> certified Software Carpentry instructors <br/></li>
+                        <li>based in <span class="big-number">39</span> countries</li>
+                    </ul>
+                    <small>(as of November 7th, 2017)</small>
+                </section>
+                <section data-background-iframe="pages/python-novice-inflammation.html">
+                </section>
+                <section>
+                    <a href="http://github.com/swcarpentry/python-novice-inflammation"><img src="images/python-novice-inflammation-gh-head.png"></img></a>
+                    <ul class="stats">
+                        <li><span class="big-number">157</span> contributors,
+                        <span class="big-number">350</span> forks,</li>
+                        <li> <span class="big-number">~1600</span> commits,
+                        <span class="big-number">230</span> PRs merged,</li>
+                        <li> <span class="big-number">4000</span> lines of content,
+                          <span class="big-number">10</span> core lessons</li>
+                </section>
+                <section>
+                    <h2> Our local community </h3>
+                </section>
+                <section>
+                    <ul class="two-columns">
+                        <li>Jan
+                        Antolik,</li>
+                        <li>Andrew Davison</li>
+                        <li>Loïc Estève,</li>
+                        <li>Eric Bray,</li>
+                        <li>Konrad Hinsen,</li>
+                        <li>Alexandre Gramfort,</li>
+                        <li>Samuel Lelièvre,</li>
+                        <li>Camille Marini, </li>
+                        <li>Marcel Stimberg,</li>
+                        <li>Bartosz Teleńczuk,</li>
+                        <li>Maria Teleńczuk,</li>
+                        <li>Nelle Varoquaux</li>
+                </section>
+                <section>
+                    <h3> Our Software Carpentry workshops </h3>
+                    <img src="images/software-carpentry-paris-workshops.png" width="80%"></img>
+                </section>
+                <section>
+                    <tspan class="big-number">6</tspan> SWC workshops in Paris area + <tspan class="big-number">1</tspan> advanced workshop, <br/>
+                    <tspan class="big-number">4</tspan> workshops in 2016,  <tspan class="big-number">153</tspan> students trained,  <br/>
+                    <tspan class="big-number">10</tspan> certified instructors,
+                    <tspan class="big-number">7</tspan> instructors trained in 2016,
+                </section>
+                <section>
+                    <h3>PROTO204 training 24-25 May 2016: 50 seats sold out in a day</h3>
+                    <img src="images/proto204-registrations.png"></img>
+                </section>
+                <section>
+                    <img width="95%" src="images/gif-stat-graphs.svg"></img>
+                </section>
+                <section style="text-align: left">
+                  <h3>SWC in Paris: last 2-year summary</h3>
+                  <ul>
+                    <li class="fragment">2016: Instructor training + 4 SWC workshops</li>
+                    <li class="fragment">2017: 0 SWC workshops</li>
+                  </ul>
+                  <div class="fragment" style="margin-top: 100px">
+                    <h3>What happened?</h3>
+                  </div>
+                  <div>
+                  <div class="fragment">
+                    Life happened and priorities took over
+                  </div>
+                  <div class="fragment" style="margin-top: 100px">
+                    <strong>Super happy</strong> to come and teach at a workshop if we don't have to bear most
+                    of the administrative work
+                  </div>
+                  <div class="fragment">
+                    <strong>Help needed</strong>: room, funding for coffee breaks, food (if
+                    possible), workshop organisation.
+                  </div>
+                </section>
+                <section>
+                    <h1> What is next? </h1>
+                </section>
+                <section>
+                    <h3>Help needed!</h3>
+                    <ul>
+                        <li> host a workshop (help needed on the admin side),</li>
+                        <li> web skills + love needed for the paris-swc
+                        <a href="http://paris-swc.github.io">website</a></li>
+                        <li> become a helper/instructor,</li>
+                        <li> contribute to lessons,</li>
+                        <li> become Software Carpentry partner</li>
+                    </ul>
+                </section>
+                <section>
+                    <img width="20%" src="images/logos/idv_logo.jpg"></img>
+                    <img width="50%" src="images/logos/CDS.png"></img><br/>
+                    <img src="images/logos/inria.jpg"></img>
+                    <img src="images/logos/eitn.jpg"></img>
+                    <img src="images/logos/enp.png"></img> <br/>
+                    <img width="10%" src="images/logos/cnrs.jpg"></img>
+                    <img width="15%" src="images/logos/hbp-logo.png"></img>
+                    <img src="images/logos/logo_telecom.png"></img>
+                    <img width="12%" src="images/logos/unic.jpg"></img>
+                    </section>
+                <section>
+                    <h3>Contact us</h3>
+                    <ul class="stats">
+                        <li> Homepage: <a href="https://paris-swc.github.io/">paris-swc.github.io</a>
+                        <!-- <li> Slides: -->
+                        <!-- <a href="https://rawgit.com/btel/2016-06-15-scikit-learn-day-paris/master/slides.html">bit.ly/1tqhRTu</a></li> -->
+
+                        <li> GitHub: <a href="https://github.com/swcarpentry">@swcarpentry</a>, <a href="https://github.com/paris-swc">@paris-swc</a>, <a href="https://github.com/lesteve">@lesteve</a></li>
+                        <li> email: loic.esteve@inria.fr</li>
+                    </ul>
+                </section>
+			</div>
+		</div>
+        
+
+		<script src="reveal.js/lib/js/head.min.js"></script>
+		<script src="reveal.js/js/reveal.js"></script>
+
+		<script>
+
+			// More info https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				transition: 'none', // none/fade/slide/convex/concave/zoom
+
+				// More info https://github.com/hakimel/reveal.js#dependencies
+				dependencies: [
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
