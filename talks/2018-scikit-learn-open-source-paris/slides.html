@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Enabling open science and data science via software: scikit-learn</title>
+<meta name="author" content="(Loïc Estève)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-orgdc1dcb6">
+<h2 id="orgdc1dcb6"></h2>
+<h2>Enabling open science and data science via software: scikit-learn</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org51b653f">
+<h2 id="org51b653f">About me</h2>
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 4 years open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org31032a5">
+<h2 id="org31032a5">scikit-learn</h2>
+<div class="outline-text-2" id="text-org31032a5">
+</div>
+</section>
+<section id="slide-orgba6749a">
+<h3 id="orgba6749a">scikit-learn vision: an enabler</h3>
+<div style="float: left; margin-right: 20px; width=25%">
+    <img src="img/scikit-learn.png" height="200px">
+</div>
+
+<p class="fragment">Machine learning for everyone</p>
+
+<p class="fragment">
+High quality pythonic library
+</p>
+
+<p class="fragment">
+Community-driven development (BSD license)
+</p>
+</section>
+<section id="slide-org441ff93">
+<h3 id="org441ff93">Features</h3>
+<img src="img/scikit-learn-doc.png" width="80%"/>
+
+</section>
+<section id="slide-orgf0eaef8">
+<h3 id="orgf0eaef8">Users</h3>
+<p>
+Monthly website traffic
+</p>
+<img src="img/scikit-learn-website-users.png" style="background: white"/>
+</section>
+<section id="slide-org99599f7">
+<h3 id="org99599f7">Users</h3>
+<img src="img/scikit-learn-users.png"/>
+
+</section>
+<section id="slide-org92fe696">
+<h3 id="org92fe696">Users (industry)</h3>
+<img src="img/companies-using-scikit-learn.png"/>
+
+</section>
+<section id="slide-orgaf1d5b8">
+<h3 id="orgaf1d5b8">Users (academia)</h3>
+<img src="img/nilearn-plot.png" width="60%">
+
+<p>
+Widely used in:
+</p>
+<ul>
+<li>brain data analysis</li>
+<li>astrophysics</li>
+<li>genomics</li>
+<li>etc &#x2026;</li>
+
+</ul>
+</section>
+<section id="slide-orgea3e3ac">
+<h3 id="orgea3e3ac">0.20 release</h3>
+<p>
+Better support for data-science common use case:
+</p>
+
+<p>
+missing values, categorical
+variables, heterogeneous data, and features/targets with unusual distributions)
+</p>
+
+<p>
+<code>ColumnTransformer</code>, <code>TransformedTargetRegressor</code>, <code>KBinsDiscretizer</code>, &#x2026;
+</p>
+
+<p>
+See <a href="https://scikit-learn.org/stable/whats_new.html#version-0-20-1">changelog</a>
+</p>
+</section>
+<section id="slide-org613b9bb">
+<h3 id="org613b9bb">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="step-fade-in-then-out fragment">
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.svm import SVC
+classifier = SVC()
+svm.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+</div>
+
+<div class="fragment">
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+svm.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<p>
+Consistent API
+</p>
+</div>
+
+<p class="fragment">
+Optimised for speed: Numpy and Cython
+</p>
+
+<div class="fragment"/>
+
+<p>
+Great documentation: <a href="https://scikit-learn.org">scikit-learn.org</a>
+</p>
+
+</section>
+<section id="slide-org4fcf734">
+<h3 id="org4fcf734">Doc: gallery of examples</h3>
+<p>
+<a href="https://sphinx-gallery.readthedocs.io/">sphinx-gallery</a>
+</p>
+
+<img src="img/doc-gallery-examples.png" width="80%"/>
+
+</section>
+<section id="slide-orgb384abc">
+<h3 id="orgb384abc">Doc: example</h3>
+<img src="img/doc-example.png" width="70%"/>
+
+</section>
+<section id="slide-org3ce484c">
+<h3 id="org3ce484c">Doc: API documentation</h3>
+<img src="img/doc-reference.png" width="80%"/>
+<img src="img/doc-reference-to-examples.png" width="80%"/>
+
+</section>
+<section id="slide-org86e878a">
+<h3 id="org86e878a">Doc: user guide</h3>
+<img src="img/doc-user-guide.png"/>
+
+</section>
+</section>
+<section>
+<section id="slide-orgfd78465">
+<h2 id="orgfd78465">Community</h2>
+<div class="outline-text-2" id="text-orgfd78465">
+</div>
+</section>
+<section id="slide-orgff6857c">
+<h3 id="orgff6857c">Contributors</h3>
+<img src="img/scikit-learn-contributors.png" width="70%"/>
+</section>
+<section id="slide-orgcdc2480">
+<h3 id="orgcdc2480">Project activity</h3>
+<p>
+~50 notifications per day from comments on PRs/issues
+</p>
+
+<img src="img/scikit-learn-opened-issues-and-prs.png">
+
+<p>
+User support drowns core devs
+</p>
+
+<p>
+Reviewing PRs is the main bottleneck
+</p>
+
+<p>
+<a href="https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure">Road and Bridges</a> by Nadia Eghbal
+</p>
+</section>
+<section id="slide-orgd885873">
+<h3 id="orgd885873">scikit-learn contrib</h3>
+<p>
+<a href="http://contrib.scikit-learn.org">http://contrib.scikit-learn.org</a>
+</p>
+
+<p class="fragment">
+Not everything can (and has to) go in scikit-learn
+</p>
+
+<p class="fragment">
+For cutting-edge algorithms, quick development, maturation
+</p>
+
+<p class="fragment">
+nice template to start the project (testing, CIs, &#x2026;) + visibility
+</p>
+
+<p class="fragment">
+requirements: follow the scikit-learn API, docs, tests
+</p>
+
+<p class="fragment">
+~10 projects in scikit-learn contrib currently
+</p>
+
+</section>
+<section id="slide-org908ce83">
+<h3 id="org908ce83">Funding (public)</h3>
+<div style="float: right">2015 & 2016</div>
+
+New-York: 350 k$ More-Sloan grant<br/>
+<small>
+A. Mueller (full time). Students M. Kumar, V. Birodkar
+</small>
+
+Telecom Paris-Tech: 200 k€ WendelinIA grant + 12 k€ CDS<br/>
+<small>
+Programmers: T. Guillemot, T. Dupré. Students: M. Kumar, D. Sullivan, V.R.
+Rajagopalan, N. Goix
+</small>
+
+Inria Parietal: 120 k€ Inria, + 100 k€ WendelinIA + 50 k€ ANR + 30 k€ CDS<br/>
+<small>
+Programmers: O. Grisel, L. Estève, G. Lemaître, J. Van den Bosche. Students:
+A. Mensch, J. Schreiber, G. Patrini
+</small>
+<p>
+<b>&gt; 400 k€ / year</b>
+</p>
+</section>
+<section id="slide-orgd4be4f8">
+<h3 id="orgd4be4f8">Funding (sponsors)</h3>
+<img src="img/scikit-learn-foundation-sponsors.png", width="40%" style="float: left; margin-right: 20px"/>
+
+<p>
+Scikit-learn foundation @ Inria launched in September 2018
+</p>
+
+<p>
+companies: better visibility on software they rely on, good for Public Relations
+</p>
+
+<p>
+scikit-learn: permanent staff to consolidate project, useful feed-back from
+advanced users
+</p>
+
+<p>
+See <a href="http://gael-varoquaux.info/programming/a-foundation-for-scikit-learn-at-inria.html">Gaël Varoquaux</a>'s blog post
+</p>
+
+</section>
+<section id="slide-orgd0c1cb5">
+<h3 id="orgd0c1cb5">Python scientific stack</h3>
+<img src="img/pydata-stack.png" width="80%"/>
+
+<p>
+Someone else may solve your problems
+</p>
+
+<small>One advantage of being part of the very dynamic Python ecosystem</small>
+
+</section>
+<section id="slide-org347a3b3">
+<h3 id="org347a3b3">dask</h3>
+<div>
+<img src="img/dask-array-white-text.svg" width=35% style="float: left; margin-right: 20px"/>
+High-level interfaces: collections with an interface very similar to numpy/pandas
+<small>Use case: pandas dataframe bigger than RAM</small>
+</div>
+
+<div>
+<img src="img/grid-search-schedule.gif" width="35%" style="float: left; margin-right: 20px"/>
+Low-level interfaces for parallel computing
+</div>
+
+<img src="img/dask-diagnostics.png" width="35%" style="float: left;
+margin-right: 20px"/>
+
+<p>
+Other goodies:
+</p>
+<ul>
+<li>live diagnostic dashboard</li>
+<li>statistical profiler</li>
+
+</ul>
+
+<p>
+Try dask in your browser via <a href="https://mybinder.org/v2/gh/dask/dask-examples/master?urlpath=lab">binder</a>
+</p>
+
+</section>
+<section id="slide-org4c67cf9">
+<h3 id="org4c67cf9">dask integration in scikit-learn</h3>
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.ensemble import RandomForestClassifier
+
+
+
+clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+
+
+clf.fit(X, y)
+</code></pre>
+</div>
+</section>
+<section id="slide-org11ca691">
+<h3 id="org11ca691">dask integration in scikit-learn</h3>
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.externals import joblib
+from dask.distributed import Client
+
+client = Client('scheduler-address')
+clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+
+with joblib.parallel_backend("dask", scatter=[X, y]):
+    clf.fit(X, y)
+</code></pre>
+</div>
+</section>
+<section id="slide-org69d4f81">
+<h3 id="org69d4f81">dask-related projects</h3>
+<p>
+<a href="http://ml.dask.org/">dask-ml</a>: fit scikit-learn models on data bigger than RAM, or distribute scikit-learn on a cluster. Integration with xgboost.
+</p>
+
+<p>
+<a href="https://docs.dask.org/en/latest/setup/hpc.html">dask-jobqueue</a> smoothly
+transition your <b>existing</b> Python code from your machine to a HPC cluster (SLURM, PBS, etc &#x2026;)
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from dask_jobqueue import SLURMCluster
+cluster = SLURMCluster(<slurm_specific>)
+cluster.scale(4)  # 4 cores
+
+from dask.distributed import Client
+client = Client(cluster)
+# dask generic code agnostic to the cluster
+</code></pre>
+</div>
+
+<p>
+Similar packages for running dask on
+<a href="https://kubernetes.dask.org/en/latest/">Kubernetes</a> or on a <a href="https://yarn.dask.org/en/latest/">Hadoop/Yarn</a> cluster.
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orgb1e925b">
+<h2 id="orgb1e925b">Summary</h2>
+<div class="fragment">
+<bold>Vision<bold>: Machine learning as a means not an end
+
+<p style="font-size: 60%">
+Versatile library: the right level of abstraction. Close to research, but seeking different tradeoffs
+</p>
+
+</div>
+
+<div class="fragment">
+<bold>Tool<bold>: Simple API across learners
+
+<p style="font-size: 60%">
+Numpy arrays as data containers. Fast enough.
+</p>
+
+</div>
+
+<div class="fragment">
+<bold>Project<bold>: Many people working together
+
+<p style="font-size: 60%">
+Ensure code quality and maintainability
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org2f9bd63">
+<h2 id="org2f9bd63"></h2>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1200,
+height: 800,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>
