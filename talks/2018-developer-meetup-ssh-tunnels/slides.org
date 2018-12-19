@@ -1,0 +1,132 @@
+#+OPTIONS: num:nil toc:nil
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight)
+#+OPTIONS: reveal_history:t reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+Title: SSH tunnels
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">SSH tunnels</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+* Why should you care?
+
+#+ATTR_REVEAL: :frag t
+Is it supposed to be fun?
+#+ATTR_REVEAL: :frag t
+Hmmm not really ...
+
+#+ATTR_REVEAL: :frag t
+OK then, is it supposed to be useful at least?
+#+ATTR_REVEAL: :frag t
+Definitely nice to have in its bag of tricks
+
+* Basics
+#+BEGIN_SRC sh
+ssh -N -L local_port:remote_host:remote_port user@ssh_host
+#+END_SRC
+
+[[https://explainshell.com/explain?cmd=ssh+-N+-L+local_port%253Aremote_host%253Aremote_port+user%2540ssh_host][More details through explainshell.com]]
+* Use case
+~aiglon~: my desktop @ Inria
+
+SSH tunnel command:
+#+BEGIN_SRC sh
+ssh -N -L 12345:localhost:12345 lesteve@aiglon
+#+END_SRC
+
+#+ATTR_REVEAL: :frag t
+- look at a few plots on a remote machine in your browser (~python -m
+  http.server~ or better e.g. [[https://github.com/filebrowser/filebrowser][filebrowser]]) + SSH tunnel +
+  [[http://localhost:12345]])
+#+ATTR_REVEAL: :frag t
+- Jupyter notebook server running on my desktop and I want to use it from home
+  (~jupyter lab --port 12345 --no-browser~ + SSH tunnel
+  [[http://localhost:12345]]) 
+
+* Cluster use cases
+
+#+ATTR_REVEAL: :frag t
+- run a Jupyter server on the cluster login node, SSH tunnel, [[http://localhost:12345]]
+
+#+ATTR_REVEAL: :frag t
+#+BEGIN_SRC sh
+ssh -N -L 12345:cluster_login_node:12345 lesteve@cluster_login_node
+#+END_SRC
+
+#+ATTR_REVEAL: :frag t
+- Way better if you want to make your cluster sys-admin happy: interactive job
+  (~qlogin~ for ~SGE~ / ~oarsub -I~ for ~OAR~), assume your job runs on
+  ~cluster_compute_node~:
+
+#+ATTR_REVEAL: :frag t
+#+BEGIN_SRC sh
+# on cluster_compute_node
+jupyter lab --port 12345 --no-browser --ip=`hostname`
+#+END_SRC
+
+#+ATTR_REVEAL: :frag t
+#+BEGIN_SRC sh
+# on your local machine
+ssh -N -L 12345:cluster_compute_node:12345 lesteve@cluster_login_node
+#+END_SRC
+* Getting more fancy
+
+[[https://missions.inria.fr]] not accessible from the outside but accessible from
+my desktop
+
+HTTPS is port 443
+
+#+BEGIN_SRC sh
+ssh -N -L 8000:missions.inria.fr:443 lesteve@aiglon
+#+END_SRC
+
+#+BEGIN_EXPORT html
+<div class="fragment"/>
+#+END_EXPORT
+
+#+BEGIN_EXPORT html
+<img src="img/i-have-no-idea-what-i-am-doing.jpg">
+#+END_EXPORT
+
+* Solution: dynamic port forwarding
+#+BEGIN_SRC sh
+ssh -D 5000 lesteve@aiglon
+#+END_SRC
+
+Set your browser proxy to SOCKS ~localhost:5000~
+
+#+ATTR_REVEAL: :frag t
+I googled "HTTPS SSH tunnel" and got something working in 5 minutes
+
+#+ATTR_REVEAL: :frag t
+When was the last time you learned something interesting
+
+#+ATTR_REVEAL: :frag t
+while doing an admin task?
+* Summary
+
+SSH tunnel is a useful trick
+
+If someone knows how I can make the naive HTTPS attempt work, I am interested!
+
+# Local variables:
+# after-save-hook: org-reveal-export-to-html
+# end:

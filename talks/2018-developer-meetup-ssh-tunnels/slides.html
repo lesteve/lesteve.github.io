@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>SSH tunnels</title>
+<meta name="author" content="(Loïc Estève)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org4f6a5e9">
+<h2 id="org4f6a5e9"></h2>
+<h2 style="text-align: center">SSH tunnels</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org35d0884">
+<h2 id="org35d0884">Why should you care?</h2>
+<p class="fragment">
+Is it supposed to be fun?
+</p>
+<p class="fragment">
+Hmmm not really &#x2026;
+</p>
+
+<p class="fragment">
+OK then, is it supposed to be useful at least?
+</p>
+<p class="fragment">
+Definitely nice to have in its bag of tricks
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb0ad47b">
+<h2 id="orgb0ad47b">Basics</h2>
+<div class="org-src-container">
+
+<pre><code class="sh" >ssh -N -L local_port:remote_host:remote_port user@ssh_host
+</code></pre>
+</div>
+
+<p>
+<a href="https://explainshell.com/explain?cmd=ssh+-N+-L+local_port%3Aremote_host%3Aremote_port+user%40ssh_host">More details through explainshell.com</a>
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org2213590">
+<h2 id="org2213590">Use case</h2>
+<p>
+<code>aiglon</code>: my desktop @ Inria
+</p>
+
+<p>
+SSH tunnel command:
+</p>
+<div class="org-src-container">
+
+<pre><code class="sh" >ssh -N -L 12345:localhost:12345 lesteve@aiglon
+</code></pre>
+</div>
+
+<ul class="fragment">
+<li>look at a few plots on a remote machine in your browser (<code>python -m
+  http.server</code> or better e.g. <a href="https://github.com/filebrowser/filebrowser">filebrowser</a>) + SSH tunnel +
+<a href="http://localhost:12345">http://localhost:12345</a>)</li>
+
+</ul>
+<ul class="fragment">
+<li>Jupyter notebook server running on my desktop and I want to use it from home
+(<code>jupyter lab --port 12345 --no-browser</code> + SSH tunnel
+<a href="http://localhost:12345">http://localhost:12345</a>)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org50a3491">
+<h2 id="org50a3491">Cluster use cases</h2>
+<ul class="fragment">
+<li>run a Jupyter server on the cluster login node, SSH tunnel, <a href="http://localhost:12345">http://localhost:12345</a></li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre class="fragment"><code class="sh" >ssh -N -L 12345:cluster_login_node:12345 lesteve@cluster_login_node
+</code></pre>
+</div>
+
+<ul class="fragment">
+<li>Way better if you want to make your cluster sys-admin happy: interactive job
+(<code>qlogin</code> for <code>SGE</code> / <code>oarsub -I</code> for <code>OAR</code>), assume your job runs on
+<code>cluster_compute_node</code>:</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre class="fragment"><code class="sh" ># on cluster_compute_node
+jupyter lab --port 12345 --no-browser --ip=`hostname`
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre class="fragment"><code class="sh" ># on your local machine
+ssh -N -L 12345:cluster_compute_node:12345 lesteve@cluster_login_node
+</code></pre>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-org7404527">
+<h2 id="org7404527">Getting more fancy</h2>
+<p>
+<a href="https://missions.inria.fr">https://missions.inria.fr</a> not accessible from the outside but accessible from
+my desktop
+</p>
+
+<p>
+HTTPS is port 443
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="sh" >ssh -N -L 8000:missions.inria.fr:443 lesteve@aiglon
+</code></pre>
+</div>
+
+<div class="fragment"/>
+
+<img src="img/i-have-no-idea-what-i-am-doing.jpg">
+
+</section>
+</section>
+<section>
+<section id="slide-org2430c49">
+<h2 id="org2430c49">Solution: dynamic port forwarding</h2>
+<div class="org-src-container">
+
+<pre><code class="sh" >ssh -D 5000 lesteve@aiglon
+</code></pre>
+</div>
+
+<p>
+Set your browser proxy to SOCKS <code>localhost:5000</code>
+</p>
+
+<p class="fragment">
+I googled "HTTPS SSH tunnel" and got something working in 5 minutes
+</p>
+
+<p class="fragment">
+When was the last time you learned something interesting
+</p>
+
+<p class="fragment">
+while doing an admin task?
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org58761ff">
+<h2 id="org58761ff">Summary</h2>
+<p>
+SSH tunnel is a useful trick
+</p>
+
+<p>
+If someone knows how I can make the naive HTTPS attempt work, I am interested!
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1600,
+height: 900,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>
