@@ -1,0 +1,105 @@
+#+OPTIONS: num:nil toc:nil
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight)
+#+OPTIONS: reveal_history:t reveal_title_slide:nil
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+Title: Make your examples live with binder
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">Make your examples live with binder</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+* Main use case
+
+- Let anyone play with your software
+- in their browser without having to install anything
+
+#+BEGIN_EXPORT html
+<div class="fragment">
+#+END_EXPORT 
+
+Useful for:
+- online tutorials/books as Jupyter notebooks
+- code for article with a demo of the algorithm on a simple dataset
+* Demo
+
+Python (scikit-learn): [[https://github.com/amueller/introduction_to_ml_with_python][repo]], [[https://mybinder.org/v2/gh/amueller/introduction_to_ml_with_python/master?urlpath=lab][binder]]
+
+C++: [[https://github.com/QuantStack/xtensor][repo]], [[https://mybinder.org/v2/gh/QuantStack/xtensor/stable?filepath=notebooks/xtensor.ipynb][binder]]
+
+Rust: [[https://github.com/google/evcxr][repo]] [[https://mybinder.org/v2/gh/google/evcxr/master?filepath=evcxr_jupyter%252Fsamples%252Fevcxr_jupyter_tour.ipynb][binder]] 
+* What you need
+
+- a git repo URL (e.g. on github)
+- Jupyter notebooks inside the repo
+
+#+BEGIN_EXPORT html
+<div class="fragment">
+#+END_EXPORT 
+
+A way to specify the environment for your notebook:
+- Python: that would be things like ~setup.py~, ~requirements.txt~ (pip),
+  ~environment.yml~ (conda)
+- generic: ~apt.txt~ for apt-get packages + ~postBuild~ for arbitrary shell commands
+- at last resort: you can use a ~Dockerfile~, see [[https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html][this]] for more details.
+
+* Languages supported?
+
+First citizens:
+- Python
+- R (RStudio is possible, rather than Jupyter notebook)
+- Julia
+
+#+BEGIN_EXPORT html
+<div class="fragment">
+#+END_EXPORT 
+
+Any other language as long as:
+- you can install your language + environment through ~apt.txt~ + ~postBuild~ files
+- there is a Jupyter kernel for your language (includes OCamL, Go, Rust, etc
+  ... see [[https://github.com/jupyter/jupyter/wiki/Jupyter-kernels][this]] for available languages)
+
+* Behind the scenes
+
+- repo2docker: create a ~Dockerfile~ from a github repo
+- JupyterHub: manages Jupyter notebook servers for multiple users on a shared resource
+- deployed on a Kubernetes cluster in the cloud
+
+* Caveats
+
+Mostly for simple demos:
+- 2 GB maximum memory usage
+- session restarted after 10 minutes of inactivity
+- session ~12 hours max if you stay active 
+* Neighborhood technologies 
+
+- [[https://github.com/ines/juniper][juniper]]: executable code embedded in the documentation. See [[https://spacy.io/][SpaCy doc]].
+- Google colab: interesting especially if you need a GPU. A bit
+  more hacky (installation instructions are part of the notebook)
+- [[https://github.com/sphinx-gallery/sphinx-gallery][sphinx-gallery]]: include Python examples inside a Sphinx documentation + 
+  generate Jupyter notebooks ([[https://matplotlib.org/gallery.html][matplotlib gallery]] or [[https://scikit-learn.org/stable/auto_examples/index.html][scikit-learn gallery]])
+
+* Summary
+- Not too much work to add to your repo
+- quite useful to let people get a quick feeling of your software without
+  having to install it
+- mostly for demonstration
+
+https://mybinder.readthedocs.io/en/latest/ 

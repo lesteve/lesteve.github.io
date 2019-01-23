@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Make your examples live with binder</title>
+<meta name="author" content="(Loïc Estève)"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org848298c">
+<h2 id="org848298c"></h2>
+<h2 style="text-align: center">Make your examples live with binder</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org41f138b">
+<h2 id="org41f138b">Main use case</h2>
+<ul>
+<li>Let anyone play with your software</li>
+<li>in their browser without having to install anything</li>
+
+</ul>
+
+<div class="fragment">
+
+<p>
+Useful for:
+</p>
+<ul>
+<li>online tutorials/books as Jupyter notebooks</li>
+<li>code for article with a demo of the algorithm on a simple dataset</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-org489890b">
+<h2 id="org489890b">Demo</h2>
+<p>
+Python (scikit-learn): <a href="https://github.com/amueller/introduction_to_ml_with_python">repo</a>, <a href="https://mybinder.org/v2/gh/amueller/introduction_to_ml_with_python/master?urlpath=lab">binder</a>
+</p>
+
+<p>
+C++: <a href="https://github.com/QuantStack/xtensor">repo</a>, <a href="https://mybinder.org/v2/gh/QuantStack/xtensor/stable?filepath=notebooks/xtensor.ipynb">binder</a>
+</p>
+
+<p>
+Rust: <a href="https://github.com/google/evcxr">repo</a> <a href="https://mybinder.org/v2/gh/google/evcxr/master?filepath=evcxr_jupyter%2Fsamples%2Fevcxr_jupyter_tour.ipynb">binder</a> 
+</p>
+</section>
+</section>
+<section>
+<section id="slide-orga304516">
+<h2 id="orga304516">What you need</h2>
+<ul>
+<li>a git repo URL (e.g. on github)</li>
+<li>Jupyter notebooks inside the repo</li>
+
+</ul>
+
+<div class="fragment">
+
+<p>
+A way to specify the environment for your notebook:
+</p>
+<ul>
+<li>Python: that would be things like <code>setup.py</code>, <code>requirements.txt</code> (pip),
+<code>environment.yml</code> (conda)</li>
+<li>generic: <code>apt.txt</code> for apt-get packages + <code>postBuild</code> for arbitrary shell commands</li>
+<li>at last resort: you can use a <code>Dockerfile</code>, see <a href="https://mybinder.readthedocs.io/en/latest/tutorials/dockerfile.html">this</a> for more details.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb0fb68f">
+<h2 id="orgb0fb68f">Languages supported?</h2>
+<p>
+First citizens:
+</p>
+<ul>
+<li>Python</li>
+<li>R (RStudio is possible, rather than Jupyter notebook)</li>
+<li>Julia</li>
+
+</ul>
+
+<div class="fragment">
+
+<p>
+Any other language as long as:
+</p>
+<ul>
+<li>you can install your language + environment through <code>apt.txt</code> + <code>postBuild</code> files</li>
+<li>there is a Jupyter kernel for your language (see <a href="https://github.com/jupyter/jupyter/wiki/Jupyter-kernels">this</a> for available languages)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org4c8c21b">
+<h2 id="org4c8c21b">Behind the scenes</h2>
+<ul>
+<li>repo2docker : create a <code>Dockerfile</code> from a github repo</li>
+<li>JupyterHub (manages Jupyter notebook servers for multiple users)</li>
+<li>deployed on a Kubernetes cluster in the cloud</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2397bc6">
+<h2 id="org2397bc6">Caveats</h2>
+<p>
+Mostly for simple demos:
+</p>
+<ul>
+<li>2 GB maximum memory usage</li>
+<li>session restarted after 10 minutes of inactivity</li>
+<li>12 hours</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgdaac60e">
+<h2 id="orgdaac60e">Neighbor technologies</h2>
+<ul>
+<li><a href="https://github.com/ines/juniper">juniper</a>: executable code embedded in the documentation. See <a href="https://spacy.io/">SpaCy doc</a> for
+more details.</li>
+<li>Google colab: alternative, interesting especially if you need a GPU. A bit
+more hacky (installation instructions are part of the notebook)</li>
+<li><a href="https://github.com/sphinx-gallery/sphinx-gallery">sphinx-gallery</a>: include Python examples inside the documentation + 
+generate Jupyter notebooks (<a href="https://matplotlib.org/gallery.html">matplotlib gallery</a> or <a href="https://scikit-learn.org/stable/auto_examples/index.html">scikit-learn gallery</a>)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb86ea6d">
+<h2 id="orgb86ea6d">Summary</h2>
+<ul>
+<li>Not too much work to add to your repo</li>
+<li>quite useful to let people get a quick feeling of your software without
+having to install it</li>
+<li>mostly for demonstration</li>
+
+</ul>
+
+<p>
+<a href="https://mybinder.readthedocs.io/en/latest/">https://mybinder.readthedocs.io/en/latest/</a> 
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+overview: true,
+width: 1600,
+height: 900,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } }]
+});
+</script>
+</body>
+</html>
