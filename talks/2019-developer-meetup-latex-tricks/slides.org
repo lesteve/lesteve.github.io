@@ -1,0 +1,114 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: Some LaTeX tricks
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">Some LaTeX tricks</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+* Trick #1: detexify
+
+http://detexify.kirelabs.org/classify.html
+
+* Trick #2: mathpix
+
+https://mathpix.com
+
+Install and run on Ubuntu (OSX and Windows supported too):
+#+begin_export html
+<pre>
+sudo snap install mathpix-snipping-tool
+mathpix-snipping-tool
+</pre>
+
+<small class="fragment">
+If you know how to install a snap on a IT-managed desktop machine talk to me! I stopped after 2+ hours going nowhere ...
+</small>
+#+end_export
+
+* Demo
+
+* LaTeX maths
+#+begin_export html
+<img src="img/maths-saga.png" width=70%/>
+
+<span style="font-size: 0.7em">
+\[
+\begin{aligned} \mathbb{E}\left[\frac{1}{n} \sum_{i} f_{i}\left(\phi_{i}^{k+1}\right)\right] &=\frac{1}{n} f\left(x^{k}\right)+\left(1-\frac{1}{n}\right) \frac{1}{n} \sum_{i} f_{i}\left(\phi_{i}^{k}\right) \\ \mathbb{E}\left[-\frac{1}{n} \sum_{i}\left\langle f_{i}^{\prime}\left(x^{*}\right), \phi_{i}^{k+1}-x^{*}\right\rangle\right] &=-\frac{1}{n}\left\langle f^{\prime}\left(x^{*}\right), x^{k}-x^{*}\right\rangle-\left(1-\frac{1}{n}\right) \frac{1}{n} \sum_{i}\left\langle f_{i}^{\prime}\left(x^{*}\right), \phi_{i}^{k}-x^{*}\right\rangle \end{aligned}
+\]
+</span>
+#+end_export
+
+* Non LaTeX maths
+
+#+begin_export html
+<img src="img/maths-non-latex.png" width=50%/>
+
+<span style="font-size: 0.7em">
+\[
+\begin{array}{l}{\boldsymbol{R} \mathscr{J}_{n}=\exp (i \phi)\left(-\frac{i}{r} \frac{\partial}{\partial \phi}-\frac{\partial}{\partial r}\right) \mathscr{J}_{n}=\mathscr{J}_{n+1}} \\ {\mathcal{L} \mathscr{J}_{n}=\exp (-i \phi)\left(-\frac{i}{r} \frac{\partial}{\partial \phi}+\frac{\partial}{\partial r}\right) \mathscr{J}_{n}=\mathscr{J}_{n-1}}\end{array}
+\]
+</span>
+#+end_export
+
+* Hand-written (1/2)
+#+begin_export html
+<img src="img/hand-written-easy.png" width=50%/>
+
+<span style="float: right">
+\[
+\begin{array}{l}
+  {\nabla \cdot E=\frac{f}{\varepsilon_{0}}} \\
+  {\nabla \cdot B=0} \\ {\nabla \times E=-\frac{\partial B}{\partial t}} \\
+  {\nabla \times B=\mu_{0} J+\mu_{0} \varepsilon_{0} \frac{\partial E}{\partial t}}
+\end{array}
+\]
+</span>
+#+end_export
+
+
+
+* Hand-written (2/2)
+
+#+begin_export html
+<img src="img/hand-written-hard.png" width=50%/>
+<div>
+\( \alpha=-\frac{1}{4} \xi_{12} F^{\mu \nu} \)
+</div>
+#+end_export
+
+
+* Fine print
+
+- does not really work on more than 2 lines of maths 
+- a bit finicky on the selection sometimes
+- 1000 queries free (per month?). Not 100% clear maybe that's only if you
+  want to use their API outside of the snipping tool
+

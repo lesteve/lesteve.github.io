@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Some LaTeX tricks</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-orgf0857ed">
+<h2 id="orgf0857ed"></h2>
+<h2 style="text-align: center">Some LaTeX tricks</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb6cd063">
+<h2 id="orgb6cd063">Trick #1: detexify</h2>
+<p>
+<a href="http://detexify.kirelabs.org/classify.html">http://detexify.kirelabs.org/classify.html</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org3ae4e31">
+<h2 id="org3ae4e31">Trick #2: mathpix</h2>
+<p>
+<a href="https://mathpix.com">https://mathpix.com</a>
+</p>
+
+<p>
+Install and run on Ubuntu (OSX and Windows supported too):
+</p>
+<pre>
+sudo snap install mathpix-snipping-tool
+mathpix-snipping-tool
+</pre>
+
+<small class="fragment">
+If you know how to install a snap on a IT-managed desktop machine talk to me! I stopped after 2+ hours going nowhere ...
+</small>
+
+</section>
+</section>
+<section>
+<section id="slide-org4b5082d">
+<h2 id="org4b5082d">Demo</h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org40165b4">
+<h2 id="org40165b4">LaTeX maths</h2>
+<img src="img/maths-saga.png" width=70%/>
+
+<span style="font-size: 0.7em">
+\[
+\begin{aligned} \mathbb{E}\left[\frac{1}{n} \sum_{i} f_{i}\left(\phi_{i}^{k+1}\right)\right] &=\frac{1}{n} f\left(x^{k}\right)+\left(1-\frac{1}{n}\right) \frac{1}{n} \sum_{i} f_{i}\left(\phi_{i}^{k}\right) \\ \mathbb{E}\left[-\frac{1}{n} \sum_{i}\left\langle f_{i}^{\prime}\left(x^{*}\right), \phi_{i}^{k+1}-x^{*}\right\rangle\right] &=-\frac{1}{n}\left\langle f^{\prime}\left(x^{*}\right), x^{k}-x^{*}\right\rangle-\left(1-\frac{1}{n}\right) \frac{1}{n} \sum_{i}\left\langle f_{i}^{\prime}\left(x^{*}\right), \phi_{i}^{k}-x^{*}\right\rangle \end{aligned}
+\]
+</span>
+
+</section>
+</section>
+<section>
+<section id="slide-org0b7aba4">
+<h2 id="org0b7aba4">Non LaTeX maths</h2>
+<img src="img/maths-non-latex.png" width=50%/>
+
+<span style="font-size: 0.7em">
+\[
+\begin{array}{l}{\boldsymbol{R} \mathscr{J}_{n}=\exp (i \phi)\left(-\frac{i}{r} \frac{\partial}{\partial \phi}-\frac{\partial}{\partial r}\right) \mathscr{J}_{n}=\mathscr{J}_{n+1}} \\ {\mathcal{L} \mathscr{J}_{n}=\exp (-i \phi)\left(-\frac{i}{r} \frac{\partial}{\partial \phi}+\frac{\partial}{\partial r}\right) \mathscr{J}_{n}=\mathscr{J}_{n-1}}\end{array}
+\]
+</span>
+
+</section>
+</section>
+<section>
+<section id="slide-org6c05c6e">
+<h2 id="org6c05c6e">Hand-written (1/2)</h2>
+<img src="img/hand-written-easy.png" width=50%/>
+
+<span style="float: right">
+\[
+\begin{array}{l}
+  {\nabla \cdot E=\frac{f}{\varepsilon_{0}}} \\
+  {\nabla \cdot B=0} \\ {\nabla \times E=-\frac{\partial B}{\partial t}} \\
+  {\nabla \times B=\mu_{0} J+\mu_{0} \varepsilon_{0} \frac{\partial E}{\partial t}}
+\end{array}
+\]
+</span>
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgc3eca4b">
+<h2 id="orgc3eca4b">Hand-written (2/2)</h2>
+<img src="img/hand-written-hard.png" width=50%/>
+<div>
+\( \alpha=-\frac{1}{4} \xi_{12} F^{\mu \nu} \)
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org6c574d8">
+<h2 id="org6c574d8">Fine print</h2>
+<ul>
+<li>does not really work on more than 2 lines of maths</li>
+<li>a bit finicky on the selection sometimes</li>
+<li>1000 queries free (per month?). Not 100% clear maybe that's only if you
+want to use their API outside of the snipping tool</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // default/cube/page/concave/zoom/linear/fade/none
+transitionSpeed: 'default',
+multiplex: {
+    secret: '', // null if client
+    id: '', // id, obtained from socket.io server
+    url: '' // Location of socket.io server
+},
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+});
+</script>
+</body>
+</html>
