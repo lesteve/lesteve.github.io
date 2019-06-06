@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Best practices for code release and code development</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org6f05431">
+<h2 id="org6f05431"></h2>
+<h2 style="text-align: center">Best practices for code release and code development</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org5735663">
+<h2 id="org5735663">About me</h2>
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 1.5 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgdf0f462">
+<h2 id="orgdf0f462">Best practices</h2>
+<img src="img/xkcd-purity.png" width=80%/>
+
+</section>
+</section>
+<section>
+<section id="slide-org3d3850b">
+<h2 id="org3d3850b">Best practices caveat examples</h2>
+<ul>
+<li class="fragment">Google docs</li>
+<li class="fragment">canteen card</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org5677a3a">
+<h2 id="org5677a3a">Outline</h2>
+<ul>
+<li>give some tips, hopefully some will be applicable and useful</li>
+<li>Some are relevant only to Python, but most likely there exists similar tools
+for other languages</li>
+<li>feel free to ask questions during the talk to make it more interactive</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2ddd4c6">
+<h2 id="org2ddd4c6">Publishing code</h2>
+<p>
+Some effort needed to give a good first impression
+</p>
+
+</section>
+<section id="slide-org908350a">
+<h3 id="org908350a">Layout</h3>
+<div class="org-src-container">
+
+<pre><code class=" sh" >├── LICENSE.txt
+├── .gitignore 
+├── README.md
+├── setup.py
+├── environment.yml | requirements.txt
+├── my_module_name
+│   ├── __init__.py
+│   ├── ...
+├── examples
+│   ├── ... 
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org88df263">
+<h3 id="org88df263">LICENSE</h3>
+<p>
+<a href="https://chosealicense.org">https://chosealicense.org</a>
+</p>
+
+<p>
+In the Python world: mostly BSD or similar
+</p>
+</section>
+<section id="slide-orgfac2d49">
+<h3 id="orgfac2d49">.gitignore</h3>
+<ul>
+<li>hints that you are using git as a day to day tool</li>
+<li>reuse from a similar project, <a href="https://gitignore.io">https://gitignore.io</a>, and/or tweak it with time
+(<code>git status</code>)</li>
+
+</ul>
+</section>
+<section id="slide-org4f7d663">
+<h3 id="org4f7d663">README.md</h3>
+<ul>
+<li>what the code does</li>
+<li>how to install it, including dependencies</li>
+<li>how to use it (typical snippet, or script to run with meaning of parameters)</li>
+<li>how I play with it (examples)</li>
+
+</ul>
+
+</section>
+<section id="slide-orga1ab8bd">
+<h3 id="orga1ab8bd">dependencies</h3>
+<p>
+environment.yml / requirements.txt
+</p>
+
+<pre  class="example">
+name: environment-name
+
+dependencies:
+  - python=3.7
+  - matplotlib
+  - numpy
+  - pytorch
+  - pip:
+    - dask-jobqueue
+    - git+https://github.com/dask/distributed.git
+</pre>
+
+</section>
+<section id="slide-org70b0e57">
+<h3 id="org70b0e57">setup.py</h3>
+<p>
+makes your code installable as a package e.g. as
+</p>
+
+<div class="org-src-container">
+
+<pre><code class=" sh" >pip install git+https://github.com/user_name/project_name
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class=" python" >from setuptools import find_packages, setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup(
+    name="your-package-name",
+    version="0.0.1",
+    author="author_name",
+    author_email="author_email",
+    packages=find_packages(),
+    python_requires="&gt;=3.5.0",
+    description="this is the short description",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/",
+)
+</code></pre>
+</div>
+</section>
+<section id="slide-orgbbf1d1d">
+<h3 id="orgbbf1d1d">examples</h3>
+<ul>
+<li>self-contained code</li>
+<li>produces some interesting output</li>
+<li>best if example runs reasonably quickly (&lt; 1 min)</li>
+
+<li>look at some <a href="https://scikit-learn.org/stable/auto_examples/index.html">scikit-learn examples</a> if you need inspiration</li>
+
+</ul>
+
+</section>
+<section id="slide-org515a1ce">
+<h3 id="org515a1ce">Live examples with binder</h3>
+<ul>
+<li>binder: main limitation is maximum RAM 1-2GB.</li>
+<li>main advantage: people can play with your code without having to install anything</li>
+
+</ul>
+
+<p>
+Google Colab as a alternative especially if you need a GPU. Need to be signed into
+Google. You can load any public notebook on github into Google Colab (see <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb">this</a>).
+</p>
+
+</section>
+<section id="slide-org5c34f2f">
+<h3 id="org5c34f2f">Coding conventions</h3>
+<ul>
+<li>flake8: warnings when you don't respect conventions. Invest some time to have
+"while you type" flake8 inside your favourite editor.</li>
+<li>black: automatic formatter.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb39b245">
+<h2 id="orgb39b245">Code development</h2>
+<div class="outline-text-2" id="text-orgb39b245">
+</div>
+</section>
+<section id="slide-org95d359b">
+<h3 id="org95d359b">version control</h3>
+<ul>
+<li>very powerful tool</li>
+<li>git can be confusing but definitely worth investing some time to know the
+basics well enough</li>
+<li>GUI: integration in your editor, e.g. VSCode, tig, git kraken, &#x2026;</li>
+
+</ul>
+</section>
+<section id="slide-org4cef884">
+<h3 id="org4cef884">Notebooks</h3>
+<ul>
+<li>good for exploration</li>
+<li>reach limits when used as only development environment</li>
+<li>move code to function when the code stabilizes and then modules outside the notebook</li>
+<li>Look at <a href="https://code.visualstudio.com/docs/python/jupyter-support">VSCode Jupyter integration</a> for an interesting compromise</li>
+
+</ul>
+</section>
+<section id="slide-orgf7641cb">
+<h3 id="orgf7641cb">Editor</h3>
+<ul>
+<li>Ask what people are using around you</li>
+<li>invest some time in tweaking it to your liking</li>
+<li>advice: VSCode if you don't have a strong opinion</li>
+
+</ul>
+</section>
+<section id="slide-org12b67bd">
+<h3 id="org12b67bd">Tests</h3>
+<p>
+main challenge in a research environment is what is worth testing
+</p>
+<ul>
+<li>simple sanity checks (e.g. good accuracy on small data, etc &#x2026;)</li>
+<li>pytest: automatic test collection, select test to run, rerun only failed tests, etc &#x2026;</li>
+
+</ul>
+
+</section>
+<section id="slide-orgc557d88">
+<h3 id="orgc557d88">Continuous Integration</h3>
+<ul>
+<li>Run your tests on each commit automatically.</li>
+<li>If a test fail, fixing the test is a top priority</li>
+
+</ul>
+
+</section>
+<section id="slide-orgf8ffbf5">
+<h3 id="orgf8ffbf5">dask</h3>
+<ul>
+<li>framework for distributed code</li>
+<li>integrates easily with the Python scientific ecosystem and your existing code</li>
+<li>particularly useful to use the cluster without leaving Python (dask-jobqueue)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd168653">
+<h3 id="orgd168653">dask example on WILLOW/SIERRA cluster</h3>
+<div class="org-src-container">
+
+<pre><code class=" python" >from dask_jobqueue import SGECluster
+
+env_extra = ['source /sequoia/data1/lesteve/miniconda3/etc/profile.d/conda.sh',
+             'conda activate deep-learning']
+resource_spec = 'h_vmem=10G,mem_req=1G'
+queue = 'gaia.q'  
+               
+cluster = SGECluster(queue=queue, env_extra=env_extra,
+                     cores=1, processes=1,            
+                     memory='16GB',       
+                     resource_spec=resource_spec,
+                     interface='ib0')            
+cluster.scale(4)  # 4 workers with one core / worker
+
+from dask.distributed import Client
+client = Client(cluster)
+
+# user code
+fut = client.submit(lambda x: x**2, 5)
+fut.result() # 25
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org819619d">
+<h3 id="org819619d">developer meetup @ Inria Paris</h3>
+<ul>
+<li>once a month: Tuesday at 4pm</li>
+<li>3-4 5-minute talks + questions, with a variety of subjects</li>
+<li>cookies + coffee at the end to keep discussions flowing</li>
+<li>feedback more than welcome!</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgafbd064">
+<h2 id="orgafbd064">Summary</h2>
+<ul>
+<li>some tips provided on releasing code and developing code</li>
+<li>best practices are not set in stone</li>
+<li>talk to people around you can save a lot of time!</li>
+<li>more than happy to answer questions give feed-back on these topics! Don't
+hesitate to knock on my door!</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,235 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_EXTRA_CSS: https://unpkg.com/purecss@1.0.0/build/pure-min.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: Best practices for code release and code development
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">Best practices for code release and code development</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+
+* About me
+
+#+BEGIN_EXPORT html
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 1.5 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+#+END_EXPORT
+
+* Best practices
+#+BEGIN_EXPORT html
+<img src="img/xkcd-purity.png" width=80%/>
+#+END_EXPORT
+
+* Best practices caveat examples
+#+ATTR_REVEAL: :frag (t)
+- Google docs
+- canteen card
+ 
+* Outline
+- give some tips, hopefully some will be applicable and useful
+- Some are relevant only to Python, but most likely there exists similar tools
+  for other languages
+- feel free to ask questions during the talk to make it more interactive
+
+* Publishing code
+Some effort needed to give a good first impression
+
+** Layout
+
+#+BEGIN_SRC sh
+├── LICENSE.txt
+├── .gitignore 
+├── README.md
+├── setup.py
+├── environment.yml | requirements.txt
+├── my_module_name
+│   ├── __init__.py
+│   ├── ...
+├── examples
+│   ├── ... 
+#+END_SRC
+
+** LICENSE
+https://chosealicense.org
+
+In the Python world: mostly BSD or similar
+** .gitignore
+- hints that you are using git as a day to day tool
+- reuse from a similar project, https://gitignore.io, and/or tweak it with time
+  (=git status=)
+** README.md
+- what the code does
+- how to install it, including dependencies
+- how to use it (typical snippet, or script to run with meaning of parameters)
+- how I play with it (examples)
+
+** dependencies
+environment.yml / requirements.txt
+
+#+BEGIN_SRC
+name: environment-name
+
+dependencies:
+  - python=3.7
+  - matplotlib
+  - numpy
+  - pytorch
+  - pip:
+    - dask-jobqueue
+    - git+https://github.com/dask/distributed.git
+#+END_SRC
+
+** setup.py 
+makes your code installable as a package e.g. as
+
+#+BEGIN_SRC sh
+pip install git+https://github.com/user_name/project_name
+#+END_SRC
+
+#+BEGIN_SRC python
+from setuptools import find_packages, setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup(
+    name="your-package-name",
+    version="0.0.1",
+    author="author_name",
+    author_email="author_email",
+    packages=find_packages(),
+    python_requires=">=3.5.0",
+    description="this is the short description",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/",
+)
+#+END_SRC
+** examples
+- self-contained code
+- produces some interesting output 
+- best if example runs reasonably quickly (< 1 min)
+
+- look at some [[https://scikit-learn.org/stable/auto_examples/index.html][scikit-learn examples]] if you need inspiration
+
+** Live examples with binder 
+- binder: main limitation is maximum RAM 1-2GB.
+- main advantage: people can play with your code without having to install anything
+
+Google Colab as a alternative especially if you need a GPU. Need to be signed into
+Google. You can load any public notebook on github into Google Colab (see [[https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb][this]]).
+
+** Coding conventions
+- flake8: warnings when you don't respect conventions. Invest some time to have
+  "while you type" flake8 inside your favourite editor.
+- black: automatic formatter.
+
+* Code development
+
+** version control
+- very powerful tool
+- git can be confusing but definitely worth investing some time to know the
+  basics well enough
+- GUI: integration in your editor, e.g. VSCode, tig, git kraken, ...
+** Notebooks
+- good for exploration
+- reach limits when used as only development environment
+- move code to function when the code stabilizes and then modules outside the notebook
+- Look at [[https://code.visualstudio.com/docs/python/jupyter-support][VSCode Jupyter integration]] for an interesting compromise
+** Editor
+- Ask what people are using around you
+- invest some time in tweaking it to your liking
+- advice: VSCode if you don't have a strong opinion
+** Tests
+main challenge in a research environment is what is worth testing
+- simple sanity checks (e.g. good accuracy on small data, etc ...)
+- pytest: automatic test collection, select test to run, rerun only failed tests, etc ...
+
+** Continuous Integration
+- Run your tests on each commit automatically.
+- If a test fail, fixing the test is a top priority
+
+** dask
+- framework for distributed code
+- integrates easily with the Python scientific ecosystem and your existing code
+- particularly useful to use the cluster without leaving Python (dask-jobqueue)
+
+** dask example on WILLOW/SIERRA cluster
+#+BEGIN_SRC python
+from dask_jobqueue import SGECluster
+
+env_extra = ['source /sequoia/data1/lesteve/miniconda3/etc/profile.d/conda.sh',
+             'conda activate deep-learning']
+resource_spec = 'h_vmem=10G,mem_req=1G'
+queue = 'gaia.q'  
+               
+cluster = SGECluster(queue=queue, env_extra=env_extra,
+                     cores=1, processes=1,            
+                     memory='16GB',       
+                     resource_spec=resource_spec,
+                     interface='ib0')            
+cluster.scale(4)  # 4 workers with one core / worker
+
+from dask.distributed import Client
+client = Client(cluster)
+
+# user code
+fut = client.submit(lambda x: x**2, 5)
+fut.result() # 25
+#+END_SRC                            
+
+** developer meetup @ Inria Paris
+- once a month: Tuesday at 4pm
+- 3-4 5-minute talks + questions, with a variety of subjects
+- cookies + coffee at the end to keep discussions flowing
+- feedback more than welcome!
+
+* Summary
+
+- some tips provided on releasing code and developing code
+- best practices are not set in stone
+- talk to people around you can save a lot of time!
+- more than happy to answer questions give feed-back on these topics! Don't
+  hesitate to knock on my door!
+
