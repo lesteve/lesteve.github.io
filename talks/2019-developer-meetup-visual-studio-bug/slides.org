@@ -1,0 +1,311 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_EXTRA_CSS: https://unpkg.com/purecss@1.0.0/build/pure-min.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: From a Python neuroimaging project test failure to a Microsoft Visual Studio compiler bug in less than 5 minutes 
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">From a Python neuroimaging project test failure<br/> to a Microsoft Visual Studio
+compiler bug<br/> in less than 5 minutes</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+
+* Context
+#+begin_export html
+<img src="img/scikit-learn-logo-notext.png" height="120px">
+#+end_export
+
+
+#+begin_export html
+<img src="img/nilearn-logo.png" height="120px">
+#+end_export
+
+Nilearn: Machine learning for NeuroImaging in Python
+
+#+begin_export html
+<img src="img/nibabel-logo.png" height="120px">
+#+end_export
+
+NiBabel: Access a cacophony of neuro-imaging file formats 
+for opening a variety of Neuroimaging file formats (e.g. Nifti
+images)
+
+* Once upon a time (around April 2016)
+Nibabel failures on Windows Python 3.5 only:
+#+begin_export html
+<img src="img/appveyor-status.png" width="80%"/>
+#+end_export
+
+Test report:
+#+begin_export html
+<pre style="font-size: 80%">
+----------------
+Ran 7055 tests in 63.415s
+FAILED (errors=5, failures=16)
+</pre>
+#+end_export
+
+* An example failure
+
+#+begin_example
+======================================================================
+FAIL: nibabel.tests.test_arraywriters.test_nan2zero_scaling
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Miniconda\envs\_test\lib\site-packages\nose\case.py", line 198, in runTest
+    self.test(*self.arg)
+  File "C:\Miniconda\envs\_test\lib\site-packages\nibabel\tests\test_arraywriters.py", line 820, in test_nan2zero_scaling
+    assert_equal(*back_nan_0[:2])
+AssertionError: -0.0 != 254.0
+#+end_example
+
+* Another example failure
+
+#+begin_example
+======================================================================
+FAIL: nibabel.tests.test_utils.test_a2f_nan2zero_scaling
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Miniconda\envs\_test\lib\site-packages\nose\case.py", line 198, in runTest
+    self.test(*self.arg)
+  File "C:\Miniconda\envs\_test\lib\site-packages\nibabel\tests\test_utils.py", line 432, in test_a2f_nan2zero_scaling
+    assert_array_equal(back_nan, back_zero)
+  File "C:\Miniconda\envs\_test\lib\site-packages\numpy\testing\utils.py", line 807, in assert_array_equal
+    verbose=verbose, header='Arrays are not equal')
+  File "C:\Miniconda\envs\_test\lib\site-packages\numpy\testing\utils.py", line 733, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Arrays are not equal
+(mismatch 33.33333333333333%)
+ x: array([-9223372036854775808,                  100,                  254], dtype=int64)
+ y: array([100, 100, 254], dtype=int64)
+#+end_example
+
+* Summary of the situation
+Failure seems genuine and related to NaN (Not a Number) values
+
+#+ATTR_REVEAL: :frag t
+Only on Python 3.5 (released September 2015)
+
+#+ATTR_REVEAL: :frag t
+Does not make real sense but it sounds fun already ! (define "fun")
+
+#+ATTR_REVEAL: :frag t
+Strategy:
+#+ATTR_REVEAL: :frag (t)
+- look carefully at the test function that fails
+- print + 1/0 debugging
+- iterate until the WTF rate goes down to an acceptable level
+
+#+begin_export html
+<div style="font-size: 70%; margin-top: 100px" class="fragment">
+Loosely related (code review context): <a href="https://www.osnews.com/story/19266/wtfsm">WTFs/m</a>
+</div>
+#+end_export
+* First reproducer (numpy)
+#+begin_src python
+import numpy as np
+
+arr = np.array([np.nan, 10])
+print(np.clip(arr, -1, 1))
+#+end_src
+
+Expected (nan unaffected by clipping):
+#+begin_example
+[nan, 1.]
+#+end_example
+
+Got (nan replaced by lower bound):
+#+begin_example
+[-1., 1.]   
+#+end_example
+
+Opened numpy issue: [[https://github.com/numpy/numpy/issues/7601][#7601]] [Windows Python 3.5 only] np.clip replace nans with lower bound
+
+* Drilling further into the rabbit hole
+- ~numpy.clip~ is written in C:
+#+begin_src c
+static void
+@name@_fastclip(@type@ *in, npy_intp ni, @type@ *min, @type@ *max, @type@ *out)
+{
+    npy_intp i;
+    @type@ max_val = 0, min_val = 0;
+
+    if (max != NULL) {
+        max_val = *max;
+    ...
+}
+#+end_src
+
+#+ATTR_REVEAL: :frag t
+Full disclosure: I was writing mostly C++ on Windows when I was working in
+finance some time ago
+
+#+ATTR_REVEAL: :frag t
+Windows VM + Visual Studio compiler installed (VS 2015 for Python 3.5)
+
+#+ATTR_REVEAL: :frag t
+Slightly painful, but I can do this, right?
+* Second reproducer (C)
+~clip~ function:
+#+begin_src c
+void clip(double* in, int size, double min, double max, double* out){
+  for (int i=0; i < size; i++){
+    if (in[i] < min){
+      out[i] = min;
+    }
+    else if (in[i] > max) {
+      out[i] = max;
+    }
+    else {
+      out[i] = in[i];
+    }
+  }
+}
+#+end_src
+
+* Second reproducer (C)
+main code:
+#+begin_src c
+#define SIZE 2
+
+int main() {
+  double* in = malloc(sizeof(double) * SIZE);
+  double* out = malloc(sizeof(double) * SIZE);
+  double min = -1.;
+  double max = 1.;
+
+  in[0] = NAN;
+  in[1] = 10;
+
+  clip(in, SIZE, min, max, out);
+
+  for (int i=0; i < SIZE; i++){
+      printf("i: %d, value: %f\n", i, out[i]);
+    }
+}
+#+end_src
+
+Expected (nan unaffected by clip):
+#+begin_example
+i: 0, value: -nan(ind)
+i: 1, value: 1.000000
+#+end_example
+
+Got:
+#+begin_example
+i: 0, value: -1.000000
+i: 1, value: 1.000000
+#+end_example
+* Breakthrough
+adding a ~printf(out[i])~ in the ~clip~ function gets rid of the bug. Numpy
+issue reply [[https://github.com/numpy/numpy/issues/7601#issuecomment-218089912][#7601 comment]] from ~@seberg~:
+
+#+begin_quote
+I don't know this stuff well, but I would guess that the printf statement kills
+the compilers optimization to vectorized/SIMD instructions
+#+end_quote
+
+#+begin_export html
+<div class="fragment"/>
+#+end_export
+
+Indeed related to compiler optimization (loop vectorization):
+- ~cl clip_bug.c~ (without optimization): no bug
+- ~cl /Ox clip_bug.c~ (used by Numpy): bug
+- in particular ~/Qvec-report:2~ gives some useful info
+
+
+#+begin_example
+--- Analyzing function: main
+f:\clip_bug.c(56) : info C5002: loop not vectorized due to reason
+'1303'
+#+end_example
+
+* Fix in numpy
+I opened [[https://github.com/numpy/numpy/pull/7678][#7678]] to disable vectorization for VS 2015:
+#+begin_src c
+// Visual Studio 2015 loop vectorizer handles NaN in an unexpected manner, see:
+// https://github.com/numpy/numpy/issues/7601
+// https://connect.microsoft.com/VisualStudio/feedback/details/2723801/unexpected-nan-handling-in-vectorized-loop
+#if (_MSC_VER == 1900)
+#pragma loop( no_vector )
+#endif
+#+end_src
+
+with associated non-regression test of course!
+
+This was in the numpy development version until May 2019 (released in numpy
+1.17 2019-07-26). See [[https://github.com/numpy/numpy/pull/12519][#12519]] for more details.
+
+* Microsoft bug report
+My comment in the [[https://github.com/numpy/numpy/pull/7678#issuecomment-221858886][#7678]] PR:
+
+#+begin_quote
+According to the ticket I opened at connect.microsoft.com there, one person
+from Microsoft acknowledged that there was a bug in the latest version of the
+compiler
+#+end_quote
+
+#+begin_export html
+<div class="fragment">
+And here it is, ladies and gentlemen, the pinnacle of my talk (drum rolls):
+<a href="https://connect.microsoft.com/VisualStudio/feedback/details/2723801/unexpected-nan-handling-in-vectorized-loop">
+Link to Microsoft bug report 
+</a>
+on connect.microsoft.com
+</div>
+#+end_export
+
+#+begin_export html
+<div class="fragment" style="margin-top: 50px">
+<img src="img/microsoft-connect.png"/ width="100%">
+</div>
+#+end_export
+* Summary?
+
+I would be very interested by:
+#+ATTR_REVEAL: :frag (t)
+- an explanation about: how can a bug like this slip through in a compiler
+- insightful comments about: why a low-level bug like this was discovered in a
+  Python project
+
+More anecdotical:
+#+ATTR_REVEAL: :frag (t)
+- sometimes the universe hints at you that you should have stayed in your bed
+- most of the times you should probably listen to the universe
+- if you don't listen though, you may discover interesting things (no guarantee) ...
+- AppVeyor build log from three years ago: yes
+- Microsoft bug report from three years ago: nope !
+
+Exercise left to the reader:
+#+ATTR_REVEAL: :frag (t)
+- Was the bug fixed by Microsoft in a later version of the compiler (as
+  promised in the Microsoft Connect ticket)? My guess is probably yes but I
+  haven't checked.

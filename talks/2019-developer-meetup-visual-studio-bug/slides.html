@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>From a Python neuroimaging project test failure to a Microsoft Visual Studio compiler bug in less than 5 minutes</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-orgd87cba1">
+<h2 id="orgd87cba1"></h2>
+<h2 style="text-align: center">From a Python neuroimaging project test failure<br/> to a Microsoft Visual Studio
+compiler bug<br/> in less than 5 minutes</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org641a822">
+<h2 id="org641a822">Context</h2>
+<img src="img/scikit-learn-logo-notext.png" height="120px">
+
+
+<img src="img/nilearn-logo.png" height="120px">
+
+<p>
+Nilearn: Machine learning for NeuroImaging in Python
+</p>
+
+<img src="img/nibabel-logo.png" height="120px">
+
+<p>
+NiBabel: Access a cacophony of neuro-imaging file formats 
+for opening a variety of Neuroimaging file formats (e.g. Nifti
+images)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org371df6c">
+<h2 id="org371df6c">Once upon a time (around April 2016)</h2>
+<p>
+Nibabel failures on Windows Python 3.5 only:
+</p>
+<img src="img/appveyor-status.png" width="80%"/>
+
+<p>
+Test report:
+</p>
+<pre style="font-size: 80%">
+----------------
+Ran 7055 tests in 63.415s
+FAILED (errors=5, failures=16)
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-orge543dcc">
+<h2 id="orge543dcc">An example failure</h2>
+<pre class="example">
+======================================================================
+FAIL: nibabel.tests.test_arraywriters.test_nan2zero_scaling
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Miniconda\envs\_test\lib\site-packages\nose\case.py", line 198, in runTest
+    self.test(*self.arg)
+  File "C:\Miniconda\envs\_test\lib\site-packages\nibabel\tests\test_arraywriters.py", line 820, in test_nan2zero_scaling
+    assert_equal(*back_nan_0[:2])
+AssertionError: -0.0 != 254.0
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org7140944">
+<h2 id="org7140944">Another example failure</h2>
+<pre class="example">
+======================================================================
+FAIL: nibabel.tests.test_utils.test_a2f_nan2zero_scaling
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Miniconda\envs\_test\lib\site-packages\nose\case.py", line 198, in runTest
+    self.test(*self.arg)
+  File "C:\Miniconda\envs\_test\lib\site-packages\nibabel\tests\test_utils.py", line 432, in test_a2f_nan2zero_scaling
+    assert_array_equal(back_nan, back_zero)
+  File "C:\Miniconda\envs\_test\lib\site-packages\numpy\testing\utils.py", line 807, in assert_array_equal
+    verbose=verbose, header='Arrays are not equal')
+  File "C:\Miniconda\envs\_test\lib\site-packages\numpy\testing\utils.py", line 733, in assert_array_compare
+    raise AssertionError(msg)
+AssertionError: 
+Arrays are not equal
+(mismatch 33.33333333333333%)
+ x: array([-9223372036854775808,                  100,                  254], dtype=int64)
+ y: array([100, 100, 254], dtype=int64)
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org7625297">
+<h2 id="org7625297">Summary of the situation</h2>
+<p>
+Failure seems genuine and related to NaN (Not a Number) values
+</p>
+
+<p class="fragment">
+Only on Python 3.5 (released September 2015)
+</p>
+
+<p class="fragment">
+Does not make real sense but it sounds fun already ! (define "fun")
+</p>
+
+<p class="fragment">
+Strategy:
+</p>
+<ul>
+<li class="fragment">look carefully at the test function that fails</li>
+<li class="fragment">print + 1/0 debugging</li>
+<li class="fragment">iterate until the WTF rate goes down to an acceptable level</li>
+
+</ul>
+
+<div style="font-size: 70%; margin-top: 100px" class="fragment">
+Loosely related (code review context): <a href="https://www.osnews.com/story/19266/wtfsm">WTFs/m</a>
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orge458b5a">
+<h2 id="orge458b5a">First reproducer (numpy)</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >import numpy as np
+
+arr = np.array([np.nan, 10])
+print(np.clip(arr, -1, 1))
+</code></pre>
+</div>
+
+<p>
+Expected (nan unaffected by clipping):
+</p>
+<pre class="example">
+[nan, 1.]
+</pre>
+
+<p>
+Got (nan replaced by lower bound):
+</p>
+<pre class="example">
+[-1., 1.]   
+</pre>
+
+<p>
+Opened numpy issue: <a href="https://github.com/numpy/numpy/issues/7601">#7601</a> [Windows Python 3.5 only] np.clip replace nans with lower bound
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgab8bfff">
+<h2 id="orgab8bfff">Drilling further into the rabbit hole</h2>
+<ul>
+<li><code>numpy.clip</code> is written in C:</li>
+
+</ul>
+<div class="org-src-container">
+
+<pre><code class=" c" >static void
+@name@_fastclip(@type@ *in, npy_intp ni, @type@ *min, @type@ *max, @type@ *out)
+{
+    npy_intp i;
+    @type@ max_val = 0, min_val = 0;
+
+    if (max != NULL) {
+        max_val = *max;
+    ...
+}
+</code></pre>
+</div>
+
+<p class="fragment">
+Full disclosure: I was writing mostly C++ on Windows when I was working in
+finance some time ago
+</p>
+
+<p class="fragment">
+Windows VM + Visual Studio compiler installed (VS 2015 for Python 3.5)
+</p>
+
+<p class="fragment">
+Slightly painful, but I can do this, right?
+</p>
+</section>
+</section>
+<section>
+<section id="slide-org41d084f">
+<h2 id="org41d084f">Second reproducer (C)</h2>
+<p>
+<code>clip</code> function:
+</p>
+<div class="org-src-container">
+
+<pre><code class=" c" >void clip(double* in, int size, double min, double max, double* out){
+  for (int i=0; i &lt; size; i++){
+    if (in[i] &lt; min){
+      out[i] = min;
+    }
+    else if (in[i] &gt; max) {
+      out[i] = max;
+    }
+    else {
+      out[i] = in[i];
+    }
+  }
+}
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgea2f04a">
+<h2 id="orgea2f04a">Second reproducer (C)</h2>
+<p>
+main code:
+</p>
+<div class="org-src-container">
+
+<pre><code class=" c" >#define SIZE 2
+
+int main() {
+  double* in = malloc(sizeof(double) * SIZE);
+  double* out = malloc(sizeof(double) * SIZE);
+  double min = -1.;
+  double max = 1.;
+
+  in[0] = NAN;
+  in[1] = 10;
+
+  clip(in, SIZE, min, max, out);
+
+  for (int i=0; i &lt; SIZE; i++){
+      printf("i: %d, value: %f\n", i, out[i]);
+    }
+}
+</code></pre>
+</div>
+
+<p>
+Expected (nan unaffected by clip):
+</p>
+<pre class="example">
+i: 0, value: -nan(ind)
+i: 1, value: 1.000000
+</pre>
+
+<p>
+Got:
+</p>
+<pre class="example">
+i: 0, value: -1.000000
+i: 1, value: 1.000000
+</pre>
+</section>
+</section>
+<section>
+<section id="slide-org94ae746">
+<h2 id="org94ae746">Breakthrough</h2>
+<p>
+adding a <code>printf(out[i])</code> in the <code>clip</code> function gets rid of the bug. Numpy
+issue reply <a href="https://github.com/numpy/numpy/issues/7601#issuecomment-218089912">#7601 comment</a> from <code>@seberg</code>:
+</p>
+
+<blockquote>
+<p>
+I don't know this stuff well, but I would guess that the printf statement kills
+the compilers optimization to vectorized/SIMD instructions
+</p>
+</blockquote>
+
+<div class="fragment"/>
+
+<p>
+Indeed related to compiler optimization (loop vectorization):
+</p>
+<ul>
+<li><code>cl clip_bug.c</code> (without optimization): no bug</li>
+<li><code>cl /Ox clip_bug.c</code> (used by Numpy): bug</li>
+<li>in particular <code>/Qvec-report:2</code> gives some useful info</li>
+
+</ul>
+
+
+<pre class="example">
+--- Analyzing function: main
+f:\clip_bug.c(56) : info C5002: loop not vectorized due to reason
+'1303'
+</pre>
+
+</section>
+</section>
+<section>
+<section id="slide-org76f5f4f">
+<h2 id="org76f5f4f">Fix in numpy</h2>
+<p>
+I opened <a href="https://github.com/numpy/numpy/pull/7678">#7678</a> to disable vectorization for VS 2015:
+</p>
+<div class="org-src-container">
+
+<pre><code class=" c" >// Visual Studio 2015 loop vectorizer handles NaN in an unexpected manner, see:
+// https://github.com/numpy/numpy/issues/7601
+// https://connect.microsoft.com/VisualStudio/feedback/details/2723801/unexpected-nan-handling-in-vectorized-loop
+#if (_MSC_VER == 1900)
+#pragma loop( no_vector )
+#endif
+</code></pre>
+</div>
+
+<p>
+with associated non-regression test of course!
+</p>
+
+<p>
+This was in the numpy development version until May 2019 (released in numpy
+1.17 2019-07-26). See <a href="https://github.com/numpy/numpy/pull/12519">#12519</a> for more details.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org9c9f403">
+<h2 id="org9c9f403">Microsoft bug report</h2>
+<p>
+My comment in the <a href="https://github.com/numpy/numpy/pull/7678#issuecomment-221858886">#7678</a> PR:
+</p>
+
+<blockquote>
+<p>
+According to the ticket I opened at connect.microsoft.com there, one person
+from Microsoft acknowledged that there was a bug in the latest version of the
+compiler
+</p>
+</blockquote>
+
+<div class="fragment">
+And here it is, ladies and gentlemen, the pinnacle of my talk (drum rolls):
+<a href="https://connect.microsoft.com/VisualStudio/feedback/details/2723801/unexpected-nan-handling-in-vectorized-loop">
+Link to Microsoft bug report 
+</a>
+on connect.microsoft.com
+</div>
+
+<div class="fragment" style="margin-top: 50px">
+<img src="img/microsoft-connect.png"/ width="100%">
+</div>
+</section>
+</section>
+<section>
+<section id="slide-orgf8933d2">
+<h2 id="orgf8933d2">Summary?</h2>
+<p>
+I would be very interested by:
+</p>
+<ul>
+<li class="fragment">an explanation about: how can a bug like this slip through in a compiler</li>
+<li class="fragment">insightful comments about: why a low-level bug like this was discovered in a
+Python project</li>
+
+</ul>
+
+<p>
+More anecdotical:
+</p>
+<ul>
+<li class="fragment">sometimes the universe hints at you that you should have stayed in your bed</li>
+<li class="fragment">most of the times you should probably listen to the universe</li>
+<li class="fragment">if you don't listen though, you may discover interesting things (no guarantee) &#x2026;</li>
+<li class="fragment">AppVeyor build log from three years ago: yes</li>
+<li class="fragment">Microsoft bug report from three years ago: nope !</li>
+
+</ul>
+
+<p>
+Exercise left to the reader:
+</p>
+<ul>
+<li class="fragment">Was the bug fixed by Microsoft in a later version of the compiler (as
+promised in the Microsoft Connect ticket)? My guess is probably yes but I
+haven't checked.</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>
