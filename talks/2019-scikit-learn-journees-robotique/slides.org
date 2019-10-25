@@ -1,0 +1,351 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t reveal_center:nil
+#+OPTIONS: reveal_width:1600 reveal_height:1200
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_EXTRA_CSS: https://unpkg.com/purecss@1.0.0/build/pure-min.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: An overview of the scikit-learn project
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">An overview of the scikit-learn project</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+
+* About me
+
+#+BEGIN_EXPORT html
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 1.5 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+#+END_EXPORT
+
+* Outline
+#+ATTR_REVEAL: :frag (t)
+- scikit-learn overview
+- community aspects
+- first encounter with the robotics world : packaging pinocchio inside conda-forge
+
+* scikit-learn
+
+** scikit-learn vision: an enabler
+
+#+begin_export html
+<div style="float: left; margin-right: 20px; width=25%">
+    <img src="img/scikit-learn.png" height="200px">
+</div>
+#+end_export
+#+ATTR_REVEAL: :frag (t)
+- Machine learning for everyone
+- High quality pythonic library
+- Community-driven development
+
+#+ATTR_REVEAL: :frag t
+- one consequence : no deep-learning (see FAQ)
+
+#+ATTR_REVEAL: :frag t
+looking at the shallow/bright side of life
+
+** scikit-learn website stats
+Unique visitors per month:
+#+begin_export html
+<img src="img/scikit-learn-website-users.png" style="background: white"/>
+#+end_export
+
+** scikit-learn users
+#+begin_export html
+<img src="img/scikit-learn-users.png"/>
+#+end_export
+** scikit-learn users (industry)
+#+begin_export html
+<img src="img/companies-using-scikit-learn.png"/>
+#+end_export
+
+** scikit-learn users (academia)
+In Parietal: decode brain activity (fMRI)
+
+#+begin_export html
+<img src="img/activation_graph.png" width="30%">
+#+end_export
+
+Widely used in: astronomy, geosciences, genomics, etc ...
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+- Consistent API for estimators
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+- Consistent API for estimators
+
+#+ATTR_REVEAL: :frag (t)
+- Fast (enough): Numpy and Cython
+- Great documentation: [[https://scikit-learn.org][scikit-learn.org]]
+
+** Trade-off compared with research
+Machine learning research: novel is required
+#+ATTR_REVEAL: :frag t
+- conceptual complexity is not an issue
+- new and bleeding edge is better
+- simple problems are old science
+
+In the field: boring is good
+#+ATTR_REVEAL: :frag t
+- tried and tested is good
+- little sophistication from the users
+- API is more important than maths
+
+#+ATTR_REVEAL: :frag t
+Solving simple problems matter!
+
+#+ATTR_REVEAL: :frag t
+Solving them really well matters a lot!
+
+* Community
+** Scientific Python ecosystem
+
+#+begin_export html
+<img src="img/pydata-stack.png" width="70%"/>
+#+end_export
+
+Someone else may solve your problems (Dask for distributed computing)
+
+#+begin_export html
+<small>Advantage of being part of the very dynamic Python ecosystem</small>
+#+end_export
+
+** Contributors
+#+begin_export html
+<img src="img/scikit-learn-contributors.png" width="45%" style="float: left"/>
+#+end_export
+
+- ~1500 total contributors, ~30 monthly contributors
+- one-week sprint every year
+- tutorials + sprints (Scipy, Pycon, EuroPython, EuroScipy, ...)
+- GSoC / WiMLDS / "Mission d'école doctorale"
+- day-to-day interaction on github
+** Open-source sustainability challenges
+#+begin_export html
+<img src="img/scikit-learn-opened-issues-and-prs.png"/ width="50%">
+#+end_export
+
+#+ATTR_REVEAL: :frag t
+scikit-learn: 50+ notifications per day (comments, commits, etc ...)
+
+#+ATTR_REVEAL: :frag t
+PR review and user support drowns core developers
+
+#+begin_export html
+<div class="fragment"/>
+#+end_export
+
+[[https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure][Road and Bridges]] by Nadia Eghbal
+** Professional core developers
+#+ATTR_REVEAL: :frag (t)
+- crucial to consolidate the project
+- Inria : one full-time engineer since the beginning of the project (~2008)
+- not Inria-only: 3 Columbia University, 1 Sidney University, 5 Inria
+- not academia-only: 1 person from Anaconda
+** scikit-learn foundation @ Inria
+#+begin_export html
+<img src="img/scikit-learn-foundation-sponsors.png", width="40%" style="float: left; margin-right: 20px"/>
+#+end_export
+
+Launched September 2018
+
+companies: better visibility for software they rely on, good for Public
+Relations (recruitment too)
+
+scikit-learn: permanent staff ("CDI") to consolidate project, useful feed-back
+from advanced users
+
+See Gaël Varoquaux [[http://gael-varoquaux.info/programming/a-foundation-for-scikit-learn-at-inria.html][blog post]]
+
+Good collaboration and feed-back after one year
+
+* First encounter with the robotics software world
+** Started from chat with Justin 
+#+begin_export html
+<small>(sitting in the same office helps a lot)</small>
+#+end_export
+
+#+ATTR_REVEAL: :frag t
+J: "feed-back: pinocchio is too hard to install"
+
+#+ATTR_REVEAL: :frag t
+L: "conda + conda-forge seems promising"
+
+#+ATTR_REVEAL: :frag t
+Implicit hope : J will do most of the work and I can help when needed
+
+#+ATTR_REVEAL: :frag t
+Spoiler alert: We rolled our sleeves and did it together
+
+#+begin_export html
+<div class="fragment"/>
+#+end_export
+
+End-result (Linux and OSX):
+#+begin_src bash
+conda install -c conda-forge pinocchio
+#+end_src
+
+#+ATTR_REVEAL: :frag t
+Feels right at home if you are coming from the Python world
+
+#+ATTR_REVEAL: :frag t
+Hardest part of the install IMO: 2 c in pinocchio 
+
+** First ROS world encounter (or attempts)
+https://github.com/ros/urdfdom/issues/130 (RFC for packaging urdfdom in
+conda-forge)
+
+https://github.com/ros/console_bridge/pull/62 (add LICENSE)
+
+#+ATTR_REVEAL: :frag t
+Hmmm ...
+** Nice find
+[[https://discourse.ros.org/t/ros-packages-on-conda-conda-forge/7553][ROS discourse thread]] : ROS packages on conda / conda-forge 
+
+#+ATTR_REVEAL: :frag t
+Wolf Vollprecht @wolfv (QuantStack) involved in Python (Jupyter, conda-forge,
+etc ...), C++ (xtensor) and robotics (Rapuyta Robotics, jupyter-ros)
+
+#+ATTR_REVEAL: :frag t
+His (way more ambitious) goal : put minimal ROS distrib on conda-forge
+
+** Collaboration with Justin and Wolf
+#+ATTR_REVEAL: :frag (t)
+- Justin: cmake-related problems (Python 2/3, newer Boost + compilers support,
+  etc ...) that were found along the way (jlr-cmakemodules)
+- Wolf: help on advanced conda packaging and adding some packages I needed
+- L: conda packaging and pushing the conda packages to conda-forge. Pinging
+  reviewers to get PRs merged.
+** Nice conda-forge workflow
+- new release of pinocchio in github
+- bot opens a Pull Request in conda-forge/pinocchio-feedstock
+#+begin_export html
+<img src="img/pinocchio-auto-pr.png" width="50%"/>
+#+end_export
+- CIs run making sure the package is functional
+- Justin can merge the automatic PR
+- New version of the package is available on conda-forge
+
+** Recent out of the blue development : Windows support
+#+ATTR_REVEAL: :frag (t)
+- just way too ambitious initially
+- Recently : Sean Yen (@seanyen) work from Microsoft
+- This morning: conda-forge/eigenpy-feedstock PR, getting closer to pinocchio ...
+- apparently @seanyen interested in gazebo ([[https://github.com/conda-forge/staged-recipes/pull/9968#issuecomment-546271668][comment from 5 hours ago]])
+- sometimes (when you are lucky): open-source works like magic
+
+** Help more than welcome
+#+ATTR_REVEAL: :frag (t)
+- I am about to be added to @conda-forge/ros-core team ...
+- sorry what?
+- some people in this room would be way more qualified for this
+- If you like the approach and wants to get involved let me know or github
+  ([[https://github.com/conda-forge/ros-core-feedstock][conda-forge/ros-core-feedstock]])
+
+* scikit-learn
+
+#+begin_export html
+<div class="fragment">
+<p>
+<b>Vision</b>: Machine learning as a means not an end
+</p>
+
+<p style="font-size: 60%">
+Versatile library: the right level of abstraction. Close to research, but seeking different tradeoffs
+</p>
+</div>
+
+<div class="fragment">
+<b>Tool</b>: Simple API across learners
+
+<p style="font-size: 60%">
+Numpy arrays as data containers. Fast enough.
+</p>
+
+</div> <!-- .element class="fragment" -->
+
+<div class="fragment">
+<b>Project</b>: Many people working together
+
+<p style="font-size: 60%">
+Ensure code quality and maintainability
+</p>
+</div> <!-- .element class="fragment" -->
+#+end_export
+
+#+begin_export html
+<div class="fragment" style="font-size: 75%; margin-top: 50px">
+Side-comment: always interesting to reach out to different communities
+</div>
+
+<div class="fragment" style="font-size: 75%"> 
+you learn a lot even if you end up completely lost (to be continued ...)
+</div>
+#+end_export

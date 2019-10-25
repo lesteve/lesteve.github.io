@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>An overview of the scikit-learn project</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org979e772">
+<h2 id="org979e772"></h2>
+<h2 style="text-align: center">An overview of the scikit-learn project</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org325f99f">
+<h2 id="org325f99f">About me</h2>
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 1.5 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org6393fe0">
+<h2 id="org6393fe0">Outline</h2>
+<ul>
+<li class="fragment">scikit-learn overview</li>
+<li class="fragment">community aspects</li>
+<li class="fragment">first encounter with the robotics world : packaging pinocchio inside conda-forge</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3d8553d">
+<h2 id="org3d8553d">scikit-learn</h2>
+<div class="outline-text-2" id="text-org3d8553d">
+</div>
+</section>
+<section id="slide-orgad4590b">
+<h3 id="orgad4590b">scikit-learn vision: an enabler</h3>
+<div style="float: left; margin-right: 20px; width=25%">
+    <img src="img/scikit-learn.png" height="200px">
+</div>
+<ul>
+<li class="fragment">Machine learning for everyone</li>
+<li class="fragment">High quality pythonic library</li>
+<li class="fragment">Community-driven development</li>
+
+</ul>
+
+<ul class="fragment">
+<li>one consequence : no deep-learning (see FAQ)</li>
+
+</ul>
+
+<p class="fragment">
+looking at the shallow/bright side of life
+</p>
+
+</section>
+<section id="slide-orgc4808b6">
+<h3 id="orgc4808b6">scikit-learn website stats</h3>
+<p>
+Unique visitors per month:
+</p>
+<img src="img/scikit-learn-website-users.png" style="background: white"/>
+
+</section>
+<section id="slide-org0e66b7c">
+<h3 id="org0e66b7c">scikit-learn users</h3>
+<img src="img/scikit-learn-users.png"/>
+</section>
+<section id="slide-org66ccebe">
+<h3 id="org66ccebe">scikit-learn users (industry)</h3>
+<img src="img/companies-using-scikit-learn.png"/>
+
+</section>
+<section id="slide-org27c372e">
+<h3 id="org27c372e">scikit-learn users (academia)</h3>
+<p>
+In Parietal: decode brain activity (fMRI)
+</p>
+
+<img src="img/activation_graph.png" width="30%">
+
+<p>
+Widely used in: astronomy, geosciences, genomics, etc &#x2026;
+</p>
+
+</section>
+<section id="slide-org45b7603">
+<h3 id="org45b7603">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class=" python" >from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgc0d6f6a">
+<h3 id="orgc0d6f6a">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class=" python" >from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<ul>
+<li>Consistent API for estimators</li>
+
+</ul>
+
+</section>
+<section id="slide-orga086f60">
+<h3 id="orga086f60">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class=" python" >from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<ul>
+<li>Consistent API for estimators</li>
+
+</ul>
+
+<ul>
+<li class="fragment">Fast (enough): Numpy and Cython</li>
+<li class="fragment">Great documentation: <a href="https://scikit-learn.org">scikit-learn.org</a></li>
+
+</ul>
+
+</section>
+<section id="slide-orgdc8c756">
+<h3 id="orgdc8c756">Trade-off compared with research</h3>
+<p>
+Machine learning research: novel is required
+</p>
+<ul class="fragment">
+<li>conceptual complexity is not an issue</li>
+<li>new and bleeding edge is better</li>
+<li>simple problems are old science</li>
+
+</ul>
+
+<p>
+In the field: boring is good
+</p>
+<ul class="fragment">
+<li>tried and tested is good</li>
+<li>little sophistication from the users</li>
+<li>API is more important than maths</li>
+
+</ul>
+
+<p class="fragment">
+Solving simple problems matter!
+</p>
+
+<p class="fragment">
+Solving them really well matters a lot!
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgba20738">
+<h2 id="orgba20738">Community</h2>
+<div class="outline-text-2" id="text-orgba20738">
+</div>
+</section>
+<section id="slide-org5be050b">
+<h3 id="org5be050b">Scientific Python ecosystem</h3>
+<img src="img/pydata-stack.png" width="70%"/>
+
+<p>
+Someone else may solve your problems (Dask for distributed computing)
+</p>
+
+<small>Advantage of being part of the very dynamic Python ecosystem</small>
+
+</section>
+<section id="slide-org96f3cb7">
+<h3 id="org96f3cb7">Contributors</h3>
+<img src="img/scikit-learn-contributors.png" width="45%" style="float: left"/>
+
+<ul>
+<li>~1500 total contributors, ~30 monthly contributors</li>
+<li>one-week sprint every year</li>
+<li>tutorials + sprints (Scipy, Pycon, EuroPython, EuroScipy, &#x2026;)</li>
+<li>GSoC / WiMLDS / "Mission d'école doctorale"</li>
+<li>day-to-day interaction on github</li>
+
+</ul>
+</section>
+<section id="slide-org1ff2e07">
+<h3 id="org1ff2e07">Open-source sustainability challenges</h3>
+<img src="img/scikit-learn-opened-issues-and-prs.png"/ width="50%">
+
+<p class="fragment">
+scikit-learn: 50+ notifications per day (comments, commits, etc &#x2026;)
+</p>
+
+<p class="fragment">
+PR review and user support drowns core developers
+</p>
+
+<div class="fragment"/>
+
+<p>
+<a href="https://www.fordfoundation.org/about/library/reports-and-studies/roads-and-bridges-the-unseen-labor-behind-our-digital-infrastructure">Road and Bridges</a> by Nadia Eghbal
+</p>
+</section>
+<section id="slide-org90b51f4">
+<h3 id="org90b51f4">Professional core developers</h3>
+<ul>
+<li class="fragment">crucial to consolidate the project</li>
+<li class="fragment">Inria : one full-time engineer since the beginning of the project (~2008)</li>
+<li class="fragment">not Inria-only: 3 Columbia University, 1 Sidney University, 5 Inria</li>
+<li class="fragment">not academia-only: 1 person from Anaconda</li>
+
+</ul>
+</section>
+<section id="slide-org80a9515">
+<h3 id="org80a9515">scikit-learn foundation @ Inria</h3>
+<img src="img/scikit-learn-foundation-sponsors.png", width="40%" style="float: left; margin-right: 20px"/>
+
+<p>
+Launched September 2018
+</p>
+
+<p>
+companies: better visibility for software they rely on, good for Public
+Relations (recruitment too)
+</p>
+
+<p>
+scikit-learn: permanent staff ("CDI") to consolidate project, useful feed-back
+from advanced users
+</p>
+
+<p>
+See Gaël Varoquaux <a href="http://gael-varoquaux.info/programming/a-foundation-for-scikit-learn-at-inria.html">blog post</a>
+</p>
+
+<p>
+Good collaboration and feed-back after one year
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org5df855c">
+<h2 id="org5df855c">First encounter with the robotics software world</h2>
+<div class="outline-text-2" id="text-org5df855c">
+</div>
+</section>
+<section id="slide-orgd7a60ef">
+<h3 id="orgd7a60ef">Started from chat with Justin</h3>
+<small>(sitting in the same office helps a lot)</small>
+
+<p class="fragment">
+J: "feed-back: pinocchio is too hard to install"
+</p>
+
+<p class="fragment">
+L: "conda + conda-forge seems promising"
+</p>
+
+<p class="fragment">
+Implicit hope : J will do most of the work and I can help when needed
+</p>
+
+<p class="fragment">
+Spoiler alert: We rolled our sleeves and did it together
+</p>
+
+<div class="fragment"/>
+
+<p>
+End-result (Linux and OSX):
+</p>
+<div class="org-src-container">
+
+<pre><code class=" bash" >conda install -c conda-forge pinocchio
+</code></pre>
+</div>
+
+<p class="fragment">
+Feels right at home if you are coming from the Python world
+</p>
+
+<p class="fragment">
+Hardest part of the install IMO: 2 c in pinocchio 
+</p>
+
+</section>
+<section id="slide-org4aa50ad">
+<h3 id="org4aa50ad">First ROS world encounter (or attempts)</h3>
+<p>
+<a href="https://github.com/ros/urdfdom/issues/130">https://github.com/ros/urdfdom/issues/130</a> (RFC for packaging urdfdom in
+conda-forge)
+</p>
+
+<p>
+<a href="https://github.com/ros/console_bridge/pull/62">https://github.com/ros/console_bridge/pull/62</a> (add LICENSE)
+</p>
+
+<p class="fragment">
+Hmmm &#x2026;
+</p>
+</section>
+<section id="slide-org54004d2">
+<h3 id="org54004d2">Nice find</h3>
+<p>
+<a href="https://discourse.ros.org/t/ros-packages-on-conda-conda-forge/7553">ROS discourse thread</a> : ROS packages on conda / conda-forge 
+</p>
+
+<p class="fragment">
+Wolf Vollprecht @wolfv (QuantStack) involved in Python (Jupyter, conda-forge,
+etc &#x2026;), C++ (xtensor) and robotics (Rapuyta Robotics, jupyter-ros)
+</p>
+
+<p class="fragment">
+His (way more ambitious) goal : put minimal ROS distrib on conda-forge
+</p>
+
+</section>
+<section id="slide-org80f1aa3">
+<h3 id="org80f1aa3">Collaboration with Justin and Wolf</h3>
+<ul>
+<li class="fragment">Justin: cmake-related problems (Python 2/3, newer Boost + compilers support,
+etc &#x2026;) that were found along the way (jlr-cmakemodules)</li>
+<li class="fragment">Wolf: help on advanced conda packaging and adding some packages I needed</li>
+<li class="fragment">L: conda packaging and pushing the conda packages to conda-forge. Pinging
+reviewers to get PRs merged.</li>
+
+</ul>
+</section>
+<section id="slide-orge2899ad">
+<h3 id="orge2899ad">Nice conda-forge workflow</h3>
+<ul>
+<li>new release of pinocchio in github</li>
+<li>bot opens a Pull Request in conda-forge/pinocchio-feedstock</li>
+
+</ul>
+<img src="img/pinocchio-auto-pr.png" width="50%"/>
+<ul>
+<li>CIs run making sure the package is functional</li>
+<li>Justin can merge the automatic PR</li>
+<li>New version of the package is available on conda-forge</li>
+
+</ul>
+
+</section>
+<section id="slide-org9a2afc1">
+<h3 id="org9a2afc1">Recent out of the blue development : Windows support</h3>
+<ul>
+<li class="fragment">just way too ambitious initially</li>
+<li class="fragment">Recently : Sean Yen (@seanyen) work from Microsoft</li>
+<li class="fragment">This morning: conda-forge/eigenpy-feedstock PR, getting closer to pinocchio &#x2026;</li>
+<li class="fragment">apparently @seanyen interested in gazebo (<a href="https://github.com/conda-forge/staged-recipes/pull/9968#issuecomment-546271668">comment from 5 hours ago</a>)</li>
+<li class="fragment">sometimes (when you are lucky): open-source works like magic</li>
+
+</ul>
+
+</section>
+<section id="slide-org1d7e385">
+<h3 id="org1d7e385">Help more than welcome</h3>
+<ul>
+<li class="fragment">I am about to be added to @conda-forge/ros-core team &#x2026;</li>
+<li class="fragment">sorry what?</li>
+<li class="fragment">some people in this room would be way more qualified for this</li>
+<li class="fragment">If you like the approach and wants to get involved let me know or github
+(<a href="https://github.com/conda-forge/ros-core-feedstock">conda-forge/ros-core-feedstock</a>)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd0d189e">
+<h2 id="orgd0d189e">scikit-learn</h2>
+<div class="fragment">
+<p>
+<b>Vision</b>: Machine learning as a means not an end
+</p>
+
+<p style="font-size: 60%">
+Versatile library: the right level of abstraction. Close to research, but seeking different tradeoffs
+</p>
+</div>
+
+<div class="fragment">
+<b>Tool</b>: Simple API across learners
+
+<p style="font-size: 60%">
+Numpy arrays as data containers. Fast enough.
+</p>
+
+</div> <!-- .element class="fragment" -->
+
+<div class="fragment">
+<b>Project</b>: Many people working together
+
+<p style="font-size: 60%">
+Ensure code quality and maintainability
+</p>
+</div> <!-- .element class="fragment" -->
+
+<div class="fragment" style="font-size: 75%; margin-top: 50px">
+Side-comment: always interesting to reach out to different communities
+</div>
+
+<div class="fragment" style="font-size: 75%"> 
+you learn a lot even if you end up completely lost (to be continued ...)
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: false,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 1200,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend on reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>
