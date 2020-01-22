@@ -1,0 +1,129 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: Jean Zay
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">Jean Zay</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+* Context
+
+#+begin_export html
+<img src="img/exploration.png" width="20%"/>
+#+end_export
+
+- quick iteration is key
+- sending an email each time you hit a stumbling block not really an option ...
+
+* Users
+
+#+begin_export html
+<img src="img/design-ux.jpg" class="img-center" width="50%"/>
+#+end_export
+
+* Possible vs convenient
+
+#+begin_export html
+<img src="img/bicycle-lane-on-and-off.jpg" class="img-center" width="70%"/>
+#+end_export
+
+* Possible vs convenient
+
+#+begin_export html
+<img src="img/bicycle-lane-going-nowhere.jpg" class="img-center" width="70%"/>
+#+end_export
+
+* Possible vs convenient
+
+#+begin_export html
+<img src="img/bicycle-lane-bumpy-ride.jpg" class="img-center" width="70%"/>
+#+end_export
+
+* Adapt to a new environment
+Home sweet home: local machine + GPU or local cluster.
+#+begin_export html
+<img src="img/homey-messy-appartment.jpg" class="img-center" width="50%"/>
+#+end_export
+
+* Adapt to a new environment
+Jean Zay:
+#+begin_export html
+<img src="img/cold-appartment.jpg" class="img-center" width="50%"/>
+#+end_export
+
+Bad analogy, you still live in multiple places.
+
+* Examples
+
+- miniconda rather than module
+- jean-zay{1,2,3} and tmux
+- idrjup vs native Jupyter experience
+- plenty others ...
+
+* HPC and IA users
+
+Convenience and flexibility is way more important than pure performance!
+
+Science needs to rethink how it interacts with big data:  Five principles for
+effective scientific big data systems (https://arxiv.org/pdf/1908.03356.pdf)
+
+#+begin_quote
+Put another way, science does not need a train, it needs an all terrain vehicle
+#+end_quote
+
+#+begin_export html
+<small>
+Not only IA : common to a lot of scientific workflows see Pangeo for example
+</small>
+#+end_export
+
+
+
+* Summary
+
+- it works rather well (GPUs available instantly with good (2-3x) performances
+  compared to local cluster
+- how to improve usability?
+- big incertitude on future evolution and Jean Zay positioning
+- positive interactions with User Support so far, but a lot to be done still,
+  how we chose priorities, and we keep the momentum going
+* 
+
+* Pangeo
+#+begin_export html
+<img src="img/pangeo-logo.png" width="10%"/>
+#+end_export
+
+- JupyterHub on HPC cluster (deployment at CNES)
+- Dask
+- geosciences users but generic tools
+- very good place to collaborate between sys-admins (NCAR, NASA, CNES, etc ...)
+  and users
+
