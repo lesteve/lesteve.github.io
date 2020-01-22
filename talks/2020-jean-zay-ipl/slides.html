@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Jean Zay</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org67b191e">
+<h2 id="org67b191e"></h2>
+<h2 style="text-align: center">Jean Zay</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org82a455a">
+<h2 id="org82a455a">Context</h2>
+<img src="img/exploration.png" width="20%"/>
+
+<ul>
+<li>quick iteration is key</li>
+<li>sending an email each time you hit a stumbling block not really an option &#x2026;</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2517da9">
+<h2 id="org2517da9">Users</h2>
+<img src="img/design-ux.jpg" class="img-center" width="50%"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org87df389">
+<h2 id="org87df389">Possible vs convenient</h2>
+<img src="img/bicycle-lane-on-and-off.jpg" class="img-center" width="70%"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org2f68cc6">
+<h2 id="org2f68cc6">Possible vs convenient</h2>
+<img src="img/bicycle-lane-going-nowhere.jpg" class="img-center" width="70%"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org03399c3">
+<h2 id="org03399c3">Possible vs convenient</h2>
+<img src="img/bicycle-lane-bumpy-ride.jpg" class="img-center" width="70%"/>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb89d4a2">
+<h2 id="orgb89d4a2">Adapt to a new environment</h2>
+<p>
+Home sweet home: local machine + GPU or local cluster.
+</p>
+<img src="img/homey-messy-appartment.jpg" class="img-center" width="50%"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org36c7c93">
+<h2 id="org36c7c93">Adapt to a new environment</h2>
+<p>
+Jean Zay:
+</p>
+<img src="img/cold-appartment.jpg" class="img-center" width="50%"/>
+
+<p>
+Bad analogy, you still live in multiple places.
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orga25706c">
+<h2 id="orga25706c">Examples</h2>
+<ul>
+<li>miniconda rather than module</li>
+<li>where to put long-lived 1TB+ datasets outside of DSDIR (e.g. this dataset is
+only interesting for me). WORK is too small (inodes or space) and SCRATCH
+gets removed periodically.</li>
+<li>idrjup vs native Jupyter experience</li>
+<li>jean-zay{1,2,3} and tmux</li>
+<li>plenty others &#x2026;</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org2baab32">
+<h2 id="org2baab32">HPC and IA users</h2>
+<p>
+Convenience and flexibility is way more important than pure performance!
+</p>
+
+<p>
+Science needs to rethink how it interacts with big data:  Five principles for
+effective scientific big data systems (<a href="https://arxiv.org/pdf/1908.03356.pdf">https://arxiv.org/pdf/1908.03356.pdf</a>)
+</p>
+
+<blockquote>
+<p>
+Put another way, science does not need a train, it needs an all terrain vehicle
+</p>
+</blockquote>
+
+<small>
+Not only IA : common to a lot of scientific workflows see Pangeo for example
+</small>
+
+
+
+</section>
+</section>
+<section>
+<section id="slide-org246703c">
+<h2 id="org246703c">Summary</h2>
+<ul>
+<li>it works rather well (GPUs available instantly with good (2-3x) performances
+compared to local cluster</li>
+<li>how to improve usability?</li>
+<li>big incertitude on future evolution and Jean Zay positioning</li>
+<li>positive interactions with User Support so far, but a lot to be done still,
+how we chose priorities, and we keep the momentum going</li>
+
+</ul>
+</section>
+</section>
+<section>
+<section id="slide-orgbff15d5">
+<h2 id="orgbff15d5"></h2>
+
+</section>
+</section>
+<section>
+<section id="slide-org5d8bdc8">
+<h2 id="org5d8bdc8">Pangeo</h2>
+<img src="img/pangeo-logo.png" width="10%"/>
+
+<ul>
+<li>JupyterHub on HPC cluster (deployment at CNES)</li>
+<li>Dask</li>
+<li>geosciences users but generic tools</li>
+<li>very good place to collaborate between sys-admins (NCAR, NASA, CNES, etc &#x2026;)
+and users</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>
