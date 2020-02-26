@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>HPC deployments with Dask-Jobqueue</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org5239ab5">
+<h2 id="org5239ab5"></h2>
+<h2 style="text-align: center">HPC deployments with Dask-Jobqueue</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgdd4fef1">
+<h2 id="orgdd4fef1">About me</h2>
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last 4 years @ Inria open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org31a40b3">
+<h2 id="org31a40b3">Audience survey</h2>
+</section>
+</section>
+<section>
+<section id="slide-org8e8a697">
+<h2 id="org8e8a697">Main Dask use cases around me</h2>
+<ul>
+<li class="fragment">user-friendly way of using the cluster: you can stay in Python (i.e. no
+need to write shell submission scripts)</li>
+<li class="fragment">easy transition of your existing single-machine code to the cluster (and back
+for debugging)</li>
+<li class="fragment">embarassingly parallel use cases for grid-search or Reinforcement Learning</li>
+<li class="fragment">client.submit, dask collections not used at all</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org55784b0">
+<h2 id="org55784b0">Other use case: Dask integration in scikit-learn</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >from sklearn.ensemble import RandomForestClassifier
+
+
+
+
+clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+
+
+clf.fit(X, y)
+</code></pre>
+</div>
+
+<p>
+also look at <a href="https://ml.dask.org/dask-ml">dask-ml</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org36554a9">
+<h2 id="org36554a9">Other use case: Dask integration in scikit-learn</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >from sklearn.ensemble import RandomForestClassifier
+import joblib
+from dask.distributed import Client
+
+client = Client('scheduler-address')
+clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+
+with joblib.parallel_backend("dask", scatter=[X, y]):
+    clf.fit(X, y)
+</code></pre>
+</div>
+
+<p>
+also look at <a href="https://ml.dask.org/dask-ml">dask-ml</a>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb896882">
+<h2 id="orgb896882">dask-jobqueue</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >from dask_jobqueue import SLURMCluster
+# Each job will use one core and 4GB
+cluster = SLURMCluster(cores=1, memory='4GB', **cluster_specific_kwargs)
+cluster.scale(jobs=4)  # launch 4 jobs
+
+from dask.distributed import Client
+client = Client(cluster)
+# user code
+</code></pre>
+</div>
+
+<p class="fragment (t)">
+The tricky bit is <code>cluster_specific_kwargs</code>
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org2cb13c9">
+<h2 id="org2cb13c9">Example (on our team SGE cluster)</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >from dask_jobqueue import SGECluster
+
+resource_spec = 'h_vmem=10G,mem_req=1G'
+queue = 'gaia.q'  
+               
+cluster = SGECluster(queue=queue,
+                     cores=1, processes=1,            
+                     memory='16GB',       
+                     resource_spec=resource_spec,
+                     interface='ib0')            
+</code></pre>
+</div>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgbc7c04f">
+<h2 id="orgbc7c04f">Behind the scenes</h2>
+<div class="org-src-container">
+
+<pre><code class=" python" >In [5]: print(cluster.job_script())                                                                                                  
+#!/bin/bash
+
+#!/usr/bin/env bash
+#SBATCH -J dask-worker
+#SBATCH -n 1
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=4G
+#SBATCH -t 00:30:00
+JOB_ID=${SLURM_JOB_ID%;*}
+
+python -m distributed.cli.dask_worker tcp://192.168.0.11:43725 --nthreads 1\
+  --memory-limit 4.00GB --name dask-worker--${JOB_ID}-- --death-timeout 60
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb3360d0">
+<h2 id="orgb3360d0">Supported job schedulers</h2>
+<ul>
+<li>HTCondor</li>
+<li>LSF</li>
+<li>OAR</li>
+<li>PBS (+ Moab variant)</li>
+<li>SGE</li>
+<li>SLURM</li>
+
+</ul>
+
+<p>
+contribute your favourite one if not there already!
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb2019e1">
+<h2 id="orgb2019e1">Tips</h2>
+<ul>
+<li class="fragment">SSH tunnel handy : for Jupyter + diagnostics dashboard (jupyter-server-proxy
+useful too)</li>
+<li class="fragment"><a href="https://github.com/sshuttle/sshuttle">sshuttle</a> is neat: poor man VPN through ssh. Very useful if SSH tunnel
+is blocked by cluster sys-admins.</li>
+<li class="fragment">.yaml configuration file for default cluster parameters</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgaaec11f">
+<h2 id="orgaaec11f">Where to run your main script</h2>
+<p>
+i.e. the script where the Dask cluster is created
+</p>
+
+<ul>
+<li class="fragment"><b>cluster login node</b>: easiest but not best practice. Need to be careful not to
+consume too much CPU or RAM in the script or your cluster sys-admin may
+shout at you.</li>
+<li class="fragment"><b>interactive job</b>. If you lose your scheduler because of walltime you lose all
+your work. Generally, interactive job walltime limit is quite low.</li>
+<li class="fragment"><b>script</b> that you submit via the job scheduler. Same caveat as
+previous bullet point. walltime less limited generally.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbe752dd">
+<h2 id="orgbe752dd">Testing</h2>
+<ul>
+<li class="fragment">docker-compose setup for some job schedulers (SGE, SLURM, PBS)</li>
+<li class="fragment">would need some contributors for others: LSF, HTCondor, OAR. Rare
+intersection of skills: docker, HPC cluster sys-admin, interest in
+Dask-JobQueue</li>
+<li class="fragment">tests quite rudimentary. Tricky to test some cluster-specific quirks
+(e.g. non-uniform interfaces on scheduler and worker nodes)</li>
+<li class="fragment">we would need cluster-specific "champions" (LSF? HTCondor?) who are willing
+to test non-trivial changes</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgbc3b3ed">
+<h2 id="orgbc3b3ed">Approach</h2>
+<p>
+personal opinion
+</p>
+<ul>
+<li class="fragment">keep dask-jobqueue as mall as possible</li>
+<li class="fragment">most tricky functionality should live in dask.distributed</li>
+<li class="fragment">avoid cluster-specific tricks/features. Hope is equivalent functionality can
+be achieved through Dask. Example: job arrays.</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org4046f5a">
+<h2 id="org4046f5a">Challenges</h2>
+<ul>
+<li class="fragment">cluster-specific problems (but it does not work on my cluster!). Very hard to
+debug through github. Need cluster sys-admin involvement in some cases.</li>
+<li class="fragment">job scheduler specific quirks. Impossible to remember all of them.</li>
+<li class="fragment">limited resources (~4 hours per week between the two active maintainers).
+Contributions more than welcome!</li>
+<li class="fragment">how to get some cluster IT folks involved/interested? They have very varied
+users and different metrics (e.g. cluster utilization).</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org15328d9">
+<h2 id="org15328d9">Improvements?</h2>
+<ul>
+<li class="fragment">please tell us! Suggestions/complaints more than welcome!</li>
+<li class="fragment">documentation, esp. for people who are not very familiar with Dask or with
+HPC clusters</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org5141606">
+<h2 id="org5141606">Possible suggestions for this workshop</h2>
+<ul>
+<li class="fragment">heterogeneous Dask workers (e.g. some without GPUs, some with GPUs in a
+different scheduler queue) not very easy to do at the moment. Ideally you
+could scale them separately with .scale.</li>
+<li class="fragment">Dask resilience with Dask workers dying around the same time because of
+walltime. Pass &#x2013;lifetime through the extra parameter. See <a href="https://github.com/dask/dask-jobqueue/issues/122#issuecomment-525814139">#122</a>.</li>
+<li class="fragment">Examples on Binder that people can run and play with before trying it on
+their cluster. Attempt in <a href="https://github.com/dask/dask-jobqueue/issues/276">#276</a></li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>
