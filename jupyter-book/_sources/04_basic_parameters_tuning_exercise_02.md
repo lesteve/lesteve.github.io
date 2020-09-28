@@ -1,33 +1,34 @@
 ---
 jupytext:
-  formats: python_scripts//py:percent,notebooks//ipynb
   text_representation:
     extension: .md
     format_name: myst
-    format_version: '0.9'
+    format_version: '0.12'
     jupytext_version: 1.5.2
 kernelspec:
   display_name: Python 3
   language: python
-  name: scikit-learn-tutorial
+  name: python3
 ---
 
 # Exercise 02
+
 The goal is to find the best set of hyper-parameters which maximize the
 performance on a training set.
+
+Here again with limit the size of the training set to make computation
+run faster. Feel free to increase the `train_size` value if your computer
+is powerful enough.
 
 ```{code-cell}
 import numpy as np
 import pandas as pd
 
-df = pd.read_csv(
-    "https://www.openml.org/data/get_csv/1595261/adult-census.csv")
-# Or use the local copy:
-# df = pd.read_csv('../datasets/adult-census.csv')
+df = pd.read_csv("../datasets/adult-census.csv")
 
 target_name = "class"
 target = df[target_name].to_numpy()
-data = df.drop(columns=target_name)
+data = df.drop(columns=[target_name, "fnlwgt"])
 
 from sklearn.model_selection import train_test_split
 
@@ -77,9 +78,15 @@ the following parameters for the `LogisticRegression` model:
   distribution (i.e. `scipy.stats.reciprocal`);
 - `solver` with possible values being `"liblinear"` and `"lbfgs"`;
 - `penalty` with possible values being `"l2"` and `"l1"`;
+
 In addition, try several preprocessing strategies with the `OneHotEncoder`
 by always (or not) dropping the first column when encoding the categorical
 data.
 
-Notes: You can accept failure during a grid-search or a randomized-search
-by settgin `error_score` to `np.nan` for instance.
+Notes: some combinations of the hyper-parameters proposed above are invalid.
+You can make the parameter search accept such failures by setting `error_score`
+to `np.nan`. The warning messages give more details on which parameter
+combinations but the computation will proceed.
+
+Once the computation has completed, print the best combination of parameters
+stored in the `best_params_` attribute.

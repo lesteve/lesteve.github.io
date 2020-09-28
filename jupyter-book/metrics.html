@@ -1,0 +1,666 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Evaluation of your predictive model &#8212; Scikit-learn tutorial</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
+    <script src="_static/togglebutton.js"></script>
+    <script src="_static/clipboard.min.js"></script>
+    <script src="_static/copybutton.js"></script>
+    <script src="_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Feature importance" href="dev_features_importance.html" />
+    <link rel="prev" title="Ensemble learning: when many are better that the one" href="ensemble.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="index.html">
+  
+  <img src="_static/scikit-learn-logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">Scikit-learn tutorial</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <p class="caption">
+ <span class="caption-text">
+  Tabular data exploration
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_tabular_data_exploration.html">
+   Loading data into machine learning
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fitting a scikit-learn model on numerical data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_basic_preprocessing.html">
+   First model with scikit-learn
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_basic_preprocessing_exercise_01.html">
+   Exercise 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_basic_preprocessing_exercise_01_solution.html">
+   Solution for Exercise 01
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Fitting a scikit-learn model on numerical data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables.html">
+   Working with both numerical &amp; categorical variables
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables.html#fitting-a-more-powerful-model">
+   Fitting a more powerful model
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables_exercise_01.html">
+   Exercise 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables_exercise_01_solution.html">
+   Solution for Exercise 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables_exercise_02.html">
+   Exercise 03
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03_basic_preprocessing_categorical_variables_exercise_02_solution.html">
+   Solution for Exercise 03
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Parameter tuning
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_basic_parameters_tuning.html">
+   Introduction to scikit-learn: basic model hyper-parameters tuning
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_basic_parameters_tuning_exercise_01.html">
+   Exercise 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_basic_parameters_tuning_exercise_01_solution.html">
+   Exercise 01
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_basic_parameters_tuning_exercise_02.html">
+   Exercise 02
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="04_basic_parameters_tuning_exercise_02_solution.html">
+   Exercise 02
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Linear models
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="linear_models.html">
+   Linear Models
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="linear_models.html#main-take-away">
+   Main take away
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Decision Trees
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="trees.html">
+   Decision tree in depth
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Ensemble models
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="ensemble.html">
+   Ensemble learning: when many are better that the one
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Metrics
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Evaluation of your predictive model
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Interpretation
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="dev_features_importance.html">
+   Feature importance
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="dev_features_importance.html#take-away">
+   Take Away
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/metrics.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#classification">
+   Classification
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy-as-a-baseline">
+     Accuracy as a baseline
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#confusion-matrix-and-derived-metrics">
+     Confusion matrix and derived metrics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-issue-of-class-imbalance">
+     The issue of class imbalance
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#evaluation-with-different-probability-threshold">
+     Evaluation with different probability threshold
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#link-between-confusion-matrix-precision-recall-curve-and-roc-curve">
+     Link between confusion matrix, precision-recall curve and ROC curve
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#regression">
+   Regression
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#baseline-model">
+     Baseline model
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#summary">
+   Summary
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="evaluation-of-your-predictive-model">
+<h1>Evaluation of your predictive model<a class="headerlink" href="#evaluation-of-your-predictive-model" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Machine-learning models rely on optimizing an objective function, by seeking
+its minimum or maximum. It is important to understand that this objective
+function is usually decoupled from the evaluation metric that we want to
+optimize in practice. The objective function serves as a proxy to the
+evaluation metric.
+FIXME: add information about a loss function depending of the notebooks
+presented before the notebook about metrics.</p>
+<p>While other notebooks will give insights regarding algorithms and their
+associated objective functions, in this notebook we will focus on the
+metrics used to evaluate the performance of a predictive model.</p>
+<p>Selecting an evaluation metric will mainly depend on the model chosen to
+solve our datascience problem.</p>
+</div>
+<div class="section" id="classification">
+<h2>Classification<a class="headerlink" href="#classification" title="Permalink to this headline">¶</a></h2>
+<p>We can recall that in a classification setting, the target <code class="docutils literal notranslate"><span class="pre">y</span></code> is categorical
+rather than continuous. We will use the blood transfusion dataset that will
+be fetched from OpenML.</p>
+<p>We can see that the target <code class="docutils literal notranslate"><span class="pre">y</span></code> contains 2 categories corresponding to whether
+or not a subject gave blood or not. We will use a logistic regression
+classifier to predict this outcome.</p>
+<p>First, we split the data into a training and a testing set.</p>
+<p>Once our data are split, we can learn a logistic regression classifier solely
+on the training data, keeping the testing data for the evaluation of the
+model.</p>
+<p>Now, that our classifier is trained, we can provide some information about a
+subject and the classifier can predict whether or not the subject will donate
+blood.</p>
+<p>Let’s create a synthetic sample corresponding to the following potential new
+donor: he/she donated blood 6 month ago and gave twice blood in the past for
+a total of 1000 c.c. He/she gave blood for the first time 20 months ago.</p>
+<p>With these information, our classifier predicted that this synthetic subject
+is more likely to not donate blood. However, we have no possibility to ensure
+if the prediction is correct or not. That’s why, we can now use the testing
+set for this purpose. First, we can predict whether or not a subject will
+give blood with the help of the trained classifier.</p>
+<div class="section" id="accuracy-as-a-baseline">
+<h3>Accuracy as a baseline<a class="headerlink" href="#accuracy-as-a-baseline" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have these predictions, we could compare them with the true
+predictions (sometimes called ground-truth) which we did not use up to now.</p>
+<p>In the comparison above, a <code class="docutils literal notranslate"><span class="pre">True</span></code> value means that the value predicted by our
+classifier is identical to the real <code class="docutils literal notranslate"><span class="pre">prediction</span></code> while a <code class="docutils literal notranslate"><span class="pre">False</span></code> means that
+our classifier made a mistake. One way to get an overall statistic telling us
+how good the performance of our classifier are is to compute the number of
+time our classifier was right and divide it by the number of samples in our
+set (i.e. taking the mean of correct predictions)</p>
+<p>This measure is also known as the accuracy. Here, our classifier is 78%
+accurate at classifying if subject will give blood. <code class="docutils literal notranslate"><span class="pre">scikit-learn</span></code> provides a
+function to compute this metric in the module <code class="docutils literal notranslate"><span class="pre">sklearn.metrics</span></code>.</p>
+<p>Scikit-learn also have a build-in method named <code class="docutils literal notranslate"><span class="pre">score</span></code> which compute by
+default the accuracy score.</p>
+</div>
+<div class="section" id="confusion-matrix-and-derived-metrics">
+<h3>Confusion matrix and derived metrics<a class="headerlink" href="#confusion-matrix-and-derived-metrics" title="Permalink to this headline">¶</a></h3>
+<p>The comparison that we did above and the accuracy that we deducted did not
+take into account which type of error our classifier was doing. The accuracy
+is an aggregate of the error. However, we might be interested in a lower
+granularity level to know separately the error for the two following case:</p>
+<ul class="simple">
+<li><p>we predicted that a person will give blood but she/he is not;</p></li>
+<li><p>we predicted that a person will not give blood but she/he is.</p></li>
+</ul>
+<p>The in-diagonal numbers are related to predictions that agree
+with the true labels while off-diagonal numbers are related to
+misclassification. Besides, we now know the type of true or erroneous
+predictions the classifier did:</p>
+<ul class="simple">
+<li><p>the top left corner is called true positive (TP) and correspond to a person
+who gave blood and was predicted as such by the classifier;</p></li>
+<li><p>the bottom right corner is called the true negative (TN) and correspond to
+a person who did not gave blood and was predicted as such by the
+classifier;</p></li>
+<li><p>the top right corner is called false negative (FN) and correspond to a
+person who gave blood but was predicted as not giving blood;</p></li>
+<li><p>the bottom left corner is called false positive (FP) and correspond to a
+person who did not give blood but was predicted as giving blood.</p></li>
+</ul>
+<p>Once we have split these information, we can compute statistics for
+highlighting the performance of our classifier in a particular setting. For
+instance, one could be interested in the fraction of persons who really gave
+blood when the classifier predicted so or the fraction of people predicted as
+giving blood among the total population that actually did so.</p>
+<p>The former statistic is known as the precision defined as TP / (TP + FP)
+while the latter statistic is known as the recall defined as TP / (TP + FN)
+We could, similarly than with the accuracy, manually compute these values.
+But scikit-learn provides functions to compute these statistics.</p>
+<p>These results are in line with what we could see in the confusion matrix.
+In the left column, more than half of the predictions were corrected leading
+to a precision above 0.5. However, our classifier mislabeled a lot of persons
+who gave blood as “not donated” leading to a very low recall of around 0.1.</p>
+<p>The precision and recall can be combined in a single score called the F1
+score (which is the harmonic mean of precision and recall)</p>
+</div>
+<div class="section" id="the-issue-of-class-imbalance">
+<h3>The issue of class imbalance<a class="headerlink" href="#the-issue-of-class-imbalance" title="Permalink to this headline">¶</a></h3>
+<p>At this stage, we could ask ourself a reasonable question. While the accuracy
+did not look bad (i.e. 77%), the F1 score is relatively low (i.e. 21%).</p>
+<p>As we mentioned, precision and recall only focus on the positive label while
+the accuracy is taking both aspects into account. In addition,
+we omit to look at the ratio class
+occurrence. We could check this ratio in the training set.</p>
+<p>So we can observed that the positive class <code class="docutils literal notranslate"><span class="pre">'donated'</span></code> is only 24% of the
+total number of instances. The good accuracy of our classifier is then linked
+to its capability of predicting correctly the negative class <code class="docutils literal notranslate"><span class="pre">'not</span> <span class="pre">donated'</span></code>
+which could be relevant or not depending of the application. We can
+illustrate the issue using a dummy classifier as a baseline.</p>
+<p>This dummy classifier will always predict the negative class <code class="docutils literal notranslate"><span class="pre">'not</span> <span class="pre">donated'</span></code>.
+We obtain an accuracy score of 76%. Therefore, it means that this classifier,
+without learning anything from the data <code class="docutils literal notranslate"><span class="pre">X</span></code> is capable of predicting as
+accurately than our logistic regression. 76% represents the baseline that
+any classifier should overperform to not be a random classifier.</p>
+<p>The problem illustrated above is also known as the class imbalance problem
+where the accuracy should not be used. In this case, one should either use
+the precision, recall, or F1 score as presented above or the balanced
+accuracy score instead of the accuracy.</p>
+<p>The balanced accuracy is equivalent to the accuracy in the context of
+balanced classes. It is defined as the average recall obtained on each class.</p>
+</div>
+<div class="section" id="evaluation-with-different-probability-threshold">
+<h3>Evaluation with different probability threshold<a class="headerlink" href="#evaluation-with-different-probability-threshold" title="Permalink to this headline">¶</a></h3>
+<p>All statistics that we presented up to now rely on <code class="docutils literal notranslate"><span class="pre">classifier.predict</span></code> which
+provide the most likely label. However, we don’t use the probability
+associated with this prediction or in other words how sure are the classifier
+confident about this prediction. By default, the prediction of a classifier
+correspons to a thresholding at a 0.5 probability, in a binary classification
+problem. We can quickly check this relationship with the classifier that
+we trained.</p>
+<p>The default decision threshold (0.5) might not be the best threshold leading
+to optimal performance of our classifier. In this case, one can vary the
+decision threshold and therefore the underlying prediction and compute the
+same statistic than presented earlier. Usually, two metrics are computed and
+reported as a curve. Each metric is belonging to a graph axis and a point on
+the graph corresponds to a specific decision threshold. Let’s start by
+computing the precision-recall curve.</p>
+<p>On this curve, each blue dot correspond to a certain level of probability
+which we used as a decision threshold. We can see that by varying this
+decision threshold, we get different compromise precision vs. recall.</p>
+<p>A perfect classifier is expected to have a precision at 1 even when varying
+the recall. A metric characterizing the curve is linked to the area under the
+curve (AUC), named averaged precision. With a ideal classifier, the
+average precision will be 1.</p>
+<p>While the precision and recall metric focuses on the positive class, one
+might be interested into the compromise between performance to discriminate
+positive and negative classes. The statistics used in this case are the
+sensitivity and specificity. The sensitivity is just another denomination for
+recall. However, the specificity measures the proportion of well classified
+samples from the negative class defined as TN / (TN + FP). Similarly to the
+precision-recall curve, sensitivity and specificity are reported with a curve
+called the receiver operating characteristic (ROC) curve. We will show such
+curve:</p>
+<p>This curve is built with the same principle than with the precision-recall
+curve: we vary the probability threshold to compute “hard” prediction and
+compute the metrics. As with the precision-recall curve as well, we can
+compute the area under the ROC (ROC-AUC) to characterize the performance of
+our classifier. However, this is important to observer that the lower bound
+of the ROC-AUC is 0.5. Indeed, we represented the performance of a dummy
+classifier (i.e. green dashed line) to show that the worse performance
+obtained will always be above this line.</p>
+</div>
+<div class="section" id="link-between-confusion-matrix-precision-recall-curve-and-roc-curve">
+<h3>Link between confusion matrix, precision-recall curve and ROC curve<a class="headerlink" href="#link-between-confusion-matrix-precision-recall-curve-and-roc-curve" title="Permalink to this headline">¶</a></h3>
+<p>TODO: ipywidgets to play with interactive curve</p>
+</div>
+</div>
+<div class="section" id="regression">
+<h2>Regression<a class="headerlink" href="#regression" title="Permalink to this headline">¶</a></h2>
+<p>Unlike in the classification problem, the target <code class="docutils literal notranslate"><span class="pre">y</span></code> is a continuous
+variable in regression problem. Therefore, the classification metrics can be
+used to evaluate the performance of a model. Instead, there exists a set of
+metric dedicated to regression.</p>
+<p>Our problem can be formulated as follow: we would like to infer the number of
+bike rentals from data related to the current day. The number of bike rentals
+is a number that can vary in the interval [0, infinity) (if the number of
+bike available is infinite). As in the previous section, we will train a
+model and we will evaluate its performance by introducing the different
+regression metrics.</p>
+<p>First, we split the data into a training and a testing set.</p>
+<div class="section" id="baseline-model">
+<h3>Baseline model<a class="headerlink" href="#baseline-model" title="Permalink to this headline">¶</a></h3>
+<p>We will use a random forest as a model. However, we first need to check the
+type of data that we are dealing with:</p>
+<p>While some features are numeric, some have been tagged as <code class="docutils literal notranslate"><span class="pre">category</span></code>. These
+features need to be encoded in a proper way such that our random forest can
+deal with them. The simplest solution is to use an <code class="docutils literal notranslate"><span class="pre">OrdinalEncoder</span></code>.
+Regarding, the numerical features, we don’t need to do anything. Thus, we
+will create a preprocessing steps to take care about this encoding.</p>
+<p>Just to have some insights about the preprocessing, we manually preprocessed
+the training data and we can observe that the original strings were encoded
+with numbers. We can now create our model.</p>
+<p>As for classifiers, regressors have a <code class="docutils literal notranslate"><span class="pre">score</span></code> method which will compute the
+:math:<code class="docutils literal notranslate"><span class="pre">R^2</span></code> score (also known as the coefficient of determination) by
+default:</p>
+<p>The :math:<code class="docutils literal notranslate"><span class="pre">R^2</span></code> score represents the proportion of variance of the target
+explained by the independent variables in the model. The best score possible
+is 1 but there is no lower bound. However, a model which would predict the
+expected value of the target would get a score of 0.</p>
+<p>The :math:<code class="docutils literal notranslate"><span class="pre">R^2</span></code> score gives insights regarding the goodness of fit of the
+model. However, this score cannot be compared from one dataset to another and
+the value obtained does not have a meaningful interpretation regarding the
+original unit of the target. If we want to get such interpretable score, we
+will be interested into the median or mean absolute error.</p>
+<p>By computing the mean absolute error, we can interpret that our model is
+predicting in average 507 bike rentals away from the truth. The mean can be
+impacted by large error while for some application, we would like to discard
+them and we can in this case opt for the median absolute error.</p>
+<p>In this case, our model make an error of 405 bikes.
+FIXME: <strong>not sure how to introduce the <code class="docutils literal notranslate"><span class="pre">mean_squared_error</span></code>.</strong></p>
+<p>In addition of metrics, we can visually represent the results by plotting
+the predicted values versus the true values.</p>
+<p>On this plot, the perfect prediction will lay on the diagonal line. This plot
+allows to detect if the model have a specific regime where our model does not
+work as expected or has some kinda of bias.</p>
+<p>Let’s take an example using the house prices in Ames.</p>
+<p>We will fit a ridge regressor on the data and plot the prediction versus the
+actual values.</p>
+<p>On this plot, we see that for the large “True values”, our model tend to
+under-estimate the price of the house. Typically, this issue arises when
+the target to predict does not follow a normal distribution and the model
+could benefit of an intermediate target transformation.</p>
+<p>Thus, once we transformed the target, we see that we corrected some of the
+high values.</p>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In this notebook, we presented the metrics and plots useful to evaluate and
+get insights about models. We both focus on regression and classification
+problems.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="ensemble.html" title="previous page">Ensemble learning: when many are better that the one</a>
+    <a class='right-next' id="next-link" href="dev_features_importance.html" title="next page">Feature importance</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By scikit-learn developers<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="_static/js/index.js"></script>
+    
+  </body>
+</html>

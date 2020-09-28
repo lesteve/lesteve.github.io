@@ -1,41 +1,54 @@
 ---
 jupytext:
-  formats: python_scripts//py:percent,notebooks//ipynb
   text_representation:
     extension: .md
     format_name: myst
-    format_version: '0.9'
+    format_version: '0.12'
     jupytext_version: 1.5.2
 kernelspec:
   display_name: Python 3
   language: python
-  name: scikit-learn-tutorial
+  name: python3
 ---
 
 #  Exercise 01
 
-The goal of is to compare the performance of our classifier (81% accuracy) to some baseline classifiers that  would ignore the input data and instead make constant predictions.
+The goal of this exercise is to compare the performance of our classifier
+(81% accuracy) to some baseline classifiers that would ignore the input data
+and instead make constant predictions.
 
-The online [documentation for DummyClassifier](https://scikit-learn.org/stable/modules/model_evaluation.html#dummy-estimators) gives instructions on how to use it.
+- What would be the score of a model that always predicts `' >50K'`?
+- What would be the score of a model that always predicts `' <= 50K'`?
+- Is 81% or 82% accuracy a good score for this problem?
+
+Use a `DummyClassifier` and do a train-test split to evaluate
+its accuracy on the test set. This
+[link](https://scikit-learn.org/stable/modules/model_evaluation.html#dummy-estimators)
+shows a few examples of how to evaluate the performance of these baseline
+models.
 
 ```{code-cell}
 import pandas as pd
 
-df = pd.read_csv(
-    "https://www.openml.org/data/get_csv/1595261/adult-census.csv")
+df = pd.read_csv("../datasets/adult-census.csv")
 ```
 
 ```{code-cell}
 target_name = "class"
 target = df[target_name].to_numpy()
 data = df.drop(columns=[target_name, "fnlwgt"])
-numerical_columns = [
-    c for c in data.columns if data[c].dtype.kind in ["i", "f"]]
+```
+
+```{code-cell}
+from sklearn.compose import make_column_selector as selector
+
+numerical_columns_selector = selector(dtype_include=["int", "float"])
+numerical_columns = numerical_columns_selector(data)
 data_numeric = data[numerical_columns]
 ```
 
 ```{code-cell}
-from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
 from sklearn.dummy import DummyClassifier
 
 # TODO: write me!

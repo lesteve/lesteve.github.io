@@ -1,15 +1,14 @@
 ---
 jupytext:
-  formats: python_scripts//py:percent,notebooks//ipynb
   text_representation:
     extension: .md
     format_name: myst
-    format_version: '0.9'
+    format_version: '0.12'
     jupytext_version: 1.5.2
 kernelspec:
   display_name: Python 3
   language: python
-  name: scikit-learn-tutorial
+  name: python3
 ---
 
 # Loading data into machine learning
@@ -33,11 +32,7 @@ downloaded from [OpenML](http://openml.org/).
 ```{code-cell}
 import pandas as pd
 
-adult_census = pd.read_csv(
-    "https://www.openml.org/data/get_csv/1595261/adult-census.csv")
-
-# Or use the local copy:
-# adult_census = pd.read_csv('../datasets/adult-census.csv')
+adult_census = pd.read_csv("../datasets/adult-census.csv")
 ```
 
 We can look at the OpenML webpage to learn more about this dataset: http://www.openml.org/d/1590
@@ -106,7 +101,7 @@ the dataset:
 ```{code-cell}
 print(
     f"The dataset contains {adult_census.shape[0]} samples and "
-    "{adult_census.shape[1]} features")
+    f"{adult_census.shape[1]} features")
 ```
 
 ## Visual inspection of the data
@@ -219,121 +214,43 @@ less. This is a non-linear relationship between age and hours
 per week. Linear machine learning models can only capture linear interactions, so
 this may be a factor when deciding which model to chose.
 
-In a machine-learning setting, algorithm automatically
-decide what should be the "rules" in order to make predictions on new data.
-Let's visualize which set of simple rules a decision tree would grasp using the
-same data.
+In a machine-learning setting, an algorithm automatically
+create the "rules" in order to make predictions on new data.
 
-```{code-cell}
-def plot_tree_decision_function(tree, X, y, ax=None):
-    """Plot the different decision rules found by a `DecisionTreeClassifier`.
++++
 
-    Parameters
-    ----------
-    tree : DecisionTreeClassifier instance
-        The decision tree to inspect.
-    X : dataframe of shape (n_samples, n_features)
-        The data used to train the `tree` estimator.
-    y : ndarray of shape (n_samples,)
-        The target used to train the `tree` estimator.
-    ax : matplotlib axis
-        The matplotlib axis where to plot the different decision rules.
-    """
-    import numpy as np
-    from scipy import ndimage
+The plot below shows the rules of a simple model, called decision tree.
+We will explain how this model works in a latter notebook, for now let us
+just consider the model predictions when trained on this dataset:
 
-    h = 0.02
-    x_min, x_max = 0, 100
-    y_min, y_max = 0, 100
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, h),
-                         np.arange(y_min, y_max, h))
+![](../figures/simple_decision_tree_adult_census.png)
 
-    Z = tree.predict_proba(np.c_[xx.ravel(), yy.ravel()])[:, 1]
-    Z = Z.reshape(xx.shape)
-    faces = tree.tree_.apply(
-        np.c_[xx.ravel(), yy.ravel()].astype(np.float32))
-    faces = faces.reshape(xx.shape)
-    border = ndimage.laplace(faces) != 0
-    if ax is None:
-        ax = plt.gca()
-    ax.scatter(X.iloc[:, 0], X.iloc[:, 1],
-               c=np.array(['tab:blue',
-                           'tab:red'])[y], s=60, alpha=0.7)
-    ax.contourf(xx, yy, Z, alpha=.4, cmap='RdBu_r')
-    ax.scatter(xx[border], yy[border], marker='.', s=1)
-    ax.set_xlabel(X.columns[0])
-    ax.set_ylabel(X.columns[1])
-    ax.set_xlim([x_min, x_max])
-    ax.set_ylim([y_min, y_max])
-    sns.despine(offset=10)
-```
+The background color in each area represents the probability of the class
+`high-income` as estimated by the model. Values towards 0 (dark blue)
+indicates that the model predicts `low-income` with a high probability.
+Values towards 1 (dark orange) indicates that the model predicts
+`high-income` with a high probability. Values towards 0.5 (white) indicates
+that the model is not very sure about its prediction.
 
-```{code-cell}
-from sklearn.preprocessing import LabelEncoder
+Looking at the plot here is what we can gather:
+* In the region `age < 28.5` (left region) the prediction is `low-income`. The
+  dark blue color indicates that the model is quite sure about its
+  prediction.
+* In the region `age > 28.5 AND hours-per-week < 40.5`
+  (bottom-right region), the prediction is `low-income`. Note that the blue
+  is a bit lighter that for the left region which means that the algorithm is
+  not as certain in this region.
+* In the region `age > 28.5 AND hours-per-week > 40.5` (top-right region),
+  the prediction is `low-income`. However the probability of the class
+  `low-income` is very close to 0.5 which means the model is not sure at all
+  about its prediction.
 
-# select a subset of data
-data_subset = adult_census[:n_samples_to_plot]
-X = data_subset[["age", "hours-per-week"]]
-y = LabelEncoder().fit_transform(
-    data_subset[target_column].to_numpy())
-```
-
-We will create a simple decision tree with a maximum of 2 rules, in order
-to interpret the results.
-
-```{code-cell}
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree import plot_tree
-
-max_leaf_nodes = 3
-tree = DecisionTreeClassifier(max_leaf_nodes=max_leaf_nodes,
-                              random_state=0)
-tree.fit(X, y)
-```
-
-`plot_tree` will allow us to visually check the set of rules learnt by
-the decision tree.
-
-```{code-cell}
-_ = plot_tree(tree)
-```
-
-```{code-cell}
-# plot the decision function learned by the tree
-plot_tree_decision_function(tree, X, y)
-```
-
-By allowing only 3 leaves in the tree, we get similar rules to the ones we
-designed by hand:
-* the persons younger than 28.5 year-old (X[0] < 28.5) will be considered in the class
-  earning `<= 50K`.
-* the persons older than 28.5 and working less than 40.5 hours-per-week (X[1] <= 40.5)
-  will be considered in the class earning `<= 50K`, while the persons working
-  above 40.5 hours-per-week, will be considered in the class
-  earning `> 50K`.
-
-
-We can do the same thing hiding the code:
-
-```{code-cell}
-:tags: [remove-input]
-
-from sklearn.tree import DecisionTreeClassifier
-from sklearn.tree import plot_tree
-
-max_leaf_nodes = 3
-tree = DecisionTreeClassifier(max_leaf_nodes=max_leaf_nodes,
-                              random_state=0)
-tree.fit(X, y)
-
-_ = plot_tree(tree)
-```
-
-```{code-cell}
-:tags: [remove-input]
-# plot the decision function learned by the tree
-plot_tree_decision_function(tree, X, y)
-```
+It is interesting to see that a simple model create rules similar to the ones
+that we could have created by hand. Note that machine learning is really
+interesting when creating rules by hand is not straightfoward, for example
+because we are in high dimension (many features) or because there is no
+simple and obvious rules that separate the two classes as in the top-right
+region
 
 +++
 

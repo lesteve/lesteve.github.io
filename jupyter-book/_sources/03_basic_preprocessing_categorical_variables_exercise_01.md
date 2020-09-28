@@ -1,15 +1,14 @@
 ---
 jupytext:
-  formats: python_scripts//py:percent,notebooks//ipynb
   text_representation:
     extension: .md
     format_name: myst
-    format_version: '0.9'
+    format_version: '0.12'
     jupytext_version: 1.5.2
 kernelspec:
   display_name: Python 3
   language: python
-  name: scikit-learn-tutorial
+  name: python3
 ---
 
 # Exercise 02
@@ -37,19 +36,20 @@ OrdinalEncoder(categories=categories)
 ```{code-cell}
 import pandas as pd
 
-df = pd.read_csv(
-    "https://www.openml.org/data/get_csv/1595261/adult-census.csv")
-
-# Or use the local copy:
-# df = pd.read_csv('../datasets/adult-census.csv')
+df = pd.read_csv("../datasets/adult-census.csv")
 ```
 
 ```{code-cell}
 target_name = "class"
 target = df[target_name].to_numpy()
 data = df.drop(columns=[target_name, "fnlwgt"])
-categorical_columns = [
-    c for c in data.columns if data[c].dtype.kind not in ["i", "f"]]
+```
+
+```{code-cell}
+from sklearn.compose import make_column_selector as selector
+
+categorical_columns_selector = selector(dtype_exclude=["int", "float"])
+categorical_columns = categorical_columns_selector(data)
 data_categorical = data[categorical_columns]
 ```
 
