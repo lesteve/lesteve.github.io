@@ -1,0 +1,88 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_EXTRA_CSS: https://unpkg.com/purecss@1.0.0/build/pure-min.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: Developer meetup intro
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+begin_export html
+<h2 style="text-align: center">Developer meetup intro</h2>
+
+<hr>
+<img class="img-center" src="img/logo-developer-meetup.png" alt="developer-meetup" height="200px" style="margin-top: 50px; margin-bottom: 50px"/>
+
+#+end_export
+
+Feed-back welcome! Talk to us after the meetup!
+
+website: https://huit.re/dev-meetup-paris
+
+pad: https://huit.re/dev-meetup-paris-pad
+
+mailing list: dev-meetup-paris@inria.fr
+
+#+begin_export html
+<h4 style="text-align: center; margin-left: 0; margin-top: 100px">
+Loïc Estève for the SED team
+</h4>
+
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+* 
+
+#+begin_export html
+<img class="img-center" src="img/i-have-no-idea-what-i-am-doing.jpg" height="500rem"/>
+#+end_export
+
+* 
+#+begin_export html
+<img class="img-center" src="img/i-have-some-sort-of-idea-what-i-am-doing.jpg" height="500rem"/>
+#+end_export
+
+* 
+
+#+begin_export html
+<img class="img-center" src="img/this-could-change-my-life.jpg" height="500rem"/>
+#+end_export
+
+* 
+
+#+begin_export html
+<img class="img-center" src="img/it-actually-works.jpg" height="500rem"/>
+#+end_export
+
+* 
+
+#+begin_export html
+<img class="img-center" src="img/we-need-you-uncle-sam.jpg"/>
+
+<div style="text-align: center; margin-top: 20px; font-size: 1.5em" class="fragment">
+It could be you!
+</div>
+
+<div style="text-align: center; font-size: 1.5em" class="fragment">
+Yes you over there!
+</div>
+
+<div style="text-align: center; margin-top: 20px; font-size: 1.5em" class="fragment">
+Don't be shy!
+</div>
+
+#+end_export
+
+# TODO Add "rules" with noises
