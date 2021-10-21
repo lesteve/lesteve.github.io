@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Good-enough practices for code release and code development</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/theme/black.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+
+<link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/pure-min.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/css/zenburn.css"/>
+
+<!-- If the query includes 'print-pdf', include the PDF print sheet -->
+<script>
+    if( window.location.search.match( /print-pdf/gi ) ) {
+        var link = document.createElement( 'link' );
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/css/print/pdf.css';
+        document.getElementsByTagName( 'head' )[0].appendChild( link );
+    }
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-org2b93638">
+<h2 id="org2b93638"></h2>
+<h2 style="text-align: center">Good-enough practices for code release and code development</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-orga71fd1d">
+<h2 id="orga71fd1d">About me</h2>
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last ~3 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org8a377cd">
+<h2 id="org8a377cd">Jean-Zay</h2>
+<p>
+started in December 2019 (public opening) with Yann and Robin
+</p>
+<ul>
+<li>administrative debugging</li>
+<li>a bit of work initially to be able to work conveniently on such a cluster</li>
+
+</ul>
+
+<p>
+collaborative user documentation:
+</p>
+<ul>
+<li>repo: <a href="https://github.com/jean-zay-users/jean-zay-doc">https://github.com/jean-zay-users/jean-zay-doc</a></li>
+<li>doc: <a href="https://jean-zay-doc.readthedocs.io/">https://jean-zay-doc.readthedocs.io/</a></li>
+<li>chat: <a href="https://gitter.im/jean-zay-users/jean-zay-doc">https://gitter.im/jean-zay-users/jean-zay-doc</a></li>
+
+</ul>
+
+<p>
+get involved, share your tips, etc &#x2026;
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org81d5366">
+<h2 id="org81d5366">Jean-Zay</h2>
+<ul>
+<li>great to see that Jean Zay is used more and more in the team</li>
+<li>I am one of the AI representatives at the Jean Zay Users Committee</li>
+<li>don't hesitate to chat with me about your pain points!</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org4c93066">
+<h2 id="org4c93066">Packaging pinocchio on conda-forge</h2>
+<p>
+Make pinocchio easier to install:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="sh" >conda install -c conda-forge pinocchio
+</code></pre>
+</div>
+
+<ul>
+<li>a bit of work for the packaging (me) and fixing compilation errors (Justin)</li>
+<li>runs smoothly (I am not needed any more)</li>
+<li>new pinocchio version on github: one-click to make it available on conda-forge</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb18bd4b">
+<h2 id="orgb18bd4b"><del>Best</del> Good-enough practices</h2>
+<ul>
+<li class="fragment">research vs software development constraints: find the right trade-offs</li>
+<li class="fragment">give some tips, hopefully some will be applicable and useful</li>
+<li class="fragment">some are relevant only to Python, but most likely there exists similar tools
+for other languages</li>
+<li class="fragment">feel free to ask questions during the talk to make it more interactive</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org7d70e6a">
+<h2 id="org7d70e6a">Publishing code</h2>
+<ul>
+<li class="fragment">remember your painful experiences when trying to look at someone else
+code (or even worse trying to run it)</li>
+<li class="fragment">try to avoid doing that to other people</li>
+<li class="fragment">some effort needed to give a good first impression</li>
+
+</ul>
+
+</section>
+<section id="slide-orge43e92b">
+<h3 id="orge43e92b">Layout</h3>
+<div class="org-src-container">
+
+<pre><code class="sh" >├── README.md
+├── LICENSE
+├── environment.yml | requirements.txt
+├── setup.py
+├── my_module_name
+│   ├── __init__.py
+│   ├── ...
+├── examples
+│   ├── ... 
+├── .gitignore 
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgecf5917">
+<h3 id="orgecf5917">README.md</h3>
+<ul>
+<li class="fragment">what the code does</li>
+<li class="fragment">how to install it, including dependencies</li>
+<li class="fragment">how to use it (typical snippet, or script to run with meaning of parameters)</li>
+<li class="fragment">how I start playing with it (examples)</li>
+
+</ul>
+
+</section>
+<section id="slide-orgdf95bf5">
+<h3 id="orgdf95bf5">LICENSE</h3>
+<p>
+<a href="https://chosealicense.org">https://chosealicense.org</a>
+</p>
+
+<p>
+In the Python world: mostly BSD or similar (e.g. MIT)
+</p>
+
+</section>
+<section id="slide-org410458d">
+<h3 id="org410458d">dependencies</h3>
+<p>
+environment.yml (conda) or requirements.txt (pip)
+</p>
+
+<pre>
+name: environment-name
+
+dependencies:
+  - python=3.9
+  - matplotlib
+  - pytorch
+  - pip:
+    - dask-jobqueue
+    - https://github.com/dask/dask/archive/refs/heads/main.zip
+</pre>
+
+</section>
+<section id="slide-orgccd34f9">
+<h3 id="orgccd34f9">setup.py</h3>
+<p>
+makes your code installable as a package:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="sh" >pip install https://github.com/user_name/project_name/archive/refs/head/branch.zip
+</code></pre>
+</div>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from setuptools import find_packages, setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup(
+    name="your-package-name",
+    version="0.0.1",
+    author="author_name",
+    author_email="author_email",
+    packages=find_packages(),
+    python_requires="&gt;=3.8",
+    description="this is the short description",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/your-user/your-package-name",
+)
+</code></pre>
+</div>
+</section>
+<section id="slide-orgd6c5962">
+<h3 id="orgd6c5962">examples</h3>
+<ul>
+<li>self-contained code</li>
+<li>reasonably easy to follow</li>
+<li>produces some interesting output (visual is better)</li>
+<li>best if example runs reasonably quickly (&lt; 1 min)</li>
+<li>look at some <a href="https://scikit-learn.org/stable/auto_examples/index.html">scikit-learn examples</a> if you need inspiration</li>
+
+</ul>
+
+</section>
+<section id="slide-orgfbc5ae3">
+<h3 id="orgfbc5ae3">Live examples with <a href="https://mybinder.org/">binder</a></h3>
+<ul>
+<li>main advantage: people can play with your code in their browser without having to install anything</li>
+<li>main limitation is maximum RAM 1-2GB</li>
+
+</ul>
+
+<p>
+Google Colab as a alternative especially if you need a GPU. Need to be signed into
+Google. You can load any public notebook on github into Google Colab (see <a href="https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb">this</a>).
+</p>
+
+</section>
+<section id="slide-org8fa510b">
+<h3 id="org8fa510b">.gitignore</h3>
+<ul>
+<li>hints that you are using git as a day to day tool</li>
+<li>reuse from a similar project or use <a href="https://gitignore.io">https://gitignore.io</a>, and/or tweak it with time
+(<code>git status</code>)</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org684e4f6">
+<h2 id="org684e4f6">Code development</h2>
+<div class="outline-text-2" id="text-org684e4f6">
+</div>
+</section>
+<section id="slide-orgbc9f0a4">
+<h3 id="orgbc9f0a4">version control with git</h3>
+<ul>
+<li>gives you the comfort of experimenting with your code: you can go back and
+see what has changed</li>
+<li>git can be confusing but definitely worth investing some time to know the
+basics well enough</li>
+<li>GUI: integration in your editor, e.g. Visual Studio Code, tig, git kraken, &#x2026;</li>
+
+</ul>
+
+</section>
+<section id="slide-org7b7e010">
+<h3 id="org7b7e010">Jupyter notebooks</h3>
+<ul>
+<li>useful for exploration: quick feed-back loop</li>
+<li>reach limits when used as main development environment</li>
+<li>move code to function when the code stabilizes and then modules outside the notebook</li>
+<li>interesting compromise: <a href="https://code.visualstudio.com/docs/python/jupyter-support-py">Visual Studio Code Jupyter integration</a></li>
+
+</ul>
+
+<img src="img/VSCode-jupyter.png" width="80%">
+
+</section>
+<section id="slide-org12a58d1">
+<h3 id="org12a58d1">Editor</h3>
+<ul>
+<li>Ask people around you how they work</li>
+<li>invest some time in learning how to use your editor well and tweak it to your liking</li>
+<li>advice: Visual Studio Code if you don't have a strong opinion</li>
+
+</ul>
+
+</section>
+<section id="slide-orgfb365c0">
+<h3 id="orgfb365c0">Coding conventions</h3>
+<ul>
+<li>flake8: warnings when you don't respect PEP8 coding conventions</li>
+<li>Invest some time to have "while you type" flake8 inside your favourite editor</li>
+<li>black: automatic formatter</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgf48a2c1">
+<h2 id="orgf48a2c1">Bonus topics</h2>
+<div class="outline-text-2" id="text-orgf48a2c1">
+</div>
+</section>
+<section id="slide-org5e05553">
+<h3 id="org5e05553">Tests</h3>
+<p>
+main challenge in a research environment is what is worth testing
+</p>
+<ul>
+<li>simple sanity checks (e.g. good accuracy on small data, etc &#x2026;)</li>
+<li>pytest: automatic test collection, select test to run, rerun only failed tests, etc &#x2026;</li>
+
+</ul>
+
+</section>
+<section id="slide-org66e23d5">
+<h3 id="org66e23d5">Continuous Integration</h3>
+<ul>
+<li>Run your tests on each commit automatically.</li>
+<li>If a test fail, fixing the test is a top priority</li>
+
+</ul>
+
+</section>
+<section id="slide-org49b9dde">
+<h3 id="org49b9dde">Conveniently run code on a cluster</h3>
+<p>
+Look at dask-jobqueue or submitit to be able to conveniently launch jobs
+through Python scripts
+</p>
+
+</section>
+</section>
+<section>
+<section id="slide-org58872ad">
+<h2 id="org58872ad">Summary</h2>
+<ul>
+<li class="fragment">some tips for releasing and developing code</li>
+<li class="fragment">good enough practices are about finding the right trade-offs</li>
+<li class="fragment">more than happy to give feed-back on these topics! Don't
+hesitate to come and chat!</li>
+
+</ul>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/lib/js/head.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/js/reveal.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: true,
+slideNumber: 'c',
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+width: 1600,
+height: 900,
+minScale: 1.00,
+maxScale: 1.00,
+
+theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+transition: Reveal.getQueryHash().transition || 'none', // see README of reveal.js for options
+transitionSpeed: 'default',
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } },
+ { src: 'https://cdn.jsdelivr.net/npm/reveal.js@3.7.0/plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+]
+
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:900
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: black
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@3.7.0
+#+REVEAL_VERSION: 3.7.0
+#+REVEAL_PLUGINS: (markdown notes highlight mathjax)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_EXTRA_CSS: https://unpkg.com/purecss@1.0.0/build/pure-min.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: Good-enough practices for code release and code development
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">Good-enough practices for code release and code development</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+* About me
+
+#+BEGIN_EXPORT html
+<div class="fragment">Particle Physics background</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">PhD main achievement: measure a cos and a sin +/- 0.8</div>
+
+<div class="fragment">3 years in finance</div>
+<div class="fragment step-fade-in-then-out" style="font-size: 80%">mainly C++ and as much Python as I could</div>
+
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>3 years @ Inria Saclay open-source Python</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal_white.svg" height="120px">
+</div>
+<div style="text-align: center margin-top: 120px" class="fragment">
+    <div>Last ~3 year @ Inria Paris (SED/SIERRA)</div>
+</div>
+#+END_EXPORT
+
+* Jean-Zay
+started in December 2019 (public opening) with Yann and Robin
+- administrative debugging
+- a bit of work initially to be able to work conveniently on such a cluster
+
+collaborative user documentation:
+- repo: https://github.com/jean-zay-users/jean-zay-doc
+- doc: https://jean-zay-doc.readthedocs.io/
+- chat: https://gitter.im/jean-zay-users/jean-zay-doc
+
+get involved, share your tips, etc ...
+
+* Jean-Zay
+
+- great to see that Jean Zay is used more and more in the team
+- I am one of the AI representatives at the Jean Zay Users Committee
+- don't hesitate to chat with me about your pain points!
+
+* Packaging pinocchio on conda-forge
+Make pinocchio easier to install:
+
+#+begin_src sh
+conda install -c conda-forge pinocchio
+#+end_src
+
+- a bit of work for the packaging (me) and fixing compilation errors (Justin)
+- runs smoothly (I am not needed any more)
+- new pinocchio version on github: one-click to make it available on conda-forge
+  
+* +Best+ Good-enough practices
+
+#+ATTR_REVEAL: :frag (t)
+- research vs software development constraints: find the right trade-offs
+- give some tips, hopefully some will be applicable and useful
+- some are relevant only to Python, but most likely there exists similar tools
+  for other languages
+- feel free to ask questions during the talk to make it more interactive
+
+* Publishing code
+
+#+ATTR_REVEAL: :frag (t)
+- remember your painful experiences when trying to look at someone else
+  code (or even worse trying to run it)
+- try to avoid doing that to other people
+- some effort needed to give a good first impression
+
+** Layout
+
+#+BEGIN_SRC sh
+├── README.md
+├── LICENSE
+├── environment.yml | requirements.txt
+├── setup.py
+├── my_module_name
+│   ├── __init__.py
+│   ├── ...
+├── examples
+│   ├── ... 
+├── .gitignore 
+#+END_SRC
+
+** README.md
+#+ATTR_REVEAL: :frag (t)
+- what the code does
+- how to install it, including dependencies
+- how to use it (typical snippet, or script to run with meaning of parameters)
+- how I start playing with it (examples)
+
+** LICENSE
+https://chosealicense.org
+
+In the Python world: mostly BSD or similar (e.g. MIT)
+
+** dependencies
+environment.yml (conda) or requirements.txt (pip)
+
+#+BEGIN_SRC
+name: environment-name
+
+dependencies:
+  - python=3.9
+  - matplotlib
+  - pytorch
+  - pip:
+    - dask-jobqueue
+    - https://github.com/dask/dask/archive/refs/heads/main.zip
+#+END_SRC
+
+** setup.py 
+makes your code installable as a package:
+
+#+BEGIN_SRC sh
+pip install https://github.com/user_name/project_name/archive/refs/head/branch.zip
+#+END_SRC
+
+#+BEGIN_SRC python
+from setuptools import find_packages, setup
+
+with open("README.md", "r") as fh:
+    long_description = fh.read()
+
+setup(
+    name="your-package-name",
+    version="0.0.1",
+    author="author_name",
+    author_email="author_email",
+    packages=find_packages(),
+    python_requires=">=3.8",
+    description="this is the short description",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/your-user/your-package-name",
+)
+#+END_SRC
+** examples
+
+- self-contained code
+- reasonably easy to follow
+- produces some interesting output (visual is better)
+- best if example runs reasonably quickly (< 1 min)
+- look at some [[https://scikit-learn.org/stable/auto_examples/index.html][scikit-learn examples]] if you need inspiration
+
+** Live examples with [[https://mybinder.org/][binder]]
+
+- main advantage: people can play with your code in their browser without having to install anything
+- main limitation is maximum RAM 1-2GB
+
+Google Colab as a alternative especially if you need a GPU. Need to be signed into
+Google. You can load any public notebook on github into Google Colab (see [[https://colab.research.google.com/github/googlecolab/colabtools/blob/master/notebooks/colab-github-demo.ipynb][this]]).
+
+** .gitignore
+
+- hints that you are using git as a day to day tool
+- reuse from a similar project or use https://gitignore.io, and/or tweak it with time
+  (=git status=)
+  
+* Code development
+
+** version control with git
+- gives you the comfort of experimenting with your code: you can go back and
+  see what has changed
+- git can be confusing but definitely worth investing some time to know the
+  basics well enough
+- GUI: integration in your editor, e.g. Visual Studio Code, tig, git kraken, ...
+
+** Jupyter notebooks
+- useful for exploration: quick feed-back loop
+- reach limits when used as main development environment
+- move code to function when the code stabilizes and then modules outside the notebook
+- interesting compromise: [[https://code.visualstudio.com/docs/python/jupyter-support-py][Visual Studio Code Jupyter integration]]
+
+#+BEGIN_EXPORT html
+<img src="img/VSCode-jupyter.png" width="80%">
+#+END_EXPORT
+
+** Editor
+- Ask people around you how they work
+- invest some time in learning how to use your editor well and tweak it to your liking
+- advice: Visual Studio Code if you don't have a strong opinion
+
+** Coding conventions
+- flake8: warnings when you don't respect PEP8 coding conventions
+- Invest some time to have "while you type" flake8 inside your favourite editor
+- black: automatic formatter
+
+* Bonus topics
+
+** Tests
+main challenge in a research environment is what is worth testing
+- simple sanity checks (e.g. good accuracy on small data, etc ...)
+- pytest: automatic test collection, select test to run, rerun only failed tests, etc ...
+
+** Continuous Integration
+- Run your tests on each commit automatically.
+- If a test fail, fixing the test is a top priority
+
+** Conveniently run code on a cluster
+Look at dask-jobqueue or submitit to be able to conveniently launch jobs
+through Python scripts
+
+* Summary
+#+ATTR_REVEAL: :frag (t)
+- some tips for releasing and developing code
+- good enough practices are about finding the right trade-offs
+- more than happy to give feed-back on these topics! Don't
+  hesitate to come and chat!
+
+# * TODO good reference for some of the things and maybe more
+# https://swcarpentry.github.io/good-enough-practices-in-scientific-computing/
