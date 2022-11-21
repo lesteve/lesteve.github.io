@@ -1,0 +1,395 @@
+# -*- org-re-reveal-title-slide: nil; after-save-hook: org-re-reveal-export-to-html -*-
+
+#+OPTIONS: num:nil toc:nil
+#+OPTIONS: reveal_slide_number:nil
+#+OPTIONS: reveal_history:t
+#+OPTIONS: reveal_width:1600 reveal_height:1200
+#+OPTIONS: reveal_center:nil
+#+REVEAL_TITLE_SLIDE:
+#+REVEAL_TRANS: none
+#+REVEAL_THEME: solarized 
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@4.2.1
+#+REVEAL_VERSION: 4
+#+REVEAL_PLUGINS: (notes highlight)
+#+REVEAL_EXTRA_CSS: ./custom.css
+#+REVEAL_MIN_SCALE: 1
+#+REVEAL_MAX_SCALE: 1
+#+Title: scikit-learn
+#+Author: Loïc Estève
+# #+Email: Email Address or Twitter Handle
+
+* 
+
+#+BEGIN_EXPORT html
+<h2 style="text-align: center">scikit-learn</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+#+END_EXPORT
+
+# next line seems to be needed to load mathjax somehow ...
+\(\)
+
+
+* About me
+
+#+BEGIN_EXPORT html
+<div class="fragment">Particle Physics background (PhD and post-doc)</div>
+
+<div class="fragment" style="margin-top: 0.5em">3 years in finance</div>
+
+<div style="margin-top: 0.5em;" class="fragment">
+    <div style="margin-bottom: 0.2em">7 years @ Inria open-source Python development</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal.svg" height="100px">
+</div>
+#+END_EXPORT
+
+* Outline
+# https://notes.inria.fr/FB05kiehSum1ol7Vy5J8OQ?both
+
+- short introduction to Machine Learning
+- scikit-learn
+  + the tool
+  + the project
+- scikit-learn aspects for cybersecurity
+    
+* Machine Learning introduction
+** Machine Learning example: house prices
+
+#+begin_export html
+<pre class="fragment">
+| type       | # rooms | surface m2 | public trans | sold k€ |
+| (category) |   (int) |    (float) | (bool)       | (float) |
+|------------|---------|------------|--------------|---------|
+| appartment |       3 |         50 | True         |     450 |
+| house      |       5 |        254 | False        |     430 |
+| duplex     |       4 |         68 | True         |     712 |
+| appartment |       3 |         32 | False        |     234 |
+</pre>
+
+<pre class="fragment" style="margin-top: 20px">
+| appartment |       3 |         33 | True         |     ??? |
+| house      |       4 |        210 | True         |     ??? |
+</pre>
+#+end_export
+
+** Machine learning cybersecurity use cases
+
+- Android malware detection
+- DDoS attack detection
+- intrusion detection system
+
+Some of the challenges:
+- feature extraction, highly dependent on the use case
+- costly annotations
+- adversarial setting
+  
+* scikit-learn
+
+** scikit-learn chosen quotes
+# Other quotes at # https://www.inria.fr/en/2019-inria-french-academy-sciences-dassault-systemes-innovation-prize-scikit-learn-success-story
+
+#+begin_quote
+Scikit-learn est *la référence en Machine Learning*
+que de nombreuses entreprises utilisent. Chez OVHCloud, il est notamment
+utilisé pour le monitoring des 21000 et quelques équipements réseaux de nos
+data centers.
+#+end_quote
+
+Olivier Nicol, Lead Data Scientist, OVHCloud
+
+** scikit-learn chosen quotes
+
+#+begin_quote
+scikit-learn est *le framework de référence en machine learning*
+et un des premiers frameworks open-source de *qualité industrielle*.
+#+end_quote
+
+Florian Douetteau, CEO, Dataiku
+
+** scikit-learn chosen quotes
+
+#+begin_quote
+scikit-learn nous sert à accélérer les remboursements de sinistres
+automobiles ou à détecter les fraudes à l’assurance. C’est le *couteau suisse
+du machine learning* !
+#+end_quote
+
+Marcin Detyniecki, directeur de la R&D, Axa
+
+** scikit-learn chosen quotes
+
+#+begin_quote
+Parmi les avantages de la technologie scikit-
+learn, on trouve *l’ergonomie*, la *simplicité d’usage*,
+et la *qualité de la documentation*, distinctement
+saluée par l’ensemble de la communauté.
+#+end_quote
+
+Mehdi Benchoufi, Chef de clinique Hôpital Hôtel Dieu
+
+** scikit-learn vision: an enabler
+
+#+begin_export html
+<div style="float: left; margin-right: 20px; width=25%">
+    <img src="img/scikit-learn.png" height="200px">
+</div>
+#+end_export
+#+ATTR_REVEAL: :frag (t)
+- Machine learning for everyone
+- High quality Pythonic library
+- Community-driven development
+
+** scikit-learn website stats
+#+begin_export html
+<img src="img/scikit-learn-website-users.png" width="80%"/>
+#+end_export
+
+** scikit-learn users
+#+begin_export html
+<small>user survey from 2015</small>
+<br/>
+<img src="img/scikit-learn-users.png" width="80%"/>
+#+end_export
+
+** scikit-learn users (academia)
+#+begin_export html
+<img src="img/scikit-learn-citations.png" width="80%"/>
+<br/>
+
+<small>actually 60k+ citations today</small>
+#+end_export
+
+
+Widely used in: neurosciences, astronomy, geosciences, genomics, etc ...
+
+** scikit-learn users (industry)
+
+- Axa: automatisation of claims treatment, fraud detection
+- Dataiku: core part of their Data Science Studio product
+- Change.org: email campaign targeting
+- Saint-Gobain: automatise some of their factory processes 
+- many others ...
+   
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+- Consistent API for estimators
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+- Consistent API for estimators
+- Fast: Numpy, Cython, OpenMP
+
+** scikit-learn strengths
+Easy to use:
+
+#+begin_src python
+from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+#+end_src
+
+- Consistent API for estimators
+- Fast: Numpy, Cython, OpenMP
+- great documentation: [[https://scikit-learn.org][scikit-learn.org]]
+  
+** Gallery of examples
+
+#+begin_export html
+<img src="img/doc-gallery-examples.png" width="80%"/>
+#+end_export
+
+** Example
+
+#+begin_export html
+<img src="img/doc-example.png" width="80%"/>
+#+end_export
+
+** API documentation
+
+#+begin_export html
+<img src="img/doc-reference.png" width="80%"/>
+<img src="img/doc-reference-to-examples.png" width="80%"/>
+#+end_export
+
+** User guide
+
+#+begin_export html
+<img src="img/doc-user-guide.png"/>
+#+end_export
+
+* Community
+** Contributors
+#+begin_export html
+<img src="img/scikit-learn-contributors.png" width="45%" style="float: left"/>
+#+end_export
+
+- ~2500 total contributors, ~30 monthly contributors
+- recurring tutorials + sprints at conferences
+- trying to bring more diversity through DataUmbrella + WiMLDS sprints
+
+** Full-time maintainers
+#+ATTR_REVEAL: :frag (t)
+- crucial to consolidate the project
+- Inria : one full-time engineer since the beginning of the project (~2010)
+- scikit-learn at Inria today: ~5 full-time engineers
+- besides academia: Hugging Face, QuantSight, NVIDIA
+- besides maintainers: one recent hire for community management
+  
+** scikit-learn foundation @ Inria
+# TODO add open-source are roads but roads are not free to build that allow
+# innovation slides Alexandre
+
+#+begin_export html
+<img src="img/scikit-learn-foundation-sponsors.png", width="40%" style="float: left; margin-right: 20px"/>
+#+end_export
+
+Launch Sept 2018, **very fruitful collaboration after 4 years**
+
+companies: better visibility for software they rely on, good for Public
+Relations and recruitment
+
+scikit-learn: hire maintainers to consolidate project, useful feed-back from
+advanced users
+
+** Scientific Python ecosystem
+
+#+begin_export html
+<img src="img/pydata-stack.png" width="70%"/>
+#+end_export
+
+*Someone else may solve your problems* (Dask for distributed computing,
+conda-forge for user-friendly packaging, Python 3.11 for more user-friendly
+error messages ...)
+
+*Many people working across projects* (scikit-learn maintainers contributing
+upstream (numpy, Scipy, Python, ...) and downstream (Dask, dirty-cat,
+...)
+
+
+* scikit-learn aspects relevant for cyber-security
+
+** anomaly detection
+
+IsolationForest, LocalOutlierFactor, and others
+
+#+begin_export html
+<img src="img/anomaly-comparison.png", width="80%"/>
+#+end_export
+
+https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_anomaly_comparison.html
+
+** anomaly detection
+
+#+begin_export html
+<img src="img/isolation-forest.png", width="80%"/>
+#+end_export
+
+https://scikit-learn.org/stable/auto_examples/ensemble/plot_isolation_forest.html
+
+** SecuML use case
+https://github.com/ANSSI-FR/SecuML
+
+ANSSI project: expert in the loop graphical tool (annotation, model training, model evaluation)
+
+scikit-learn used for:
+- model training and evaluation
+- hyperparameter tuning
+- user-defined clustering to label many instances at once
+
+*innovation without having to ask first*
+
+** SecuML use case
+
+#+begin_export html
+<img src="img/secuml-performance.png" width="70%"/>
+#+end_export
+
+#+begin_export html
+<img src="img/secuml-monitoring.png" width="70%"/>
+#+end_export
+
+
+* scikit-learn
+
+#+begin_export html
+<div class="fragment">
+<p>
+<b>Vision</b>: Machine learning as a means not an end
+</p>
+
+<p style="font-size: 60%">
+Versatile library: the right level of abstraction. Close to research, but seeking different tradeoffs
+</p>
+</div>
+
+<div class="fragment">
+<b>Tool</b>: Simple API across learners
+
+<p style="font-size: 60%">
+Numpy arrays as data containers. Fast enough.
+</p>
+
+</div>
+
+<div class="fragment">
+<b>Project</b>: Many people working together
+
+<p style="font-size: 60%">
+Ensure code quality and maintainability
+</p>
+</div>
+#+end_export
+
+* Formations Inria Academy
+
+#+begin_export html
+<img src="img/inria-academy-logo.svg", width="30%" style="margin-bottom: 1em"/>
+#+end_export
+
+- *débutant* : 2 demi-journées (créer et évaluer
+  une pipeline typique de machine learning avec scikit-learn)
+- *avancée*: 4 demi-journées (modèles linéaires, arbres de décision, modèles
+  d'ensemble, évaluation de modèles)
+
+#+begin_export html
+<img src="img/inria-academy-contact-qr-code.png", width="20%" style="margin-top: 1em"/>
+#+end_export
+https://www.inria-academy.fr/contactez-nous/

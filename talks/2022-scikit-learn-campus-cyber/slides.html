@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>scikit-learn</title>
+<meta name="author" content="Loïc Estève"/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/theme/solarized.css" id="theme"/>
+
+<link rel="stylesheet" href="./custom.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/zenburn.css"/>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+
+<section>
+<section id="slide-orgcf2f1bd">
+<h2 id="orgcf2f1bd"></h2>
+<h2 style="text-align: center">scikit-learn</h2>
+
+<hr>
+
+<h3 style="text-align: center; margin-left: 0; margin-top: 50px">
+Loïc Estève
+</h3>
+
+<div style="text-align: center; margin-top: 50px">
+  <img src="img/inria.png" alt="Inria" height="120px"/>
+</div>
+
+<p>
+\(\)
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org7772fdc">
+<h2 id="org7772fdc">About me</h2>
+<div class="fragment">Particle Physics background (PhD and post-doc)</div>
+
+<div class="fragment" style="margin-top: 0.5em">3 years in finance</div>
+
+<div style="margin-top: 0.5em;" class="fragment">
+    <div style="margin-bottom: 0.2em">7 years @ Inria open-source Python development</div>
+    <img src="img/nilearn-logo.png" height="120px">
+    <img src="img/joblib_logo.svg" height="120px">
+    <img src="img/scikit-learn-logo-notext.png" height="120px">
+    <img src="img/dask_horizontal.svg" height="100px">
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgb7884dc">
+<h2 id="orgb7884dc">Outline</h2>
+<ul>
+<li>short introduction to Machine Learning</li>
+<li>scikit-learn
+<ul>
+<li>the tool</li>
+<li>the project</li>
+
+</ul></li>
+<li>scikit-learn aspects for cybersecurity</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org3f8924b">
+<h2 id="org3f8924b">Machine Learning introduction</h2>
+<div class="outline-text-2" id="text-org3f8924b">
+</div>
+</section>
+<section id="slide-org62e1c8e">
+<h3 id="org62e1c8e">Machine Learning example: house prices</h3>
+<pre class="fragment">
+| type       | # rooms | surface m2 | public trans | sold k€ |
+| (category) |   (int) |    (float) | (bool)       | (float) |
+|------------|---------|------------|--------------|---------|
+| appartment |       3 |         50 | True         |     450 |
+| house      |       5 |        254 | False        |     430 |
+| duplex     |       4 |         68 | True         |     712 |
+| appartment |       3 |         32 | False        |     234 |
+</pre>
+
+<pre class="fragment" style="margin-top: 20px">
+| appartment |       3 |         33 | True         |     ??? |
+| house      |       4 |        210 | True         |     ??? |
+</pre>
+
+</section>
+<section id="slide-orgd9557cc">
+<h3 id="orgd9557cc">Machine learning cybersecurity use cases</h3>
+<ul>
+<li>Android malware detection</li>
+<li>DDoS attack detection</li>
+<li>intrusion detection system</li>
+
+</ul>
+
+<p>
+Some of the challenges:
+</p>
+<ul>
+<li>feature extraction, highly dependent on the use case</li>
+<li>costly annotations</li>
+<li>adversarial setting</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-orgd80b46d">
+<h2 id="orgd80b46d">scikit-learn</h2>
+<div class="outline-text-2" id="text-orgd80b46d">
+</div>
+</section>
+<section id="slide-org8e55e49">
+<h3 id="org8e55e49">scikit-learn chosen quotes</h3>
+<blockquote>
+<p>
+Scikit-learn est <b>la référence en Machine Learning</b>
+que de nombreuses entreprises utilisent. Chez OVHCloud, il est notamment
+utilisé pour le monitoring des 21000 et quelques équipements réseaux de nos
+data centers.
+</p>
+</blockquote>
+
+<p>
+Olivier Nicol, Lead Data Scientist, OVHCloud
+</p>
+
+</section>
+<section id="slide-org39e3088">
+<h3 id="org39e3088">scikit-learn chosen quotes</h3>
+<blockquote>
+<p>
+scikit-learn est <b>le framework de référence en machine learning</b>
+et un des premiers frameworks open-source de <b>qualité industrielle</b>.
+</p>
+</blockquote>
+
+<p>
+Florian Douetteau, CEO, Dataiku
+</p>
+
+</section>
+<section id="slide-org67ecb06">
+<h3 id="org67ecb06">scikit-learn chosen quotes</h3>
+<blockquote>
+<p>
+scikit-learn nous sert à accélérer les remboursements de sinistres
+automobiles ou à détecter les fraudes à l’assurance. C’est le <b>couteau suisse
+du machine learning</b> !
+</p>
+</blockquote>
+
+<p>
+Marcin Detyniecki, directeur de la R&amp;D, Axa
+</p>
+
+</section>
+<section id="slide-org5c39889">
+<h3 id="org5c39889">scikit-learn chosen quotes</h3>
+<blockquote>
+<p>
+Parmi les avantages de la technologie scikit-
+learn, on trouve <b>l’ergonomie</b>, la <b>simplicité d’usage</b>,
+et la <b>qualité de la documentation</b>, distinctement
+saluée par l’ensemble de la communauté.
+</p>
+</blockquote>
+
+<p>
+Mehdi Benchoufi, Chef de clinique Hôpital Hôtel Dieu
+</p>
+
+</section>
+<section id="slide-orgd80fab3">
+<h3 id="orgd80fab3">scikit-learn vision: an enabler</h3>
+<div style="float: left; margin-right: 20px; width=25%">
+    <img src="img/scikit-learn.png" height="200px">
+</div>
+<ul>
+<li class="fragment">Machine learning for everyone</li>
+<li class="fragment">High quality Pythonic library</li>
+<li class="fragment">Community-driven development</li>
+
+</ul>
+
+</section>
+<section id="slide-orgfb01d10">
+<h3 id="orgfb01d10">scikit-learn website stats</h3>
+<img src="img/scikit-learn-website-users.png" width="80%"/>
+
+</section>
+<section id="slide-org32c15e2">
+<h3 id="org32c15e2">scikit-learn users</h3>
+<small>user survey from 2015</small>
+<br/>
+<img src="img/scikit-learn-users.png" width="80%"/>
+
+</section>
+<section id="slide-org107d740">
+<h3 id="org107d740">scikit-learn users (academia)</h3>
+<img src="img/scikit-learn-citations.png" width="80%"/>
+<br/>
+
+<small>actually 60k+ citations today</small>
+
+
+<p>
+Widely used in: neurosciences, astronomy, geosciences, genomics, etc &#x2026;
+</p>
+
+</section>
+<section id="slide-org839eaba">
+<h3 id="org839eaba">scikit-learn users (industry)</h3>
+<ul>
+<li>Axa: automatisation of claims treatment, fraud detection</li>
+<li>Dataiku: core part of their Data Science Studio product</li>
+<li>Change.org: email campaign targeting</li>
+<li>Saint-Gobain: automatise some of their factory processes</li>
+<li>many others &#x2026;</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd20d1c8">
+<h3 id="orgd20d1c8">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.ensemble import RandomForestClassifier
+classifier = RandomForestClassifier()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org98e0a76">
+<h3 id="org98e0a76">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<ul>
+<li>Consistent API for estimators</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd604a8d">
+<h3 id="orgd604a8d">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<ul>
+<li>Consistent API for estimators</li>
+<li>Fast: Numpy, Cython, OpenMP</li>
+
+</ul>
+
+</section>
+<section id="slide-org0a1cc7c">
+<h3 id="org0a1cc7c">scikit-learn strengths</h3>
+<p>
+Easy to use:
+</p>
+
+<div class="org-src-container">
+
+<pre><code class="python" >from sklearn.svm import SVC
+classifier = SVC()
+classifier.fit(X_train, y_train)
+y_test = classifier.predict(X_test)
+</code></pre>
+</div>
+
+<ul>
+<li>Consistent API for estimators</li>
+<li>Fast: Numpy, Cython, OpenMP</li>
+<li>great documentation: <a href="https://scikit-learn.org">scikit-learn.org</a></li>
+
+</ul>
+
+</section>
+<section id="slide-org6d6b814">
+<h3 id="org6d6b814">Gallery of examples</h3>
+<img src="img/doc-gallery-examples.png" width="80%"/>
+
+</section>
+<section id="slide-org5309971">
+<h3 id="org5309971">Example</h3>
+<img src="img/doc-example.png" width="80%"/>
+
+</section>
+<section id="slide-org474a388">
+<h3 id="org474a388">API documentation</h3>
+<img src="img/doc-reference.png" width="80%"/>
+<img src="img/doc-reference-to-examples.png" width="80%"/>
+
+</section>
+<section id="slide-orgeee3e0f">
+<h3 id="orgeee3e0f">User guide</h3>
+<img src="img/doc-user-guide.png"/>
+
+</section>
+</section>
+<section>
+<section id="slide-org1be0817">
+<h2 id="org1be0817">Community</h2>
+<div class="outline-text-2" id="text-org1be0817">
+</div>
+</section>
+<section id="slide-org8ffda03">
+<h3 id="org8ffda03">Contributors</h3>
+<img src="img/scikit-learn-contributors.png" width="45%" style="float: left"/>
+
+<ul>
+<li>~2500 total contributors, ~30 monthly contributors</li>
+<li>recurring tutorials + sprints at conferences</li>
+<li>trying to bring more diversity through DataUmbrella + WiMLDS sprints</li>
+
+</ul>
+
+</section>
+<section id="slide-org87d81b0">
+<h3 id="org87d81b0">Full-time maintainers</h3>
+<ul>
+<li class="fragment">crucial to consolidate the project</li>
+<li class="fragment">Inria : one full-time engineer since the beginning of the project (~2010)</li>
+<li class="fragment">scikit-learn at Inria today: ~5 full-time engineers</li>
+<li class="fragment">besides academia: Hugging Face, QuantSight, NVIDIA</li>
+<li class="fragment">besides maintainers: one recent hire for community management</li>
+
+</ul>
+
+</section>
+<section id="slide-org8942cb5">
+<h3 id="org8942cb5">scikit-learn foundation @ Inria</h3>
+<img src="img/scikit-learn-foundation-sponsors.png", width="40%" style="float: left; margin-right: 20px"/>
+
+<p>
+Launch Sept 2018, <b><b>very fruitful collaboration after 4 years</b></b>
+</p>
+
+<p>
+companies: better visibility for software they rely on, good for Public
+Relations and recruitment
+</p>
+
+<p>
+scikit-learn: hire maintainers to consolidate project, useful feed-back from
+advanced users
+</p>
+
+</section>
+<section id="slide-org374ccb9">
+<h3 id="org374ccb9">Scientific Python ecosystem</h3>
+<img src="img/pydata-stack.png" width="70%"/>
+
+<p>
+<b>Someone else may solve your problems</b> (Dask for distributed computing,
+conda-forge for user-friendly packaging, Python 3.11 for more user-friendly
+error messages &#x2026;)
+</p>
+
+<p>
+<b>Many people working across projects</b> (scikit-learn maintainers contributing
+upstream (numpy, Scipy, Python, &#x2026;) and downstream (Dask, dirty-cat,
+&#x2026;)
+</p>
+
+
+</section>
+</section>
+<section>
+<section id="slide-org21c0c7d">
+<h2 id="org21c0c7d">scikit-learn aspects relevant for cyber-security</h2>
+<div class="outline-text-2" id="text-org21c0c7d">
+</div>
+</section>
+<section id="slide-orgbed54e9">
+<h3 id="orgbed54e9">anomaly detection</h3>
+<p>
+IsolationForest, LocalOutlierFactor, and others
+</p>
+
+<img src="img/anomaly-comparison.png", width="80%"/>
+
+<p>
+<a href="https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_anomaly_comparison.html">https://scikit-learn.org/stable/auto_examples/miscellaneous/plot_anomaly_comparison.html</a>
+</p>
+
+</section>
+<section id="slide-org84b9c73">
+<h3 id="org84b9c73">anomaly detection</h3>
+<img src="img/isolation-forest.png", width="80%"/>
+
+<p>
+<a href="https://scikit-learn.org/stable/auto_examples/ensemble/plot_isolation_forest.html">https://scikit-learn.org/stable/auto_examples/ensemble/plot_isolation_forest.html</a>
+</p>
+
+</section>
+<section id="slide-orgd308c5f">
+<h3 id="orgd308c5f">SecuML use case</h3>
+<p>
+<a href="https://github.com/ANSSI-FR/SecuML">https://github.com/ANSSI-FR/SecuML</a>
+</p>
+
+<p>
+ANSSI project: expert in the loop graphical tool (annotation, model training, model evaluation)
+</p>
+
+<p>
+scikit-learn used for:
+</p>
+<ul>
+<li>model training and evaluation</li>
+<li>hyperparameter tuning</li>
+<li>user-defined clustering to label many instances at once</li>
+
+</ul>
+
+<p>
+<b>innovation without having to ask first</b>
+</p>
+
+</section>
+<section id="slide-orgfdbdb6c">
+<h3 id="orgfdbdb6c">SecuML use case</h3>
+<img src="img/secuml-performance.png" width="70%"/>
+
+<img src="img/secuml-monitoring.png" width="70%"/>
+
+
+</section>
+</section>
+<section>
+<section id="slide-orgdf63b43">
+<h2 id="orgdf63b43">scikit-learn</h2>
+<div class="fragment">
+<p>
+<b>Vision</b>: Machine learning as a means not an end
+</p>
+
+<p style="font-size: 60%">
+Versatile library: the right level of abstraction. Close to research, but seeking different tradeoffs
+</p>
+</div>
+
+<div class="fragment">
+<b>Tool</b>: Simple API across learners
+
+<p style="font-size: 60%">
+Numpy arrays as data containers. Fast enough.
+</p>
+
+</div>
+
+<div class="fragment">
+<b>Project</b>: Many people working together
+
+<p style="font-size: 60%">
+Ensure code quality and maintainability
+</p>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-org8058018">
+<h2 id="org8058018">Formations Inria Academy</h2>
+<img src="img/inria-academy-logo.svg", width="30%" style="margin-bottom: 1em"/>
+
+<ul>
+<li><b>débutant</b> : 2 demi-journées (créer et évaluer
+une pipeline typique de machine learning avec scikit-learn)</li>
+<li><b>avancée</b>: 4 demi-journées (modèles linéaires, arbres de décision, modèles
+d'ensemble, évaluation de modèles)</li>
+
+</ul>
+
+<img src="img/inria-academy-contact-qr-code.png", width="20%" style="margin-top: 1em"/>
+<p>
+<a href="https://www.inria-academy.fr/contactez-nous/">https://www.inria-academy.fr/contactez-nous/</a>
+</p>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@4.2.1/plugin/highlight/highlight.js"></script>
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+
+controls: true,
+progress: true,
+history: true,
+center: false,
+slideNumber: false,
+rollingLinks: false,
+keyboard: true,
+mouseWheel: false,
+fragmentInURL: false,
+hashOneBasedIndex: false,
+pdfSeparateFragments: true,
+overview: true,
+width: 1600,
+height: 1200,
+minScale: 1.00,
+maxScale: 1.00,
+
+transition: 'none',
+transitionSpeed: 'default',
+
+// Plugins with reveal.js 4.x
+plugins: [ RevealNotes, RevealHighlight ],
+
+// Optional libraries used to extend reveal.js
+dependencies: [
+]
+
+});
+</script>
+</body>
+</html>
