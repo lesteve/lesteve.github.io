@@ -1,0 +1,8 @@
+project:
+  title: "index"
+format:
+  revealjs:
+    css: custom.css
+
+
+
